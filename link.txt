@@ -1,0 +1,134 @@
+var $formSections = $('.form-section');
+            var $progressBar = $('.progress-bar');
+            var currentSectionIndex = 0;
+
+            function updateProgressBar() {
+                var progress = ((currentSectionIndex + 1) / $formSections.length) * 100;
+                $progressBar.css('width', progress + '%').attr('aria-valuenow', progress).text(Math.round(progress) + '%');
+            }
+
+            function showCurrentSection() {
+                $formSections.removeClass('current').eq(currentSectionIndex).addClass('current');
+                updateProgressBar();
+            }
+
+            $('.next-step').click(function() {
+                if (currentSectionIndex < $formSections.length - 1) {
+                    currentSectionIndex++;
+                    showCurrentSection();
+                }
+            });
+
+            $('.prev-step').click(function() {
+                if (currentSectionIndex > 0) {
+                    currentSectionIndex--;
+                    showCurrentSection();
+                }
+            });
+
+            // Mostrar la primera sección al cargar la página
+            showCurrentSection();
+Funcionamiento del bucle:
+
+El bucle foreach ($parientesPorEspecialidad as $item) itera sobre cada elemento del array $parientesPorEspecialidad. En cada iteración:
+
+$item: En cada vuelta del bucle, la variable $item toma el valor de un elemento del array $parientesPorEspecialidad. Como mencionamos, cada $item es un array asociativo con las claves 'especialidades' y 'total'.
+
+$especialidad = $item['especialidades'];: Esta línea extrae el valor asociado a la clave 'especialidades' del array $item y lo asigna a la variable $especialidad. Por ejemplo, en la primera iteración, $especialidad podría ser 'Pediatría'.
+
+$total = (int) $item['total'];: Esta línea extrae el valor asociado a la clave 'total' del array $item. El (int) se utiliza para asegurar que el valor sea tratado como un entero, por si acaso viene como una cadena desde la base de datos. Este valor se asigna a la variable $total. Por ejemplo, en la primera iteración, $total podría ser 80.
+
+$totalesGlobalesPorEspecialidad[$especialidad] = ($totalesGlobalesPorEspecialidad[$especialidad] ?? 0) + $total;: Esta es la línea clave para la unificación de los totales. Vamos a desglosarla aún más:
+
+$totalesGlobalesPorEspecialidad[$especialidad]: Aquí estamos intentando acceder al valor asociado a la clave $especialidad dentro del array $totalesGlobalesPorEspecialidad.
+?? 0 (Null Coalescing Operator): Este operador verifica si el valor a la izquierda ($totalesGlobalesPorEspecialidad[$especialidad]) es null.
+Si $totalesGlobalesPorEspecialidad[$especialidad] no existe (es decir, es la primera vez que encontramos esta especialidad), entonces la expresión $totalesGlobalesPorEspecialidad[$especialidad] ?? 0 evalúa a 0.
+Si $totalesGlobalesPorEspecialidad[$especialidad] ya existe (ya hemos contado esta especialidad de otra tabla), entonces la expresión evalúa al valor actual almacenado para esa especialidad.
++ $total: A lo que sea que haya resultado de la parte anterior (el total actual de la especialidad o 0 si es la primera vez), le sumamos el $total de la especialidad que estamos procesando en la iteración actual (proveniente de la tabla parientes_tratados).
+$totalesGlobalesPorEspecialidad[$especialidad] = ...: Finalmente, el resultado de la suma se asigna de nuevo a $totalesGlobalesPorEspecialidad[$especialidad]. Esto actualiza o inicializa el total global para esa especialidad.
+En resumen, este bucle toma los totales por especialidad de la tabla parientes_tratados y los va sumando a un array $totalesGlobalesPorEspecialidad. Si una especialidad ya existía en este array (porque ya la habíamos contado de la tabla servicio_medico), su total se incrementa. Si es una nueva especialidad, se añade al array con su total.
+
+Los bucles foreach para $trabajadoresPorEspecialidad y $cortesiaPorEspecialidad funcionan exactamente de la misma manera, acumulando los totales de cada especialidad en el mismo array $totalesGlobalesPorEspecialidad, logrando así la unificación de los datos de las tres tablas por especialidad.
+
+script php: reportAge 
+¡Claro que sí! Vamos a desglosar detalladamente cada parte de tu código PHP.
+
+1. <?php
+
+Este es el inicio de un bloque de código PHP. El servidor web interpretará cualquier código dentro de estas etiquetas como código PHP.
+2. require "/xampp/htdocs/crud_fetch/Models/conexion.php";
+
+La función require se utiliza para incluir y ejecutar el archivo especificado. En este caso, estás incluyendo el archivo conexion.php que se encuentra en la ruta /xampp/htdocs/crud_fetch/Models/.
+Se asume que este archivo conexion.php contiene la lógica para establecer una conexión a tu base de datos utilizando PDO (PHP Data Objects). Es probable que dentro de este archivo se cree y se almacene una instancia de la clase PDO en una variable (como $pdo). Esta conexión será utilizada por la función clasificacionPorEdades para interactuar con la base de datos.
+Si el archivo no se encuentra o hay algún error al incluirlo, require producirá un error fatal y detendrá la ejecución del script.
+3. function clasificacionPorEdades(PDO $pdo, string $tabla): array
+
+Aquí defines una función llamada clasificacionPorEdades.
+Esta función acepta dos argumentos:
+PDO $pdo: Espera recibir un objeto de la clase PDO. Este objeto representa la conexión a la base de datos que se estableció en el archivo conexion.php. Al especificar el tipo PDO, estás indicando que el argumento debe ser una instancia de esta clase.
+string $tabla: Espera recibir una cadena de texto que representa el nombre de la tabla de la base de datos que se va a consultar. Al especificar el tipo string, indicas que este argumento debe ser una cadena.
+: array: Indica que esta función está diseñada para devolver un array.
+4. $sql = "SELECT edad, COUNT(edad) AS total FROM $tabla";
+
+Dentro de la función, se define una variable $sql que contiene una consulta SQL.
+SELECT edad, COUNT(edad) AS total FROM $tabla: Esta consulta selecciona la columna edad y cuenta el número de ocurrencias de cada valor único en la columna edad dentro de la tabla especificada por la variable $tabla.
+COUNT(edad): Cuenta cuántas veces aparece cada valor de la columna edad.
+AS total: Asigna el alias "total" al resultado de la función de agregación COUNT(edad).
+FROM $tabla: Especifica la tabla desde la cual se van a obtener los datos. El nombre de la tabla se toma del argumento $tabla que se pasó a la función.
+5. $arrayClasificada = array(...)
+
+Se inicializa un array asociativo llamado $arrayClasificada. Este array se utilizará para almacenar los resultados de la clasificación por edades.
+Las claves del array son las categorías de edad ('niños', 'adolescentes', 'adultos', 'adultos_mayores') y un contador para el 'total_registros'. Inicialmente, todos los valores se establecen en 0.
+6. try { ... } catch (PDOException $e) { ... }
+
+Este es un bloque try-catch que se utiliza para manejar posibles errores que puedan ocurrir durante la interacción con la base de datos.
+try { ... }: El código dentro del bloque try es el que se espera que funcione, pero que podría generar una excepción (un error).
+$queryData = $pdo->prepare($sql);: Se prepara la consulta SQL que se definió anteriormente utilizando el objeto $pdo de la conexión a la base de datos. La función prepare() crea una sentencia preparada, lo que ayuda a prevenir ataques de inyección SQL y puede mejorar el rendimiento para consultas repetidas (aunque aquí solo se ejecuta una vez por tabla).
+$queryData->execute();: Se ejecuta la sentencia preparada. Esto envía la consulta a la base de datos.
+while ($item = $queryData->fetch(PDO::FETCH_ASSOC)) { ... }: Se inicia un bucle while que itera sobre cada fila que devuelve la consulta.
+$item = $queryData->fetch(PDO::FETCH_ASSOC): Obtiene la siguiente fila del conjunto de resultados como un array asociativo. Las claves del array serán los nombres de las columnas de la tabla (edad y total).
+$edad = (int) $item['edad'];: Se convierte el valor de la columna edad a un entero y se almacena en la variable $edad.
+$total = (int) $item['total'];: Se convierte el valor de la columna total (el conteo de edades) a un entero y se almacena en la variable $total.
+$arrayClasificada['total_registros'] += $total;: Se suma el $total de registros encontrados para esta edad al contador general de 'total_registros' en el $arrayClasificada.
+if ($edad >= 0 && $edad <= 12) { ... } elseif ($edad >= 13 && $edad <= 17) { ... } elseif ($edad >= 18 && $edad <= 64) { ... } else { ... }: Se realizan una serie de condiciones if-elseif-else para clasificar la $edad dentro de los rangos definidos:
+Niños: 0 a 12 años.
+Adolescentes: 13 a 17 años.
+Adultos: 18 a 64 años.
+Adultos mayores: Cualquier edad mayor de 64 años.
+Dependiendo del rango en el que caiga la $edad, se suma el $total correspondiente a esa edad a la categoría respectiva en el $arrayClasificada.
+print_r ($arrayClasificada);: OJO: Esta línea imprime el contenido del $arrayClasificada en la salida. Esto puede ser útil para depuración, pero probablemente no sea lo que quieres en una respuesta JSON final.
+return $arrayClasificada;: Después de procesar todas las filas de la consulta, la función devuelve el $arrayClasificada que contiene el conteo de registros por cada categoría de edad para la tabla consultada.
+catch (PDOException $e) { ... }: Si ocurre una excepción del tipo PDOException dentro del bloque try (por ejemplo, si hay un error en la consulta SQL o en la conexión a la base de datos), el código dentro del bloque catch se ejecutará.
+// Consider logging the error for debugging purposes: Este es un comentario que sugiere que sería buena práctica registrar el error en un archivo de log para poder depurar problemas.
+return array();: En caso de error, la función devuelve un array vacío. Esto indica que no se pudo obtener la clasificación por edades para la tabla.
+7. try { ... } catch(Exception $e) { ... } finally { ... }
+
+Este es otro bloque try-catch-finally que envuelve la parte principal del script donde se llama a la función clasificacionPorEdades para múltiples tablas.
+try { ... }: Contiene el código principal para obtener la clasificación global por edades.
+$tablas = ['servicio_medico', 'parientes_tratados', 'pacientes_cortesia'];: Se define un array $tablas que contiene los nombres de las tablas que se van a procesar.
+$totalGlobalClasificado = [...]: Se inicializa un array asociativo $totalGlobalClasificado con la misma estructura que el array devuelto por clasificacionPorEdades. Este array se utilizará para acumular los totales de todas las tablas.
+foreach ($tablas as $tabla) { ... }: Se inicia un bucle foreach que itera sobre cada nombre de tabla en el array $tablas.
+$clasificacion = clasificacionPorEdades(pdo: $pdo, tabla: $tabla);: Se llama a la función clasificacionPorEdades para la tabla actual, pasando el objeto de conexión $pdo y el nombre de la $tabla. El resultado (el array con la clasificación por edades para esa tabla) se almacena en la variable $clasificacion.
+$totalGlobalClasificado['niños'] += $clasificacion['niños'];: Se suma el número de niños de la tabla actual al total global de niños.
+Se realizan operaciones similares para las demás categorías de edad ('adolescentes', 'adultos', 'adultos_mayores') y el 'total_registros'.
+header(header: 'Content-Type: application/json');: Se establece la cabecera HTTP Content-Type a application/json. Esto indica al cliente (por ejemplo, un navegador o una aplicación que consume esta API) que la respuesta será en formato JSON.
+echo json_encode(value: ['status' => 'success', 'data' => $totalGlobalClasificado]);: Se codifica un array asociativo PHP en formato JSON y se envía como respuesta. El array JSON tiene dos claves:
+'status': Con el valor 'success', indicando que la operación se completó exitosamente.
+'data': Con el valor del array $totalGlobalClasificado, que contiene los totales globales por categoría de edad.
+catch(Exception $e) { ... }: Si ocurre cualquier otra excepción (que no sea PDOException capturada anteriormente) dentro del bloque try, este bloque catch se ejecutará.
+header(header: 'Content-Type: application/json');: Se establece la cabecera de respuesta a JSON.
+echo json_encode(value: ['status' => 'error', 'mensaje' => 'Error general: ' . $e->getMessage()]);: Se codifica en JSON un array con un estado 'error' y un mensaje que contiene la descripción del error ($e->getMessage()).
+finally { ... }: El bloque finally se ejecuta siempre, independientemente de si se produjo una excepción en el bloque try o no.
+$pdo = null;: Se establece la variable $pdo a null. Esto cierra la conexión a la base de datos, liberando los recursos. Es una buena práctica cerrar la conexión cuando ya no se necesita.
+En resumen, el código realiza las siguientes acciones:
+
+Establece una conexión a la base de datos utilizando el archivo conexion.php.
+Define una función clasificacionPorEdades que toma una conexión PDO y un nombre de tabla como argumentos.
+Dentro de clasificacionPorEdades, ejecuta una consulta SQL para contar las ocurrencias de cada edad en la tabla especificada.
+Clasifica estos conteos en rangos de edad (niños, adolescentes, adultos, adultos mayores) y devuelve un array con los totales por categoría y el total de registros.
+En el bloque principal del script, itera sobre un array de nombres de tablas (servicio_medico, parientes_tratados, pacientes_cortesia).
+Para cada tabla, llama a clasificacionPorEdades para obtener la clasificación por edades de esa tabla.
+Acumula los totales de cada categoría de edad de cada tabla en un array $totalGlobalClasificado.
+Finalmente, devuelve un array JSON con un estado 'success' y los datos de la clasificación global por edades, o un estado 'error' con un mensaje si ocurre algún problema.
+Cierra la conexión a la base de datos en el bloque finally.
+Espero que esta explicación detallada te sea de gran ayuda. Si tienes alguna otra pregunta, no dudes en consultarme.
