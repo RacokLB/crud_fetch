@@ -6,20 +6,20 @@ class Trabajador{
     public $id;
     public $nacionalidad;
     public $cedula;
-    public $nombre;
-    public $apellido;
-    public $fechaNacimiento;
-    public $estadoCivil;
-    public $telefonoFijo;
-    public $telefonoMovil;
+    public $nombres;
+    public $apellidos;
+    public $fecha_nacimiento;
+    public $estado_civil;
+    public $telefono_fijo;
+    public $telefono_movil;
     public $email;
     public $estatura;
     public $peso;
-    public $tipoSangre;
+    public $tipo_sangre;
     public $discapacidad;
-    public $tallaCamisa;
-    public $tallaZapatos;
-    public $tallaPantalon;
+    public $talla_camisa;
+    public $talla_zapatos;
+    public $talla_pantalon;
     public $vivienda;
     public $tenencia;
     public $estado;
@@ -29,19 +29,21 @@ class Trabajador{
     public $direccion;
     public $rif;
     public $cargo;
+    public $estatus;
     public $coordinacion;
-    public $numeroHijos;
-    public array $pariente = [];
+    public $num_hijos;
+    public array $parientes = [];
 
     //apartado pariente
     public $idPariente;
-    public $trabajadorId;
+    public $trabajador_id;
     public $cedulaPariente;
     public $nombrePariente;
     public $apellidoPariente;
     public $fechaNacimientoPariente;
     public $parentesco;
     public $generoPariente;
+    public $coordinacionPariente;
     public $discapacidadPariente;
 
     //Constructor
@@ -49,20 +51,20 @@ class Trabajador{
         $id = null,
         $nacionalidad=null,
         $cedula = null,
-        $nombre = null,
-        $apellido = null,
-        $fechaNacimiento = null,
-        $estadoCivil = null,
-        $telefonoFijo = null,
-        $telefonoMovil = null,
+        $nombres = null,
+        $apellidos = null,
+        $fecha_nacimiento = null,
+        $estado_civil = null,
+        $telefono_fijo = null,
+        $telefono_movil = null,
         $email = null,
         $estatura = null,
         $peso = null,
-        $tipoSangre = null,
+        $tipo_sangre = null,
         $discapacidad = null,
-        $tallaCamisa = null,
-        $tallaZapatos = null,
-        $tallaPantalon = null,
+        $talla_camisa = null,
+        $talla_zapatos = null,
+        $talla_pantalon = null,
         $vivienda = null,
         $tenencia = null,
         $estado = null,
@@ -72,36 +74,38 @@ class Trabajador{
         $direccion = null,
         $rif = null,
         $cargo = null,
+        $estatus = null,
         $coordinacion = null,
-        $numeroHijos = null,
+        $num_hijos = null,
 
         $idPariente = null,
-        $trabajadorId = null,
+        $trabajador_id = null,
         $cedulaPariente = null,
         $nombrePariente = null,
         $apellidoPariente = null,
         $fechaNacimientoPariente = null,
         $parentesco = null,
         $generoPariente = null,
+        $coordinacionPariente = null,
         $discapacidadPariente = null
     ) {
         $this->id = $id;
         $this->nacionalidad = $nacionalidad;
         $this->cedula = $cedula;
-        $this->nombre = $nombre;
-        $this->apellido = $apellido;
-        $this->fechaNacimiento = $fechaNacimiento;
-        $this->estadoCivil = $estadoCivil;
-        $this->telefonoFijo = $telefonoFijo;
-        $this->telefonoMovil = $telefonoMovil;
+        $this->nombres = $nombres;
+        $this->apellidos = $apellidos;
+        $this->fecha_nacimiento = $fecha_nacimiento;
+        $this->estado_civil = $estado_civil;
+        $this->telefono_fijo = $telefono_fijo;
+        $this->telefono_movil = $telefono_movil;
         $this->email = $email;
         $this->estatura = $estatura;
         $this->peso = $peso;
-        $this->tipoSangre = $tipoSangre;
+        $this->tipo_sangre = $tipo_sangre;
         $this->discapacidad = $discapacidad;
-        $this->tallaCamisa = $tallaCamisa;
-        $this->tallaZapatos = $tallaZapatos;
-        $this->tallaPantalon = $tallaPantalon;
+        $this->talla_camisa = $talla_camisa;
+        $this->talla_zapatos = $talla_zapatos;
+        $this->talla_pantalon = $talla_pantalon;
         $this->vivienda = $vivienda;
         $this->tenencia = $tenencia;
         $this->estado = $estado;
@@ -111,18 +115,20 @@ class Trabajador{
         $this->direccion = $direccion;
         $this->rif = $rif;
         $this->cargo = $cargo;
+        $this->estatus = $estatus;
         $this->coordinacion = $coordinacion;
-        $this->numeroHijos = $numeroHijos;
+        $this->num_hijos = $num_hijos;
 
         //Parientes
         $this->idPariente = $idPariente;
-        $this->trabajadorId = $trabajadorId;
+        $this->trabajador_id = $trabajador_id;
         $this->cedulaPariente = $cedulaPariente;
         $this->nombrePariente = $nombrePariente;
         $this->apellidoPariente = $apellidoPariente;
         $this->fechaNacimientoPariente = $fechaNacimientoPariente;
         $this->parentesco = $parentesco;
         $this->generoPariente = $generoPariente;
+        $this->coordinacionPariente = $coordinacionPariente;
         $this->discapacidadPariente = $discapacidadPariente;
     }
 
@@ -147,40 +153,40 @@ class Trabajador{
         $this->cedula = $cedula;
     }
     public function getNombre(): ?string { // Names are essential, but making nullable for consistency
-        return $this->nombre;
+        return $this->nombres;
     }
-    public function setNombre(?string $nombre): void {
-        $this->nombre = $nombre;
+    public function setNombre(?string $nombres): void {
+        $this->nombres = $nombres;
     }
     public function getApellido(): ?string { // Names are essential, but making nullable for consistency
-        return $this->apellido;
+        return $this->apellidos;
     }
-    public function setApellido(?string $apellido): void {
-        $this->apellido = $apellido;
+    public function setApellido(?string $apellidos): void {
+        $this->apellidos = $apellidos;
     }
-    public function getFechaNacimiento(): ?string { // Date can be null
-        return $this->fechaNacimiento;
+    public function getFecha_nacimiento(): ?string { // Date can be null
+        return $this->fecha_nacimiento;
     }
-    public function setFechaNacimiento(?string $fechaNacimiento): void { // Changed type hint to ?string
-        $this->fechaNacimiento = $fechaNacimiento;
+    public function setFecha_nacimiento(?string $fecha_nacimiento): void { // Changed type hint to ?string
+        $this->fecha_nacimiento = $fecha_nacimiento;
     }
-    public function getEstadoCivil(): ?string { // Can be null
-        return $this->estadoCivil;
+    public function getEstado_civil(): ?string { // Can be null
+        return $this->estado_civil;
     }
-    public function setEstadoCivil(?string $estadoCivil): void {
-        $this->estadoCivil = $estadoCivil;
+    public function setEstado_civil(?string $estado_civil): void {
+        $this->estado_civil = $estado_civil;
     }
-    public function getTelefonoFijo(): ?string { // Can be null
-        return $this->telefonoFijo;
+    public function getTelefono_fijo(): ?string { // Can be null
+        return $this->telefono_fijo;
     }
-    public function setTelefonoFijo(?string $telefonoFijo): void {
-        $this->telefonoFijo = $telefonoFijo;
+    public function setTelefono_fijo(?string $telefono_fijo): void {
+        $this->telefono_fijo = $telefono_fijo;
     }
-    public function getTelefonoMovil(): ?string { // Can be null
-        return $this->telefonoMovil;
+    public function getTelefono_movil(): ?string { // Can be null
+        return $this->telefono_movil;
     }
-    public function setTelefonoMovil(?string $telefonoMovil): void {
-        $this->telefonoMovil = $telefonoMovil;
+    public function setTelefono_movil(?string $telefono_movil): void {
+        $this->telefono_movil = $telefono_movil;
     }
     public function getEmail(): ?string { // Can be null
         return $this->email;
@@ -188,23 +194,23 @@ class Trabajador{
     public function setEmail(?string $email): void {
         $this->email = $email;
     }
-    public function getEstatura(): ?int { // Can be null
+    public function getEstatura(): ?string { // Can be null
         return $this->estatura;
     }
-    public function setEstatura(?int $estatura): void {
+    public function setEstatura(?string $estatura): void {
         $this->estatura = $estatura;
     }
-    public function getPeso(): ?int { // Can be null
+    public function getPeso(): ?string { // Can be null
         return $this->peso;
     }
-    public function setPeso(?int $peso): void {
+    public function setPeso(?string $peso): void {
         $this->peso = $peso;
     }
-    public function getTipoSangre(): ?string { // Can be null
-        return $this->tipoSangre;
+    public function getTipo_sangre(): ?string { // Can be null
+        return $this->tipo_sangre;
     }
-    public function setTipoSangre(?string $tipoSangre): void {
-        $this->tipoSangre = $tipoSangre;
+    public function setTipo_sangre(?string $tipo_sangre): void {
+        $this->tipo_sangre = $tipo_sangre;
     }
     public function getDiscapacidad(): ?string { // Can be null
         return $this->discapacidad;
@@ -212,23 +218,23 @@ class Trabajador{
     public function setDiscapacidad(?string $discapacidad): void {
         $this->discapacidad = $discapacidad;
     }
-    public function getTallaCamisa(): ?string { // **FIXED**: Can be null
-        return $this->tallaCamisa;
+    public function getTalla_camisa(): ?string { // **FIXED**: Can be null
+        return $this->talla_camisa;
     }
-    public function setTallaCamisa(?string $tallaCamisa): void {
-        $this->tallaCamisa = $tallaCamisa;
+    public function setTalla_camisa(?string $talla_camisa): void {
+        $this->talla_camisa = $talla_camisa;
     }
-    public function getTallaZapatos(): ?int { // **FIXED**: Can be null
-        return $this->tallaZapatos;
+    public function getTalla_zapatos(): ?int { // **FIXED**: Can be null
+        return $this->talla_zapatos;
     }
-    public function setTallaZapatos(?int $tallaZapatos): void {
-        $this->tallaZapatos = $tallaZapatos;
+    public function setTalla_zapatos(?int $talla_zapatos): void {
+        $this->talla_zapatos = $talla_zapatos;
     }
-    public function getTallaPantalon(): ?string { // **FIXED**: Assuming string (e.g., S, M, L) or int (size number), making it nullable
-        return $this->tallaPantalon;
+    public function getTalla_pantalon(): ?string { // **FIXED**: Assuming string (e.g., S, M, L) or int (size number), making it nullable
+        return $this->talla_pantalon;
     }
-    public function setTallaPantalon(?string $tallaPantalon): void {
-        $this->tallaPantalon = $tallaPantalon;
+    public function setTalla_pantalon(?string $talla_pantalon): void {
+        $this->talla_pantalon = $talla_pantalon;
     }
     public function getVivienda(): ?string { // Can be null
         return $this->vivienda;
@@ -242,28 +248,28 @@ class Trabajador{
     public function setTenencia(?string $tenencia): void {
         $this->tenencia = $tenencia;
     }
-    public function getEstado(): ?int { // Can be null
+    public function getEstado(): ?string { // Can be null
         return $this->estado;
     }
-    public function setEstado(?int $estado): void {
+    public function setEstado(?string $estado): void {
         $this->estado = $estado;
     }
-    public function getCiudad(): ?int { // Can be null
+    public function getCiudad(): ?string { // Can be null
         return $this->ciudad;
     }
-    public function setCiudad(?int $ciudad): void {
+    public function setCiudad(?string $ciudad): void {
         $this->ciudad = $ciudad;
     }
-    public function getMunicipio(): ?int { // Can be null
+    public function getMunicipio(): ?string { // Can be null
         return $this->municipio;
     }
-    public function setMunicipio(?int $municipio): void {
+    public function setMunicipio(?string $municipio): void {
         $this->municipio = $municipio;
     }
-    public function getParroquia(): ?int { // Can be null
+    public function getParroquia(): ?string { // Can be null
         return $this->parroquia;
     }
-    public function setParroquia(?int $parroquia): void {
+    public function setParroquia(?string $parroquia): void {
         $this->parroquia = $parroquia;
     }
     public function getDireccion(): ?string { // Can be null
@@ -272,17 +278,23 @@ class Trabajador{
     public function setDireccion(?string $direccion): void {
         $this->direccion = $direccion;
     }
-    public function getRif(): ?string { // Can be null
+    public function getRif(): ?int { // Can be null
         return $this->rif;
     }
-    public function setRif(?string $rif): void {
+    public function setRif(?int $rif): void {
         $this->rif = $rif;
     }
-    public function getCargo(): ?int { // Can be null
+    public function getCargo(): ?string { // Can be null
         return $this->cargo;
     }
-    public function setCargo(?int $cargo): void {
+    public function setCargo(?string $cargo): void {
         $this->cargo = $cargo;
+    }
+    public function getEstatus(): ?string {
+        return $this->estatus;
+    }
+    public function setEstatus(?string $estatus): void {
+        $this->estatus = $estatus;
     }
     public function getCoordinacion(): ?int { // Can be null
         return $this->coordinacion;
@@ -290,18 +302,18 @@ class Trabajador{
     public function setCoordinacion(?int $coordinacion): void {
         $this->coordinacion = $coordinacion;
     }
-    public function getNumeroHijos(): ?int { // Can be null
-        return $this->numeroHijos;
+    public function getNum_hijos(): ?string { // Can be null
+        return $this->num_hijos;
     }
-    public function setNumeroHijos(?int $numeroHijos): void {
-        $this->numeroHijos = $numeroHijos;
+    public function setNum_hijos(?string $num_hijos): void {
+        $this->num_hijos = $num_hijos;
     }
 
     // Getters para la clase Pariente (also made nullable where appropriate)
     public function getIdPariente(): ?int { return $this->idPariente; }
     public function setIdPariente(?int $idPariente): void {$this->idPariente = $idPariente;}
-    public function getTrabajadorId(): ?int { return $this->trabajadorId; }
-    public function setTrabajadorId(?int $trabajadorId): void {$this->trabajadorId = $trabajadorId;}
+    public function getTrabajador_id(): ?int { return $this->trabajador_id; }
+    public function setTrabajador_id(?int $trabajador_id): void {$this->trabajador_id = $trabajador_id;}
     public function getCedulaPariente(): ?string { return $this->cedulaPariente; }
     public function setCedulaPariente(?string $cedulaPariente): void{$this->cedulaPariente = $cedulaPariente;}
     public function getNombrePariente(): ?string { return $this->nombrePariente; }
@@ -314,6 +326,8 @@ class Trabajador{
     public function setParentesco(?string $parentesco): void{$this->parentesco = $parentesco;}
     public function getGeneroPariente(): ?string {return $this->generoPariente;}
     public function setGeneroPariente(?string $generoPariente): void{$this->generoPariente = $generoPariente;}
+    public function getCoordinacionPariente(): ?int { return $this->coordinacionPariente;} 
+    public function setCoordinacionPariente(?int $coordinacionPariente): void {$this->coordinacionPariente = $coordinacionPariente;}
     public function getDiscapacidadPariente(): ?string { return $this->discapacidadPariente; }
     public function setDiscapacidadPariente(?string $discapacidadPariente): void {$this->discapacidadPariente = $discapacidadPariente;}
 

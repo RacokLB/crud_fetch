@@ -66,6 +66,9 @@
                 <button class="btn bg-light" id="sidebar-toggle" type="button">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+                <div class="col-md-11 text-center">
+                    <h6 class="text-center text-white">FUNDACION TEATRO TERESA CARREÑO</h6>
+                </div>
                 <div class="navbar-collapse navbar">
                     <ul class="navbar-nav">
                         <li class="nav-item dropdown">

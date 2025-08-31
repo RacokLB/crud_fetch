@@ -110,10 +110,10 @@ function Seleccionar(id){
                 `
               });
                 idpersonas.value = id;
-                paciente.value = response.ced_titular;
+                cedulaTitular.value = response.trabajador_id;
                 edades.value = response.edad;
                 nexo.value = response.parentesco;
-                coordinaciones.value = response.coordinacion;
+                coordinacionPariente.value = response.coordinacionPariente;
             }
             
           });

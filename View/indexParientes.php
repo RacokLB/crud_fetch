@@ -19,6 +19,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href=" ../Public/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   </head>
   <?php
     include_once "../Config/conexion.php";
@@ -46,18 +47,6 @@
                     Elementos analista
                 </li>
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
-                        <i class="fa-solid fa-list pe-2"></i>
-                        Generar Excel
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
-                        <i class="fa-solid fa-list pe-2"></i>
-                        Generar PDF
-                    </a>
-                </li>
-                <li class="sidebar-item">
                     <a href="#" class="sidebar-link collapsed" data-bs-target="#pages" data-bs-toggle="collapse"
                         aria-expanded="false">
                         <i class="fa-solid fa-file-lines pe-2"></i>
@@ -65,11 +54,14 @@
                     </a>
                     <ul id="pages" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">Trabajadores</a>
+                            <a href="/crud_fetch/View/indexTrabajador.php" class="sidebar-link">Trabajadores</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="/crud_fetch/View/adminDashboard.php" class="sidebar-link">Monitoreo</a>
                         </li>
                         <li class="sidebar-item">
                             <a class="sidebar-link">
-                              <button type="button" class="btn text-white" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="Cortesia">Cortesia</button>
+                              <a class="sidebar-link" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="Cortesia">Cortesia</a>
                             </a>
                         </li>
                     </ul>
@@ -99,6 +91,9 @@
               <button class="btn border border-danger bg-light" id="sidebar-toggle" type="button">
                   <span class="navbar-toggler-icon"></span>
               </button>
+              <div class="col-md-11 text-center">
+                    <h6 class="text-center text-white">FUNDACION TEATRO TERESA CARREÑO</h6>
+                </div>
               <div class="navbar-collapse navbar">
                   <ul class="navbar-nav">
                       <li class="nav-item dropdown">
@@ -186,7 +181,7 @@
                       <div class="card flex-fill border-0 " style="background-color:black;" id="form_container">
                         <div class="card-body py-4">
                           <div class="align-items-center">
-                            <div class="flex-grow-1">
+                            <div class="flex-grow-3">
                 <!--CAMPO TITULO-->
                               <div class="card border-3">
                                 <div class="card-header shadow-lg" id="card">
@@ -225,7 +220,7 @@
                                           <input type="hidden" name="idpersonas" id="idpersonas" value="">
                                           <div class="input-group">
                                             <span class="input-group-text">Cedula</span>
-                                            <input type="text" name="paciente" id="paciente" placeholder="Cedula..." class="form-control">
+                                            <input type="text" name="cedulaTitular" id="cedulaTitular" placeholder="Cedula..." class="form-control">
                                           </div>
                                         </div>
                     <!--Campo EDAD-->
@@ -258,7 +253,7 @@
                                         <div class="mb-3">
                                           <div class="input-group">
                                             <span class="input-group-text">Coordinacion</span>
-                                            <input type="text" name="coordinaciones" id="coordinaciones" placeholder="Coordinacion..." class="form-control">
+                                            <input type="text" name="coordinacionPariente" id="coordinacionPariente" placeholder="Coordinacion..." class="form-control">
                                           </div>
                                         </div>
                                         <hr>
@@ -372,12 +367,12 @@
                                 <thead>
                                   <tr>
                                     <th scope="col">N°</th>
-                                    <th scope="col">C.I Trabajador</th>
-                                    <th scope="col">Nombre del Trabajador</th>
-                                    <th scope="col">C.I pariente</th>
+                                    <th scope="col">C.I del Trabajador</th>
+                                    <th scope="col">Cedula del pariente</th>
                                     <th scope="col">Nombre</th>
                                     <th scope="col">Apellidos</th>
                                     <th scope="col">Parentesco</th>
+                                    <th scope="col">Genero</th>
                                     <th scope="col">Discapacidad</th>
                                     <th scope="col">Edad</th>
                                     <th scope="col">Coordinacion</th>

@@ -132,3 +132,57 @@ Acumula los totales de cada categoría de edad de cada tabla en un array $totalG
 Finalmente, devuelve un array JSON con un estado 'success' y los datos de la clasificación global por edades, o un estado 'error' con un mensaje si ocurre algún problema.
 Cierra la conexión a la base de datos en el bloque finally.
 Espero que esta explicación detallada te sea de gran ayuda. Si tienes alguna otra pregunta, no dudes en consultarme.
+
+
+Esta query es la que se usa en el archivo de python para obtener la informacion de todos los pacientes y asi poder alimentar a la IA con esta data 
+
+
+    SELECT
+        'Pariente' AS tipo_paciente,
+        pt.sede AS ubicacion,
+        pt.cedula,
+        pt.edad,
+        pt.sexo,
+        c.descripcion AS coordinacion,
+        e.descripcion AS especialidad,
+        es.descripcion AS especialista,
+        p.descripcion AS patologia,
+        a.descripcion AS afeccion,
+        pt.parentesco
+    FROM
+        parientes_tratados pt
+    LEFT JOIN
+        coordinacion_tbl c ON pt.coordinacion = c.id_coordinacion
+    LEFT JOIN
+        especialidad_tbl e ON pt.especialidad = e.id_especialidad
+    LEFT JOIN
+        especialista_tbl es ON pt.especialista = es.id_especialista
+    LEFT JOIN
+        patologia_tbl p ON pt.patologia = p.id_patologia
+    LEFT JOIN
+        afeccion_tbl a ON pt.afeccion = a.id_afeccion
+
+    UNION ALL
+
+    SELECT
+        'Cortesia' AS tipo_paciente,
+        pc.sede_servicio AS ubicacion,
+        pc.cedula,
+        pc.edad,
+        pc.sexo,
+        NULL AS coordinacion,
+        e.descripcion AS especialidad,
+        es.descripcion AS especialista,
+        p.descripcion AS patologia,
+        a.descripcion AS afeccion,
+        NULL AS parentesco
+    FROM
+        pacientes_cortesia pc
+    LEFT JOIN
+        especialidad_tbl e ON pc.especialidad = e.id_especialidad
+    LEFT JOIN
+        especialista_tbl es ON pc.especialista = es.id_especialista
+    LEFT JOIN
+        patologia_tbl p ON pc.patologia = p.id_patologia
+    LEFT JOIN
+        afeccion_tbl a ON pc.afeccion = a.id_afeccion;

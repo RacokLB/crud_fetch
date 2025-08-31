@@ -153,7 +153,7 @@ use DateTime;
         
                 //4. Actualizar las propiedades del objeto Pariente existente con los nuevos datos
                 //NOTA estos campos son los nombres traidos del JSON , no son los datos dentro de la DB 
-                $parienteExistente->setTrabajadorId($datosActualizados['trabajadorId'] ?? $parienteExistente->getTrabajadorId());
+                $parienteExistente->setTrabajador_id($datosActualizados['trabajador_id'] ?? $parienteExistente->getTrabajador_id());
                 $parienteExistente->setCedulaPariente($datosActualizados['cedulaPariente'] ?? $parienteExistente->getCedulaPariente());
                 $parienteExistente->setNombrePariente($datosActualizados['nombrePariente'] ?? $parienteExistente->getNombrePariente());
                 $parienteExistente->setApellidoPariente($datosActualizados['apellidoPariente'] ?? $parienteExistente->getApellidoPariente());
@@ -254,282 +254,320 @@ use DateTime;
         public function crearTrabajador(){
         
             //1. Obtener los datos del nuevo trabajador desde el formulario HTML usando el metodo POST
-            $datosTrabajador = $_POST;
-            $errores = [];
+            if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+                $datosTrabajador = $_POST;
+                $errores = [];
 
-            if (isset($datosTrabajador['nombre'])&& !empty($datosTrabajador['nombre'])) {
-            
-            }else{
-                $errores['nombre'] = 'La cedula es requerida';
-            }
-
-            if (isset($datosTrabajador['cedula']) && !empty($datosTrabajador['cedula'])){
-                if(mb_strlen($datosTrabajador['cedula'], 'UTF-8') < 7 || mb_strlen($datosTrabajador['cedula'], 'UTF-8') > 8) {
+                if(isset($datosTrabajador['nacionalidad']) && !empty($datosTrabajador['nacionalidad'])){
+        
+                }else{
+                    $errores['nacionalidad'] = 'La nacionalidad es';
                 }
-            }else{
-                $errores['cedula'] = 'La cédula es requerida';
-            }
-                
-            
-            if (isset($datosTrabajador['apellido']) && !empty($datosTrabajador['apellido'])) {
-                if(mb_strlen($datosTrabajador['apellido'],'UTF-8') < 3 || mb_strlen($datosTrabajador['apellido'],'UTF-8') > 30){
+                if (isset($datosTrabajador['cedula']) && !empty($datosTrabajador['cedula'])){
+                    if(mb_strlen($datosTrabajador['cedula'], 'UTF-8') < 7 || mb_strlen($datosTrabajador['cedula'], 'UTF-8') > 8) {
+                    }
+                }else{
+                    $errores['cedula'] = 'La cédula es requerida';
+                }
+                if (isset($datosTrabajador['nombres'])&& !empty($datosTrabajador['nombres'])) {
+                    
+                }else{
+                    $errores['nombres'] = 'El nombre es necesario';
+                }
 
+                    
+                
+                if (isset($datosTrabajador['apellidos']) && !empty($datosTrabajador['apellidos'])) {
+                    
+                }else{
+                    $errores['apellidos'] = 'El apellido es requerido';
+                }
+
+                if (isset($datosTrabajador['discapacidad'])&& !empty($datosTrabajador['discapacidad'])) {
+                    
+                }else{
+                    $errores['discapacidad'] = 'El campo discapacidad no debe quedar vacio';
                 }
                 
-            }else{
-                $errores['apellido'] = 'El apellido es requerido';
-            }
+                if (isset($datosTrabajador['fecha_nacimiento']) && !empty($datosTrabajador['fecha_nacimiento'])) {
+                    
 
-            if (isset($datosTrabajador['fecha_nacimiento']) && !empty($datosTrabajador['fecha_nacimiento'])) {
-            $fechaNacimientoString = $datosTrabajador['fecha_nacimiento'];
-            $formatoEsperado = 'Y-m-d'; // Define el formato esperado
-
-            // Intenta crear un objeto DateTime desde la cadena con el formato esperado
-            $fechaNacimientoObjeto = DateTime::createFromFormat($formatoEsperado, $fechaNacimientoString);
-
-                // Verifica si la creación del objeto fue exitosa Y si el formato coincide exactamente
-                if ($fechaNacimientoObjeto !== false && $fechaNacimientoObjeto->format($formatoEsperado) === $fechaNacimientoString) {
-                    // La fecha es válida y tiene el formato esperado
-                    // Puedes trabajar con $fechaNacimientoObjeto aquí si lo necesitas como objeto
-                    // Por ejemplo, para formatearla de otra manera:
-                    // $fechaFormateada = $fechaNacimientoObjeto->format('d/m/Y');
-                    // echo "Fecha de nacimiento válida: " . $fechaFormateada;
                 } else {
-                    // La fecha no coincide con el formato esperado o no es una fecha válida
-                    $errores['fecha_nacimiento'] = 'La fecha de nacimiento debe tener el formato YYYY-MM-DD.';
+                    $errores['fecha_nacimiento'] = 'La fecha de nacimiento es requerida.';
                 }
 
-            } else {
-                $errores['fecha_nacimiento'] = 'La fecha de nacimiento es requerida.';
-            }
-
-            if (isset($datosTrabajador['estado_civil']) && !empty($datosTrabajador['estado_civil'])) {
-                if(mb_strlen($datosTrabajador['estado_civil'],'UTF-8') < 3 || mb_strlen($datosTrabajador['estadoCivil'],'UTF-8') > 15){
+                if (isset($datosTrabajador['estado_civil']) && !empty($datosTrabajador['estado_civil'])) {
+                    
+                }else{
+                    $errores['estado_civil'] = 'El estado civil es requerido';
                 }
-            }else{
-                $errores['estado_civil'] = 'El estado civil es requerido';
-            }
 
-            if (isset($datosTrabajador['telefonoFijo'])&& !empty($datosTrabajador['telefonoFijo'])) {
+                if (isset($datosTrabajador['telefono_fijo'])&& !empty($datosTrabajador['telefono_fijo'])) {
+                    
+                }else{
+                    $errores['telefono_fijo'] = 'El telefono Fijo es necesario';
+                }
+
+                if (isset($datosTrabajador['telefono_movil']) && !empty($datosTrabajador['telefono_movil'])) {
+                    
+                }else{
+                    $errores['telefono_movil'] = 'El numero de telefono personal es obligatorio';
+                }
+                if (isset($datosTrabajador['estatura'])&& !empty($datosTrabajador['estatura'])) {
+                    
+                }else{
+                    $errores['estatura'] = 'Debe ingresar la estatura';
+                }
+
+                if (isset($datosTrabajador['peso'])&& !empty($datosTrabajador['peso'])) {
+                    
+                }else{
+                    $errores['peso'] = 'Debe indicar el peso del trabajador';
+                }
                 
-            }else{
-                $errores['telefonoFijo'] = 'El telefono Fijo es necesario';
-            }
-
-
-
-            if (isset($datosTrabajador['telefono_movil']) && empty($datosTrabajador['telefono_movil'])) {
-                if(mb_strlen($datosTrabajador['telefono_movil'],'UTF-8') < 11 || mb_strlen($datosTrabajador['telefonoMovil'],'UTF-8') > 12){
-
-                }
-                
-            }else{
-                $errores['telefono_movil'] = 'El numero de telefono personal es obligatorio';
-            }
-
-            
-            if (isset($datosTrabajador['email']) && !empty($datosTrabajador['email'])) {
-                $email = $datosTrabajador['email'];
-                //Remove all illegal character from Email
-                $emailTrabajador = filter_var($email, FILTER_SANITIZE_EMAIL);
-
-                //Validate email
-                if(!filter_var($emailTrabajador, FILTER_VALIDATE_EMAIL) === false){
+                if(isset($datosTrabajador['num_hijos']) && !empty($datosTrabajador['num_hijos'])){
 
                 }else{
-                    $errores['email'] = 'El email tiene un formato que no es valido';
+                    $errores['num_hijos'] = 'El numero de hijos es necesario';
                 }
-            }else{
-                $errores['email'] = 'El email es requerido';
-            }
-            
-            if (isset($datosTrabajador['estatura'])&& !empty($datosTrabajador['estatura'])) {
-                if(is_numeric($datosTrabajador['estatura'])){
+                if (isset($datosTrabajador['email']) && !empty($datosTrabajador['email'])) {
+                    $email = $datosTrabajador['email'];
+                    //Remove all illegal character from Email
+                    $emailTrabajador = filter_var($email, FILTER_SANITIZE_EMAIL);
+
+                    //Validate email
+                    if(!filter_var($emailTrabajador, FILTER_VALIDATE_EMAIL) === false){
+
+                    }else{
+                        $errores['email'] = 'El email tiene un formato que no es valido';
+                    }
+                }else{
+                    $errores['email'] = 'El email es requerido';
+                }
+                
+
+                if (isset($datosTrabajador['tipo_sangre'])&& !empty($datosTrabajador['tipo_sangre'])) {
+                    
+                }else{
+                    $errores['tipo_sangre'] = 'El tipo de sangre debe ser indicado';
+                }
+                
+                
+                if (isset($datosTrabajador['rif']) && !empty($datosTrabajador['rif'])) {
+                    if(mb_strlen($datosTrabajador['rif'], 'UTF-8') < 8 || mb_strlen($datosTrabajador['rif'],'UTF-8') > 9 ){
+                    }
+                }else{
+                    $errores['rif'] = 'El RIF es requerido';
+                }
+                
+                if(isset($datosTrabajador['cargo']) && !empty($datosTrabajador['cargo'])){
 
                 }else{
-                    $errores['estatura'] = 'Debe ingresar un numero valido para la estatura';
+                    $errores['cargo'] = 'El cargo es necesario';
                 }
-            }else{
-                $errores['estatura'] = 'Debe ingresar la estatura';
-            }
-
-            if (isset($datosTrabajador['peso'])&& !empty($datosTrabajador['peso'])) {
-                if(is_numeric($datosTrabajador['peso'])){
+                if(isset($datosTrabajador['estatus']) && !empty($datosTrabajador['estatus'])){
+                    
+                }else{
+                    $errores['estatus'] = 'El estado actual es necesario';
+                }
+                if(isset($datosTrabajador['coordinacion']) && !empty($datosTrabajador['coordinacion'])){
 
                 }else{
-                    $errores['peso'] = 'Debe ingresar un numero valido para el peso';
+                    $errores['coordinacion'] = 'La coordinacion es requerida';
                 }
-            }else{
-                $errores['peso'] = 'La dirección general es requerida';
-            }
+                if (isset($datosTrabajador['talla_camisa'])&& !empty($datosTrabajador['talla_camisa'])) {
+                    
+                }else{
+                    $errores['talla_camisa'] = 'La talla de camisa es necesaria';
+                }
 
-            if (isset($datosTrabajador['tipo_sangre'])&& !empty($datosTrabajador['tipo_sangre'])) {
-                
-            }else{
-                $errores['tipo_sangre'] = 'La dirección específica es requerida';
-            }
+                if (isset($datosTrabajador['talla_zapatos'])&& !empty($datosTrabajador['talla_zapatos'])) {
+                    
+                }else{
+                    $errores['talla_zapatos'] = 'La talla de los zapatos es necesario';
+                }
 
-            if (isset($datosTrabajador['discapacidad'])&& !empty($datosTrabajador['discapacidad'])) {
-                if(mb_strlen($datosTrabajador['discapacidad'],'UTF-8') > 5){
+                if(isset($datosTrabajador['talla_pantalon'])&& !empty($datosTrabajador['talla_pantalon'])){
 
                 }else{
-                    $errores['discapacidad'] = 'La discapacidad debe tener mas de 6 caracteres'; 
+                    $errores['talla_pantalon'] = 'La talla del pantalon es requerida';
                 }
-            }else{
-                $errores['discapacidad'] = 'El campo discapacidad no debe quedar vacio';
-            }
+                if(isset($datosTrabajador['tenencia']) && !empty($datosTrabajador['tenencia'])){
 
-            if (isset($datosTrabajador['talla_camisa'])&& !empty($datosTrabajador['talla_camisa'])) {
-                
-            }else{
-                $errores['talla_camisa'] = 'La talla de camisa es necesaria';
-            }
-
-            if (isset($datosTrabajador['talla_zapatos'])&& !empty($datosTrabajador['talla_zapatos'])) {
-                
-            }else{
-                $errores['talla_zapatos'] = 'La talla de los zapatos es necesario';
-            }
-
-            if(isset($datosTrabajador['talla_pantalon'])&& !empty($datosTrabajador['talla_pantalon'])){
-
-            }else{
-                $errores['talla_pantalon'] = 'La talla del pantalon es requerida';
-            }
-
-            if(isset($datosTrabajador['vivienda']) && !empty($datosTrabajador['vivienda'])){
-
-            }else{
-                $errores['vivienda'] = 'La vivienda es requerida';
-            }
-
-            if(isset($datosTrabajador['tenencia']) && !empty($datosTrabajador['tenencia'])){
-
-            }else{
-                $errores['tenencia'] = 'La tenencia es requerida';
-            }
-            
-            if(isset($datosTrabajador['tipo_vivienda']) && !empty($datosTrabajador['tipo_vivienda'])){
-
-            }else{
-                $errores['tipo_vivienda'] = 'El tipo de vivienda es requerido';
-            }
-
-            if (isset($datosTrabajador['estado'])&& !empty($datosTrabajador['estado'])) {
-                
-            }else{
-                $errores['estado'] = 'El estado es requerido';
-            }
-            if (isset($datosTrabajador['ciudad'])&& !empty($datosTrabajador['ciudad'])) {
-                
-            }else{
-                $errores['ciudad'] = 'La ciudad es requerida';
-            }
-            if (isset($datosTrabajador['municipio'])&& !empty($datosTrabajador['municipio'])) {
-                
-            }else{
-                $errores['municipio'] = 'El municipio es requerido';
-            }
-            if (isset($datosTrabajador['parroquia'])&& !empty($datosTrabajador['parroquia'])) {
-                
-            }else{
-                $errores['parroquia'] = 'El estado es requerido';
-            }
-            if (isset($datosTrabajador['direccion'])&& !empty($datosTrabajador['direccion'])) {
-                
-            }else{
-                $errores['direccion'] = 'La dirección es requerida';
-            }
-
-            if (isset($datosTrabajador['rif']) && !empty($datosTrabajador['rif'])) {
-                if(mb_strlen($datosTrabajador['rif'], 'UTF-8') < 8 || mb_strlen($datosTrabajador['rif'],'UTF-8') > 9 ){
+                }else{
+                    $errores['tenencia'] = 'La tenencia es requerida';
                 }
-            }else{
-                $errores['rif'] = 'El RIF es requerido';
+
+                if(isset($datosTrabajador['vivienda']) && !empty($datosTrabajador['vivienda'])){
+
+                }else{
+                    $errores['vivienda'] = 'El tipo de vivienda es requerido';
+                }
+
+                
+                if (isset($datosTrabajador['estado'])&& !empty($datosTrabajador['estado'])) {
+                    
+                }else{
+                    $errores['estado'] = 'El estado es requerido';
+                }
+                if (isset($datosTrabajador['ciudad'])&& !empty($datosTrabajador['ciudad'])) {
+                    
+                }else{
+                    $errores['ciudad'] = 'La ciudad es requerida';
+                }
+                if (isset($datosTrabajador['municipio'])&& !empty($datosTrabajador['municipio'])) {
+                    
+                }else{
+                    $errores['municipio'] = 'El municipio es requerido';
+                }
+                if (isset($datosTrabajador['parroquia'])&& !empty($datosTrabajador['parroquia'])) {
+                    
+                }else{
+                    $errores['parroquia'] = 'El estado es requerido';
+                }
+                if (isset($datosTrabajador['direccion'])&& !empty($datosTrabajador['direccion'])) {
+                    
+                }else{
+                    $errores['direccion'] = 'La dirección es requerida';
+                }
+                
+
+                //2. Crear una instancia del objeto Trabajador
+                $nuevoTrabajador = new \Models\Entities\Trabajador(
+                    null,
+                    $datosTrabajador['nacionalidad'] ?? null,
+                    $datosTrabajador['cedula']?? null,
+                    $datosTrabajador['nombres']?? null,
+                    $datosTrabajador['apellidos']?? null,
+                    $datosTrabajador['fecha_nacimiento']?? null,
+                    $datosTrabajador['estado_civil']?? null,
+                    $datosTrabajador['telefono_fijo']?? null,
+                    $datosTrabajador['telefono_movil']?? null,
+                    $datosTrabajador['email']?? null,
+                    $datosTrabajador['estatura']?? null,
+                    $datosTrabajador['peso']?? null,
+                    $datosTrabajador['tipo_sangre']?? null,
+                    $datosTrabajador['discapacidad'] ?? null,
+                    $datosTrabajador['talla_camisa']?? null,
+                    $datosTrabajador['talla_zapatos']?? null,
+                    $datosTrabajador['talla_pantalon']?? null,
+                    $datosTrabajador['vivienda']?? null,
+                    $datosTrabajador['tenencia']?? null,
+                    $datosTrabajador['estado']?? null,
+                    $datosTrabajador['ciudad']?? null,
+                    $datosTrabajador['municipio']?? null,
+                    $datosTrabajador['parroquia']?? null,
+                    $datosTrabajador['direccion']?? null,
+                    $datosTrabajador['rif']?? null,
+                    $datosTrabajador['cargo'] ?? null,
+                    $datosTrabajador['estatus'] ?? null,
+                    $datosTrabajador['coordinacion'] ?? null,
+                    $datosTrabajador['num_hijos']?? null
+                );
+
+                //Verficar si existen errores, en caso de que existan devuelve el codigo 400 con los errores en formato JSON
+                if (!empty($errores)) {
+                    http_response_code(400);
+                    header('Content-Type: application/json');
+                    echo json_encode(['errors' => $errores]);
+                    return;
+                }
+                //3.Recibir y decodificar el JSON de parientes
+                $parientesJSON = $_POST['parienteArray'] ?? '[]';
+
+                
+                //Add this specific check to log what´s actually being passed to json_decode
+                error_log("Attempting to decode parientesJSON: '". $parientesJSON . "'");
+                $parientes = json_decode($parientesJSON, true);
+                
+                if($parientesJSON){
+                    if(json_last_error() === JSON_ERROR_NONE && is_array($parientes)){
+                        //4. Asignar los parientes al objeto Trabajador
+                    $nuevoTrabajador->parientes = $parientes;
+
+                    }else{
+                        // This block is for actual JSON syntax errors.
+                        $errorMessage = 'Error al decodificar la información de parientes: ' . json_last_error_msg();
+                        error_log($errorMessage . " | Input that failed: '" . $parientesJSON . "'");
+                        $errores['parientes'] = $errorMessage;
+                        // Si el JSON de parientes está mal formado, debería ser un error fatal.
+                        // Retorna un error 400 y detiene la ejecución.
+                        http_response_code(400);
+                        header('Content-Type: application/json');
+                        echo json_encode(['errors' => $errores]);
+                        //Se puede redirigir o mostrar un error al usuario
+                        return;
+                    }
+                }else{
+                    // This block will be hit if $_POST['parientesJson'] is null or an empty string ""
+                    error_log("parientesJson is empty or null, no relatives to process.");
+                    // In this case, it's fine if there are no relatives.
+                    // Ensure $nuevoTrabajador->parientes is initialized to an empty array
+                    $nuevoTrabajador->parientes = []; // Important: Initialize to empty array if no relatives
+                }
+                
+                    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                        echo "<pre>";
+                        print_r($_POST);
+                        echo "</pre>";
+                    }
+                //3. Guardar al nuevo trabajador dentro de la DB
+                
+                $trabajadorGuardado = $this->trabajadorRepository->guardar($nuevoTrabajador);
+
+                // 4. Retornar una respuesta (por ejemplo, el trabajador creado o un mensaje de éxito)
+                    if ($trabajadorGuardado) {
+                        
+                        header("Location: ../crud_fetch/View/listarTrabajadores.php");
+                        exit();
+                    } else {
+                        http_response_code(500); // Código de "Error interno del servidor"
+                        header('Content-Type: application/json');
+                        
+                        echo json_encode(['error' => 'No se pudo crear el trabajador']);
+                    }
+                }
             }
             
-            if(isset($datosTrabajador['cargo']) && !empty($datosTrabajador['cargo'])){
+        
+        /**
+         * Procesa la actualización de la información de un trabajador existente.
+         *
+         * @param int $id El ID del trabajador a actualizar.
+         * @return void // No se necesita que regrese algun value
+         */
+        public function actualizarTrabajador(int $cedula){
+            // 1. Obtener los datos actualizados del trabajador desde la petición (PUT data, etc.)
+            // (Similar a crearTrabajador, pero asegurándote de incluir el ID)
 
-            }else{
-                $errores['cargo'] = 'El cargo es necesario';
-            }
+                // Leer el cuerpo de la petición (InputStream) que contiene el JSON
+            $jsonDatos = file_get_contents(filename: 'php://input');
 
-            if(isset($datosTrabajador['coordinacion']) && !empty($datosTrabajador['coordinacion'])){
+            //DEBUGGING IN THE START 
+            //Log the raw JSON data to the PHP error log
+            error_log("Raw JSON received for actualizarTrabajador: ". $jsonDatos);
 
-            }else{
-                $errores['coordinacion'] = 'La coordinacion es requerida';
-            }
+            // Decodificar el JSON a un array asociativo de PHP
+            $datosActualizados = json_decode($jsonDatos, true);
 
-            if(isset($datosTrabajador['numeroHijos']) && !empty($datosTrabajador['numeroHijos'])){
+            //DEBUGGING IN THE START
+            // Log the decoded data
+            error_log("Decoded data for actualizarTrabajador: ". print_r($datosActualizados, true));
 
-            }else{
-                $errores['numero_hijos'] = 'El numero de hijos es necesario';
-            }
             
 
-            //Verficar si existen errores, en caso de que existan devuelve el codigo 400 con los errores en formato JSON
-            if (!empty($errores)) {
-                http_response_code(400);
+            // Verificar si la decodificación JSON fue exitosa
+            if (json_last_error() !== JSON_ERROR_NONE) {
+                http_response_code(400); // Bad Request
                 header('Content-Type: application/json');
-                echo json_encode(['errors' => $errores]);
+                echo json_encode(['error' => 'Formato de JSON invalido']);
                 return;
             }
 
-            //2. Crear una instancia del objeto Trabajador
-            $nuevoTrabajador = new \Models\Entities\Trabajador(
-                id:null,
-                nombre: $datosTrabajador['nombres']?? null,
-                cedula: $datosTrabajador['cedula']?? null,
-                apellido: $datosTrabajador['apellidos']?? null,
-                fechaNacimiento: $datosTrabajador['fecha_nacimiento']?? null,
-                estadoCivil: $datosTrabajador['estado_civil']?? null,
-                telefonoFijo: $datosTrabajador['telefono_fijo']?? null,
-                telefonoMovil: $datosTrabajador['telefono_movil']?? null,
-                email: $datosTrabajador['email']?? null,
-                estatura: $datosTrabajador['estatura']?? null,
-                peso: $datosTrabajador['peso']?? null,
-                tipoSangre: $datosTrabajador['tipo_sangre']?? null,
-                discapacidad: $datosTrabajador['discapacidad']?? null,
-                tallaCamisa: $datosTrabajador['talla_camisa']?? null,
-                tallaZapatos: $datosTrabajador['talla_zapatos']?? null,
-                tallaPantalon: $datosTrabajador['talla_pantalon']?? null,
-                vivienda: $datosTrabajador['vivienda']?? null,
-                tenencia: $datosTrabajador['tenencia']?? null,
-                estado: $datosTrabajador['estado']?? null,
-                ciudad:$datosTrabajador['ciudad'] ?? null,
-                municipio:$datosTrabajador['municipio'] ?? null,
-                parroquia:$datosTrabajador['parroquia'] ?? null,
-                direccion: $datosTrabajador['direccion']?? null,
-                rif: $datosTrabajador['rif']?? null,
-                cargo: $datosTrabajador['cargo']?? null,
-                coordinacion: $datosTrabajador['coordinacion']?? null,
-                numeroHijos: $datosTrabajador['numero_hijos'] ?? null
-            );
-            //3. Guardar al nuevo trabajador dentro de la DB
-            $trabajadorGuardado = $this->trabajadorRepository->guardar($nuevoTrabajador);
-
-            //4. Retornar respuesta (JSON del trabajador guardado)
-            if($trabajadorGuardado){
-            http_response_code(201);//Codigo 201: Created
-            header('Content-Type: application/json');
-            echo json_encode($trabajadorGuardado);
-            } else {
-                http_response_code(500);//Codigo 500: Internal Server Error
-                header('Content-Type: application/json');
-                echo json_encode(['error' => 'No se pudo crear el trabajador']);
-            }
-        }
-
-        public function actualizarTrabajador($cedula){
-            //1.Obtener los datos modificados del trabajador desde la peticion(PUT data ,ETC)
-            //Es similar a crear el trabajador pero se usa La cedula
-            $datosTrabajador = $_POST;
-            $errores = [];
-
-            //2.Obtener al trabajador existente para verificar que si existe dentro de la DB
+            // 2. Obtener el trabajador existente para asegurarse de que existe
             $trabajadorExistente = $this->trabajadorRepository->obtenerTrabajadorPorCedula($cedula);
 
-            if(!$trabajadorExistente){
+            if (!$trabajadorExistente) {
                 http_response_code(404);
                 header('Content-Type: application/json');
                 echo json_encode(['error' => 'Trabajador no encontrado']);
@@ -540,18 +578,18 @@ use DateTime;
             $trabajadorExistente->setNombre($datosTrabajador['nombres']?? $trabajadorExistente->getNombre());
             $trabajadorExistente->setCedula($datosTrabajador['cedula']?? $trabajadorExistente->getCedula());
             $trabajadorExistente->setApellido($datosTrabajador['apellidos']?? $trabajadorExistente->getApellido());
-            $trabajadorExistente->setFechaNacimiento($datosTrabajador['fecha_nacimiento']?? $trabajadorExistente->getFechaNacimiento());
-            $trabajadorExistente->setEstadoCivil($datosTrabajador['estado_civil']?? $trabajadorExistente->getEstadoCivil());
-            $trabajadorExistente->setTelefonoFijo($datosTrabajador['telefono_hijo']?? $trabajadorExistente->getTelefonoFijo());
-            $trabajadorExistente->setTelefonoMovil($datosTrabajador['telefono_movil']?? $trabajadorExistente->getTelefonoMovil());
+            $trabajadorExistente->setFecha_nacimiento($datosTrabajador['fecha_nacimiento']?? $trabajadorExistente->getFecha_nacimiento());
+            $trabajadorExistente->setEstado_civil($datosTrabajador['estado_civil']?? $trabajadorExistente->getEstado_civil());
+            $trabajadorExistente->setTelefono_fijo($datosTrabajador['telefono_fijo']?? $trabajadorExistente->getTelefono_fijo());
+            $trabajadorExistente->setTelefono_movil($datosTrabajador['telefono_movil']?? $trabajadorExistente->getTelefono_movil());
             $trabajadorExistente->setEmail($datosTrabajador['email']?? $trabajadorExistente->getEmail());
             $trabajadorExistente->setEstatura($datosTrabajador['estatura']?? $trabajadorExistente->getEstatura());
             $trabajadorExistente->setPeso($datosTrabajador['peso']?? $trabajadorExistente->getPeso());
-            $trabajadorExistente->setTipoSangre($datosTrabajador['tipo_sangre']?? $trabajadorExistente->getTipoSangre());
+            $trabajadorExistente->setTipo_sangre($datosTrabajador['tipo_sangre']?? $trabajadorExistente->getTipo_sangre());
             $trabajadorExistente->setDiscapacidad($datosTrabajador['discapacidad']?? $trabajadorExistente->getDiscapacidad());
-            $trabajadorExistente->setTallaCamisa($datosTrabajador['talla_camisa']?? $trabajadorExistente->getTallaCamisa());
-            $trabajadorExistente->setTallaZapatos($datosTrabajador['talla_zapatos']?? $trabajadorExistente->getTallaZapatos());
-            $trabajadorExistente->setTallaPantalon($datosTrabajador['talla_pantalon']?? $trabajadorExistente->getTallaPantalon());
+            $trabajadorExistente->setTalla_camisa($datosTrabajador['talla_camisa']?? $trabajadorExistente->getTalla_camisa());
+            $trabajadorExistente->setTalla_zapatos($datosTrabajador['talla_zapatos']?? $trabajadorExistente->getTalla_zapatos());
+            $trabajadorExistente->setTalla_pantalon($datosTrabajador['talla_pantalon']?? $trabajadorExistente->getTalla_pantalon());
             $trabajadorExistente->setVivienda($datosTrabajador['vivienda']?? $trabajadorExistente->getVivienda());
             $trabajadorExistente->setTenencia($datosTrabajador['tenencia']?? $trabajadorExistente->getTenencia());
             $trabajadorExistente->setEstado($datosTrabajador['estado']?? $trabajadorExistente->getEstado());
@@ -561,8 +599,9 @@ use DateTime;
             $trabajadorExistente->setDireccion($datosTrabajador['direccion']?? $trabajadorExistente->getDireccion());
             $trabajadorExistente->setRif($datosTrabajador['rif']?? $trabajadorExistente->getRif());
             $trabajadorExistente->setCargo($datosTrabajador['cargo']?? $trabajadorExistente->getCargo());
+            $trabajadorExistente->setEstatus($datosTrabajador['estatus']?? $trabajadorExistente->getEstatus());
             $trabajadorExistente->setCoordinacion($datosTrabajador['coordinacion']?? $trabajadorExistente->getCoordinacion());
-            $trabajadorExistente->setNumeroHijos($datosTrabajador['numero_hijos']?? $trabajadorExistente->getNumeroHijos());
+            $trabajadorExistente->setNum_hijos($datosTrabajador['num_hijos']?? $trabajadorExistente->getNum_hijos());
 
             
             //4.Guardar los cambios utilizando el repository
@@ -642,72 +681,62 @@ use DateTime;
                     echo json_encode(['success' => false, 'message' => 'Error al obtener los trabajadores.']);
                 }
         }
-        
-        // --- New Dashboard Methods ---
 
-        public function getTotalTrabajadores() {
+                // --- Refactored Dashboard Methods ---
+
+        public function getTotalTrabajadores()
+        {
             try {
-                $stmt = $this->pdo->query("SELECT COUNT(*) AS total FROM trabajadores");
-                $result = $stmt->fetch(PDO::FETCH_ASSOC);
-                echo json_encode(['success' => true, 'data' => ['total' => $result['total']]]);
-            } catch (PDOException $e) {
+                $total = $this->trabajadorRepository->countTotalTrabajadores();
+                echo json_encode(['success' => true, 'data' => ['total' => $total]]);
+            } catch (\Exception $e) {
                 http_response_code(500);
                 echo json_encode(['success' => false, 'message' => 'Error al obtener el total de trabajadores: ' . $e->getMessage()]);
             }
         }
 
-        public function getTrabajadoresPorCoordinacion() {
+        public function getTrabajadoresPorCoordinacion()
+        {
             try {
-                $stmt = $this->pdo->query("SELECT coordinacion, COUNT(*) AS total FROM trabajadores GROUP BY coordinacion ORDER BY coordinacion");
-                $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                $data = $this->trabajadorRepository->getTrabajadoresCountByCoordinacion();
                 echo json_encode(['success' => true, 'data' => $data]);
-            } catch (PDOException $e) {
+            } catch (\Exception $e) {
                 http_response_code(500);
                 echo json_encode(['success' => false, 'message' => 'Error al obtener trabajadores por coordinación: ' . $e->getMessage()]);
             }
         }
 
-        public function getTrabajadoresEnVacaciones() {
+        public function getTrabajadoresEnVacaciones()
+        {
             try {
-                // Adjust this query based on how you track vacations in your DB
-                $stmt = $this->pdo->query("SELECT COUNT(*) AS total FROM trabajadores WHERE estado_actual = 'vacaciones'"); // Example: 'estado_actual' field
-                $result = $stmt->fetch(PDO::FETCH_ASSOC);
-                echo json_encode(['success' => true, 'data' => ['total' => $result['total']]]);
-            } catch (PDOException $e) {
+                $total = $this->trabajadorRepository->countTrabajadoresEnVacaciones();
+                echo json_encode(['success' => true, 'data' => ['total' => $total]]);
+            } catch (\Exception $e) {
                 http_response_code(500);
                 echo json_encode(['success' => false, 'message' => 'Error al obtener trabajadores en vacaciones: ' . $e->getMessage()]);
             }
         }
 
-        public function getTrabajadoresParaJubilarse() {
+        public function getTrabajadoresParaJubilarse()
+        {
             try {
-                // Example: Workers 60 years or older. Adjust `fecha_nacimiento` to your column name.
-                $stmt = $this->pdo->query("SELECT COUNT(*) AS total FROM trabajadores WHERE TIMESTAMPDIFF(YEAR, fecha_nacimiento, CURDATE()) >= 60");
-                $result = $stmt->fetch(PDO::FETCH_ASSOC);
-                echo json_encode(['success' => true, 'data' => ['total' => $result['total']]]);
-            } catch (PDOException $e) {
+                $total = $this->trabajadorRepository->countTrabajadoresParaJubilarse();
+                echo json_encode(['success' => true, 'data' => ['total' => $total]]);
+            } catch (\Exception $e) {
                 http_response_code(500);
                 echo json_encode(['success' => false, 'message' => 'Error al obtener trabajadores para jubilarse: ' . $e->getMessage()]);
             }
         }
 
-        public function getTrabajadoresConDiscapacidad() {
+        public function getTrabajadoresConDiscapacidad()
+        {
             try {
-                // Assuming 'tiene_discapacidad' is a boolean (or 1/0) field
-                $stmt = $this->pdo->query("SELECT COUNT(*) AS total FROM tabla_titular WHERE discapacidad = 1"); 
-                $result = $stmt->fetch(PDO::FETCH_ASSOC);
-                echo json_encode(['success' => true, 'data' => ['total' => $result['total']]]);
-            } catch (PDOException $e) {
+                $total = $this->trabajadorRepository->countTrabajadoresConDiscapacidad();
+                echo json_encode(['success' => true, 'data' => ['total' => $total]]);
+            } catch (\Exception $e) {
                 http_response_code(500);
                 echo json_encode(['success' => false, 'message' => 'Error al obtener trabajadores con discapacidad: ' . $e->getMessage()]);
             }
         }
-
-    // Make sure all your API methods consistently exit after echoing JSON
-    // to prevent accidental output from views if a view load happens after an API call.
-    // Or, better yet, structure your main index.php to ONLY call cargarAPI() if 'api' is set,
-    // and ONLY call cargarVistas() if 'cargar' is set, preventing conflicts.
-
     }
-
 ?>

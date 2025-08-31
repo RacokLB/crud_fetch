@@ -32,7 +32,7 @@
                 // Obtener el total de registros de cada tabla
                 $totalTrabajadoresResultado = obtenerTotalRegistros(pdo: $pdo, tabla: 'servicio_medico');
                 $totalParientesResultado = obtenerTotalRegistros(pdo: $pdo, tabla: 'parientes_tratados');
-                $totalCortesiaResultado = obtenerTotalRegistros(pdo: $pdo, tabla: 'cortesia');
+                $totalCortesiaResultado = obtenerTotalRegistros(pdo: $pdo, tabla: 'pacientes_cortesia');
             
                 // Verificar si las consultas fueron exitosas
                 if (isset($totalTrabajadoresResultado['total']) && isset($totalParientesResultado['total']) && isset($totalCortesiaResultado['total'])) {

@@ -22,6 +22,7 @@
     foreach($resultado as $data) {
         echo "<tr>
             
+            <td >" .$data['id']. "</td>
             <td >" .$data['cedula']. "</td>
             <td >" .$data['nombres']. "</td>
             <td >" .$data['apellidos']. "</td>

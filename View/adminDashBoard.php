@@ -20,30 +20,18 @@
                         Elementos Administrador
                     </li>
                     <li class="sidebar-item">
-                        <a href="#" class="sidebar-link">
-                            <i class="fa-solid fa-file-excel pe-2"></i> Generar Reporte en Excel
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a href="#" class="sidebar-link">
-                            <i class="fa-solid fa-file-pdf pe-2"></i> Generar un Reporte en PDF
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
                         <a href="#" class="sidebar-link collapsed" data-bs-target="#pages" data-bs-toggle="collapse"
                             aria-expanded="false"><i class="fa-solid fa-boxes-stacked pe-2"></i> Módulos
                         </a>
                         <ul id="pages" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                             <li class="sidebar-item">
-                                <a href="#" class="sidebar-link">Trabajadores</a>
+                                <a href="/crud_fetch/View/indexTrabajador.php" class="sidebar-link">Trabajadores</a>
                             </li>
                             <li class="sidebar-item">
-                                <a href="#" class="sidebar-link">Parientes</a>
+                                <a href="/crud_fetch/View/indexParientes.php" class="sidebar-link">Parientes</a>
                             </li>
                             <li class="sidebar-item">
-                                <a class="sidebar-link">
-                                    <button type="button" class="btn btn-dark btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="Cortesia">Cortesía</button>
-                                </a>
+                                <a href="/crud_fetch/View/indexTrabajador.php" class="sidebar-link">Cortesia</a>
                             </li>
                         </ul>
                     </li>
@@ -70,9 +58,12 @@
 
         <div class="main">
             <nav class="navbar navbar-expand px-3 border-bottom" style="background-color: black;">
-                <button class="btn border border-danger bg-light" id="sidebar-toggle" type="button">
-                    <span class="navbar-toggler-icon "></span>
+                <button class="btn bg-light" id="sidebar-toggle" type="button">
+                    <span class="navbar-toggler-icon"></span>
                 </button>
+                <div class="col-md-11 text-center">
+                    <h6 class="text-center text-white">FUNDACION TEATRO TERESA CARREÑO</h6>
+                </div>
                 <div class="navbar-collapse navbar">
                     <ul class="navbar-nav">
                         <li class="nav-item dropdown">
@@ -91,7 +82,7 @@
 
             <br>
             <div class="container-fluid text-center">
-                <h1 class="mt-4 fw-bold">Panel de Control</h1>
+                <h1 class="mt-4 fw-bold col-md-12 " style="color:#F5F5DC">Panel de Control</h1>
                 <hr>
 
                 <div class="row mb-4">
@@ -135,11 +126,11 @@
                         <div class="row">
                             <form action="" method="GET" class="row">
                                 <div class="col-md-4">
-                                    <label for="fechaInicial" class="form-label">Fecha Inicio:</label>
+                                    <label for="fechaInicial" class="form-label" style="color:#F5F5DC">Fecha Inicio:</label>
                                     <input type="date" class="form-control" id="fechaInicial" name="fechaInicial">
                                 </div>
                                 <div class="col-md-4">
-                                    <label for="fechaFinal" class="form-label">Fecha Fin:</label>
+                                    <label for="fechaFinal" class="form-label" style="color:#F5F5DC">Fecha Fin:</label>
                                     <input type="date" class="form-control" id="fechaFinal" name="fechaFinal">
                                 </div>
                                 <div class="col-md-4 d-flex align-items-end">
@@ -156,6 +147,7 @@
                             <div class="card-header bg-dark text-white fw-bold">Reporte Gráfico de Pacientes atendidos por Especialidades</div>
                             <div class="card-body" id="reporte1-container">
                                 <canvas id="myChart"></canvas>
+                                <button onclick="exportChartToExcel('myChart', 'Grafico_Especialidades')" class="btn btn-info mt-3">Exportar Gráfico</button>
                             </div>
                         </div>
                     </div>
@@ -164,6 +156,7 @@
                             <div class="card-header bg-dark text-white fw-bold">Reporte Gráfico de Pacientes atendidos por Doctores</div>
                             <div class="card-body" id="reporte2-container">
                                 <canvas id="myChart2"></canvas>
+                                <button onclick="exportChartToExcel('myChart2', 'Grafico_Doctores')" class="btn btn-info mt-3">Exportar Gráfico</button>
                             </div>
                         </div>
                     </div>
@@ -173,6 +166,7 @@
                             <div class="card-header bg-dark text-white fw-bold">Reporte Gráfico de Pacientes atendidos por Género</div>
                             <div class="card-body" id="reporte3-container">
                                 <canvas id="myChart3"></canvas>
+                                <button onclick="exportChartToExcel('myChart3', 'Grafico_Pacientes_Por_Genero')" class="btn btn-info mt-3">Exportar Gráfico</button>
                             </div>
                         </div>
                     </div>
@@ -181,6 +175,7 @@
                             <div class="card-header bg-dark text-white fw-bold">Reporte Gráfico de Pacientes atendidos por Edad</div>
                             <div class="card-body" id="reporte4-container">
                                 <canvas id="myChart4"></canvas>
+                                <button onclick="exportChartToExcel('myChart4', 'Grafico_Pacientes_Por_Edad')" class="btn btn-info mt-3">Exportar Gráfico</button>
                             </div>
                         </div>
                     </div>
@@ -203,19 +198,19 @@
                                             </tbody>
                                     </table>
                                 </div>
-                                <p class="text-muted small mt-2">
-                                    *Clasificaciones basadas en la agrupación interna de datos de la aplicación.
-                                </p>
+                                <div class="card-body">
+                                    <button onclick="exportTableToExcel('ageClassificationTableBody', 'Reporte_Edad')" class="btn btn-success mt-3">Exportar Tabla a Excel</button>
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-md-12 mb-4">
                         <div class="card">
-                            <div class="card-header bg-dark text-white fw-bold">Reporte 5</div>
+                            <div class="card-header bg-dark text-white fw-bold">Pacientes atendidos por Patologías</div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table>
+                                    <table class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
                                                 <th>Patologia</th>
@@ -227,7 +222,10 @@
                                             </tbody>
                                     </table>
                                 </div>
-                                <p class="text-muted small mt-2">Aquí puedes integrar otro gráfico o una tabla de datos más detallada para el Reporte 5.</p>
+                                <div class="card-body">
+                                    <button onclick="exportTableToExcel('patologiaTableBody', 'Reporte_Patologias')" class="btn btn-success mt-3">Exportar Tabla a Excel</button>
+                                </div>
+                                
                             </div>
                         </div>
                     </div>
@@ -244,7 +242,7 @@
                             <div class="col-6 text-start">
                                 <p class="mb-0">
                                     <a href="#" class="text-muted">
-                                        <strong>CodzSwod</strong>
+                                        <strong>RacokVz</strong>
                                     </a>
                                 </p>
                             </div>
@@ -271,12 +269,49 @@
         </div>
     </div>
     
-    <script src="../Public/dashBoard.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-to-image/dist/chartjs-to-image.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
+    <script src="../Public/dashBoard.js"></script>
+    <script defer>
+
+        async function exportChartToExcel(chartID, filename) {
+            const canvas = document.getElementById(chartID);
+            if (!canvas) {
+                console.error(`Canvas con el ID "${chartID}" no encontrado.`);
+                return;
+            }
+
+            // Convertir el gráfico a una imagen
+            const imgData = canvas.toDataURL('image/png');
+
+            // Crear un nuevo libro de trabajo de Excel
+            const wb = XLSX.utils.book_new();
+            const ws = XLSX.utils.aoa_to_sheet([['Reporte Gráfico']]);
+            
+            // Agregar la imagen al archivo (esta parte es más compleja y SheetJS no la maneja directamente para imágenes binarias)
+            // Para simplificar, descargaremos la imagen directamente
+            const a = document.createElement('a');
+            a.href = imgData;
+            a.download = filename + '.png';
+            a.click();
+        }
+
+        function exportTableToExcel(tableID, filename) {
+            const table = document.getElementById(tableID);
+            if (!table) {
+                console.error(`Tabla con el ID "${tableID}" no encontrada.`);
+                return;
+            }
+
+            const ws = XLSX.utils.table_to_sheet(table);
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, "Reporte");
+            XLSX.writeFile(wb, filename + '.xlsx');
+        }
         //ESTE CHART SE ENCARGA DE TRAER ATRAVES DE FETCH AL ARCHIVO reportSpeciality.php
         const ctx = document.getElementById('myChart');
         let myChart = new Chart(ctx, { // Inicializa el gráfico sin datos inicialmente
@@ -544,10 +579,12 @@
                     if (result.status === 'success' && result.data) {
                         const ageData = result.data; // Los datos clasificados de tu PHP
                         
+                        
 
                         // Calcular el total general para los porcentajes
-                        const totalRegistros = ageData.niños + ageData.adolescentes + ageData.adultos + ageData.adultos_mayores;
+                        const totalRegistros = ageData.ninos + ageData.adolescentes + ageData.adultos + ageData.adultos_mayores;
 
+                        
                         // Define las categorías y sus rangos como se manejan en tu backend PHP
                         const categories = [
                             { classification: "Niños", range: "0 - 12 años", key: "ninos" },
@@ -559,6 +596,7 @@
                         // Itera sobre las categorías definidas y rellena la tabla
                         categories.forEach(category => {
                             const count = ageData[category.key];
+                           
                             // Calcula el porcentaje. Evita división por cero si no hay registros.
                             const percentage = totalRegistros > 0 ? (count / totalRegistros) * 100 : 0;
 
@@ -576,6 +614,7 @@
 
                             const cell4 = row.insertCell();
                             cell4.textContent = `${percentage.toFixed(2)}%`; // Formato de porcentaje con 2 decimales
+                            
                         });
 
                     } else {
@@ -708,56 +747,60 @@
 
             // Función para obtener los datos de la API y renderizar la tabla
             async function loadPatologiaData() {
-                // Selecciona el tbody de la tabla donde se insertarán las filas
-                const tableBodyPatologia = document.getElementById('patologiaTableBody'); 
-                // Limpia cualquier contenido previo en la tabla, útil si se recargan los datos
-                tableBodyPatologia.innerHTML = ''; 
+                const tableBodyPatologia = document.getElementById('patologiaTableBody');
+                tableBodyPatologia.innerHTML = ''; // Limpia cualquier contenido previo
 
                 try {
-                    // Realiza la llamada a tu API PHP
-                    // Asegúrate de que esta URL sea la correcta para tu endpoint PHP
-                    // Si tu archivo PHP está en 'htdocs/crud_fetch/Controllers/tu_archivo_api.php',
-                    // la URL en el frontend debería apuntar a ese lugar, por ejemplo:
-                    // const response = await fetch('/crud_fetch/Controllers/tu_archivo_api.php');
-                    const response = await fetch('http://localhost/crud_fetch/Models/reportPatologias.php'); // Reemplaza con la ruta correcta a tu archivo PHP
-                    console.log(response)
+                    const response = await fetch('http://localhost/crud_fetch/Models/reportPatologias.php');
+                    console.log(`respuesta del backend al momento de solicitar las patologias ${response}`)
                     if (!response.ok) {
-                        console.log(`Error HTTP: ${response.status}`);
                         throw new Error(`Error HTTP: ${response.status}`);
                     }
-                    const answer = await response.json(); // Asume que la API devuelve JSON
                     
+                    const answer = await response.json();
+                    console.log(`respuesta de las patologias llamadas del backend ${answer}`)
 
-                    if (answer.status === 'success' && answer.data) {
-                        const patologiaData = answer.data; // Los datos clasificados de tu PHP
-                        console.log('Datos enviados del backend : ' , patologiaData);
+                    if (answer.status === 'success' && Array.isArray(answer.data)) {
+                        const patologiasData = answer.data;
+
+                        // Verifica si el array de datos está vacío
+                        if (patologiasData.length === 0) {
+                            tableBodyPatologia.innerHTML = `<tr><td colspan="4" class="text-info">No hay datos de patologías disponibles.</td></tr>`;
+                            return;
+                        }
 
                         // Calcular el total general para los porcentajes
-                        const totalRegistros = patologiaData.niños + patologiaData.adolescentes ;
+                        const totalRegistros = patologiasData.reduce((sum, item) => sum + parseInt(item.total), 0);
 
-
+                        // Iterar sobre el array de patologías y crear las filas de la tabla
+                        patologiasData.forEach(patologia => {
+                            const total = parseInt(patologia.total);
+                            const porcentaje = totalRegistros > 0 ? (total / totalRegistros) * 100 : 0;
+                            
+                            // Crea el elemento de la fila
+                            const row = tableBodyPatologia.insertRow();//Se crea una nueva fila
+                            //Insertar las celdas <> con los datos
+                            const cell1 = row.insertCell();
+                            cell1.textContent = patologia.patologias;
+                            const cell2 = row.insertCell();
+                            cell2.textContent = total;
+                            const cell3 = row.insertCell();
+                            cell3.textContent = `${porcentaje.toFixed(2)}%`;
+                        });
+                        
                     } else {
                         console.error("API Error:", answer.mensaje || "Datos no disponibles o estado no exitoso.");
-                        tableBodyPatologia.innerHTML = `<tr><td colspan="4" class="text-danger">No se pudieron cargar los datos de los totales por patologia.</td></tr>`;
+                        tableBodyPatologia.innerHTML = `<tr><td colspan="4" class="text-danger">No se pudieron cargar los datos de los totales por patología.</td></tr>`;
                     }
 
                 } catch (error) {
-                    console.error("Error al cargar los datos de las patologias:", error);
-                    // Mostrar un mensaje de error en la UI
+                    console.error("Error al cargar los datos de las patologías:", error);
                     tableBodyPatologia.innerHTML = `<tr><td colspan="4" class="text-danger">Error al conectar con el servidor de datos.</td></tr>`;
                 }
             }
 
-            // Llama a la función cuando el DOM esté completamente cargado
-            document.addEventListener('DOMContentLoaded', () => {
-                // Aquí inicializarías tus otros gráficos de Chart.js
-                // Ejemplo:
-                // initMyChart();
-                // initMyChart2();
-                // initMyChart3();
-
-                loadPatologiaData(); // Carga la tabla de clasificación por edad
-            });
+            // Llama a la función para cargar los datos cuando se cargue la página
+            document.addEventListener('DOMContentLoaded', loadPatologiaData);
 
     </script>
 </body>

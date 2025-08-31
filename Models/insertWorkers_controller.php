@@ -72,6 +72,7 @@
             $sede = trim(string: $_POST['sede']);
             $cedula = trim(string: $_POST['paciente']);
             $edad = trim(string: $_POST['edades']);
+            $sexo = trim(string: $_POST['sexo']);
             $coordinacion = trim(string: $_POST['coordinaciones']);
             $especialidad = trim(string: $_POST['especialidad']);
             $especialista = trim(string: $_POST['especialista']);
@@ -108,9 +109,9 @@
                 echo "<p class='error'>$message</p>";
                 }; 
             }else{
-                require "/xampp/htdocs/crud_fetch/Configconexion.php";
+                require "/xampp/htdocs/crud_fetch/Config/conexion.php";
 
-                $query = $pdo->prepare(query:"INSERT INTO servicio_medico (sede, cedula, edad, ,sexo, coordinacion, especialidad, especialista, patologia, afeccion) VALUES(:sede, :cedula, :edad, :sexo, :coordinacion, :especialidad, :especialista, :patologia, :afeccion)");
+                $query = $pdo->prepare(query:"INSERT INTO servicio_medico (sede, cedula, edad, sexo, coordinacion, especialidad, especialista, patologia, afeccion) VALUES(:sede, :cedula, :edad, :sexo, :coordinacion, :especialidad, :especialista, :patologia, :afeccion)");
                 $query->bindParam(param: ':sede', var: $sede);
                 $query->bindParam(param: ':cedula', var: $cedula);
                 $query->bindParam(param: ':edad', var: $edad);

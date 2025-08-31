@@ -1,4 +1,4 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
     <html lang="en">
 
     <head>
@@ -89,6 +89,9 @@
                     <button class="btn bg-light" id="sidebar-toggle" type="button">
                         <span class="navbar-toggler-icon"></span>
                     </button>
+                    <div class="col-md-11 text-center">
+                        <h6 class="text-center text-white">FUNDACION TEATRO TERESA CARREÑO</h6>
+                    </div>
                     <div class="navbar-collapse navbar">
                         <ul class="navbar-nav">
                             <li class="nav-item dropdown">
@@ -131,7 +134,6 @@
                                             <th scope="col">Apellidos</th>
                                             <th scope="col">Edad</th>
                                             <th scope="col">N°Telf</th>
-                                            <th scope="col">Estado</th>
                                             <th scope="col">RIF</th>
                                             <th scope="col">Cargo</th>
                                             <th scope="col">Coordinacion</th>
@@ -377,6 +379,7 @@
                     serverSide: false, // Keep this as false if your API returns all data at once
                     ajax: {
                         url: 'http://localhost/crud_fetch/index.php/?api=trabajadores', // Your API endpoint
+                    
                         dataSrc: '' // Your API directly returns an array
                     },
                     columns: [
@@ -392,19 +395,16 @@
                             data: 'cedula'
                         }, // Assuming your JSON key is 'cedula'
                         {
-                            data: 'nombre'
+                            data: 'nombres'
                         },
                         {
-                            data: 'apellido'
+                            data: 'apellidos'
                         },
                         {
-                            data: 'fechaNacimiento'
+                            data: 'fecha_nacimiento'
                         },
                         {
-                            data: 'telefonoMovil'
-                        },
-                        {
-                            data: 'estado'
+                            data: 'telefono_movil'
                         },
                         {
                             data: 'rif'

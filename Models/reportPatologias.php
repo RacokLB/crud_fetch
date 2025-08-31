@@ -46,13 +46,12 @@
                 // Obtener fechas del formulario (o valores por defecto si no se han enviado)
                     $fechaInicial = $_GET['fechaInicial'] ?? date('Y-m-01');
                     $fechaFinal = $_GET['fechaFinal'] ?? date('Y-m-d');
-                    echo $fechaInicial;
-                    echo $fechaFinal;
+
                     
 
 
                     $totalesGlobalesPorPatologia = obtenerTotalesPorPatologia($pdo, $fechaInicial, $fechaFinal);
-                    print_r($totalesGlobalesPorPatologia);
+                    
 
                     // Prepare the response in the format the frontend expects
                     echo json_encode([

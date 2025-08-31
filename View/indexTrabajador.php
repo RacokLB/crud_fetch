@@ -20,7 +20,8 @@
     <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="../Public/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/fontawesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   </head>
   
   <?php
@@ -41,44 +42,36 @@
           <!-- Content For Sidebar -->
           <div class="h-100">
               <div class="sidebar-logo">
-                  <a href="#">FTTC</a>
+                  <a href="#" class="text-white fs-5">FTTC</a>
               </div>
               <ul class="sidebar-nav">
                 <li class="sidebar-header">
-                    Elementos analista
-                </li>
-                <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
-                        <i class="fa-solid fa-list pe-2"></i>
-                        Generar Excel
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
-                        <i class="fa-solid fa-list pe-2"></i>
-                        Generar PDF
-                    </a>
+                  <h5 class="display-7">Elementos analista</h5>
+                    
                 </li>
                 <li class="sidebar-item">
                     <a href="#" class="sidebar-link collapsed" data-bs-target="#pages" data-bs-toggle="collapse"
-                        aria-expanded="false"><i class="fa-solid fa-file-lines pe-2"></i>
-                        Modulos
+                        aria-expanded="false"><h6>MODULOS</h6>
+                        
                     </a>
                     <ul id="pages" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">Parientes</a>
+                            <a href="indexParientes.php" class="sidebar-link">Parientes</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="adminDashboard.php" class="sidebar-link">Monitoreo</a>
                         </li>
                         <li class="sidebar-item">
                             <a class="sidebar-link">
-                              <button type="button" class="btn btn-dark btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="Cortesia">Cortesia</button>
+                              <a class="sidebar-link" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="Cortesia">Cortesia</a>
                             </a>
                         </li>
                     </ul>
                 </li>
                 <li class="sidebar-item">
                     <a href="#" class="sidebar-link collapsed" data-bs-target="#auth" data-bs-toggle="collapse"
-                        aria-expanded="false"><i class="fa-regular fa-user pe-2"></i>
-                        USUARIO
+                        aria-expanded="false"><h6>USUARIO</h6>
+                        
                     </a>
                     <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                         <li class="sidebar-item">
@@ -96,10 +89,13 @@
           </div>
       </aside>
       <div class="main">
-          <nav class="navbar navbar-expand px-3 border-bottom">
+          <nav class="navbar navbar-expand px-3 border-bottom" style="background-color: black;">
               <button class="btn border border-danger bg-light" id="sidebar-toggle" type="button">
                   <span class="navbar-toggler-icon"></span>
               </button>
+              <div class="col-md-11 text-center">
+                    <h6 class="text-center text-white">FUNDACION TEATRO TERESA CARREÑO</h6>
+                </div>
               <div class="navbar-collapse navbar">
                   <ul class="navbar-nav">
                       <li class="nav-item dropdown">
@@ -361,6 +357,7 @@
                               <table class="table fs-6 able-striped table-hover shadow-lg">
                                   <thead>
                                       <tr>
+                                          <th scope="col">N°</th>
                                           <th scope="col">Cedula</th>
                                           <th scope="col">Nombres</th>
                                           <th scope="col">Apellidos</th>
