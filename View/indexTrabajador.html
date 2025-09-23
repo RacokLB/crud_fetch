@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FTTC - Servicio Médico PB</title>
+    <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/fontawesome.min.css">
+    <link rel="stylesheet" href="../Public/style.css">
+    <link rel="icon" type="image/x-icon" href="../Public/img/logotipo.jpg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  </head>
+
+<body>
+    <div class="wrapper">
+        <aside id="sidebar" class="js-sidebar">
+            <div class="h-100">
+                <div class="sidebar-logo">
+                    <a href="../index.php" class="text-white fs-5">FTTC</a>
+                </div>
+                <ul class="sidebar-nav">
+                    <li class="sidebar-header">
+                        <h5 class="fw-bold">Elementos Analista</h5>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link collapsed" data-bs-target="#pages" data-bs-toggle="collapse"
+                            aria-expanded="false">
+                            <i class="fa-solid fa-boxes-stacked pe-2"></i>
+                            Modulos
+                        </a>
+                        <ul id="pages" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                            <li class="sidebar-item">
+                                <a href="indexParientes.html" class="sidebar-link">Parientes</a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="adminDashboard.php" class="sidebar-link">Monitoreo</a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link"  data-bs-toggle="modal" data-bs-target="#fttcModal" data-bs-whatever="Cortesia">Cortesia</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link collapsed" data-bs-target="#auth" data-bs-toggle="collapse"
+                            aria-expanded="false"><i class="fa-regular fa-user pe-2"></i>USUARIO
+                        </a>
+                        <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                            <li class="sidebar-item">
+                                <a href="olvidoContraseña.php" class="sidebar-link">Olvide la contraseña</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+        <div class="main">
+            <nav class="navbar navbar-expand px-3 border-bottom" style="background-color: black;">
+                <button class="btn border border-danger bg-light" id="sidebar-toggle" type="button">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="col-md-11 text-center">
+                    <h6 class="text-center text-white">FUNDACION TEATRO TERESA CARREÑO</h6>
+                </div>
+                <div class="navbar-collapse navbar">
+                    <ul class="navbar-nav">
+                        <li class="nav-item dropdown">
+                            <a href="#" data-bs-toggle="dropdown" class="nav-icon pe-md-0">
+                                <img src="../Public/img/logotipo.jpg" class="avatar img-fluid rounded" alt="Logotipo del FTTC">
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <a href="#" class="dropdown-item">Analista</a>
+                                <a href="#" class="dropdown-item">Indicaciones</a>
+                                <a href="login.php" class="dropdown-item">Salir</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <br>
+            <main class="col-12 px-3">
+                <div class="container-fluid">
+                    <div class="mb-3">
+                        <h1 class="fw-bold text-center text-white">Modulo Trabajadores Sede Planta Baja</h1>
+                    </div>
+                    <div class="row shadow-lg">
+                        <div class="col-12 col-md-6 d-flex">
+                            <div class="card flex-fill border-0 illustration">
+                                <div class="card-body p-0 d-flex flex-fill">
+                                    <div class="row g-0 w-100">
+                                        <div class="col-6">
+                                            <div class="p-3 m-1" style="color: white;">
+                                                
+                                                <p class="mb-0">Vista Administrador/Servicio Medico</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-6 align-self-start text-start">
+                                            <img src="../Public/img/logotipo.jpg" class="img-fluid illustration-img" alt="teatro teresa carreño">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 d-flex">
+                            <div class="card flex-fill border-0">
+                                <div class="card-body py-4 text-white fs-bold" style="background-color: black;">
+                                    <div class="d-flex align-items-start">
+                                        <div class="flex-grow-1">
+                                            <div class="list-group" id="reporte"></div>
+                                            <div class="list-group col-4 d-flex">
+                                                <button type="button" id="desglozar" class="list-group-item list-group-item-action bg-dark text-white" aria-current="true">
+                                                    Desplegar Estadisticas
+                                                </button>
+                                            </div>
+                                            <h4 class="mb-2"></h4>
+                                            <p class="mb-2">
+                                                FECHA & HORA
+                                            </p>
+                                            <div class="mb-0">
+                                                <span class="text-white fs-6">
+                                                    <?php echo date(format:"d-m-Y"); ?>
+                                                </span>
+                                                <span class="text-white fs-6" id="mostrar_fecha"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <main class="content px-3 py-2">
+                <div class="container-fluid">
+                    <div class="card-body">
+                        <div class="col-12 d-flex">
+                            <div class="card flex-fill border-0" style="background-color: black;">
+                                <div class="card-header border-3">
+                                    <h4 class="card-title fw-bold text-white">
+                                        Tabla de Selección
+                                    </h4>
+                                    <h6 class="card-subtitle text-white">
+                                        Base de datos de los trabajadores activos de la Fundación Teatro Teresa Carreño.
+                                    </h6>
+                                </div>
+                                <div class="card-body">
+                                    <form action="" method="post">
+                                        <div class="form-group">
+                                            <label for="buscar" class="form-label fw-bold fs-5 text-white">Introduzca CI o Nombre</label>
+                                          <div class="input-group">
+                                            <p class="placeholder-glow col-6 bg-primary">
+                                            <span class="placeholder col-12">
+                                              <input type="text" autocomplete="off" name="buscar" id="buscar" class="form-control bg-dark text-white fw-bold fs-4" placeholder="Buscar..." title="Introduzca Nombre, Apellido o CI">
+                                            </span>
+                                            </p>
+                                          </div>
+                                        </div>
+                                    </form>
+                                    <div class="table-responsive">
+                                        <table class="table fs-6 table-striped table-hover shadow-lg text-white">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">N°</th>
+                                                    <th scope="col">Cedula</th>
+                                                    <th scope="col">Nombres</th>
+                                                    <th scope="col">Apellidos</th>
+                                                    <th scope="col">Discapacidad</th>
+                                                    <th scope="col">Edad</th>
+                                                    <th scope="col">Estatura</th>
+                                                    <th scope="col">Peso<br>KG</th>
+                                                    <th scope="col">Tipo de Sangre</th>
+                                                    <th scope="col">Coordinacion</th>
+                                                    <th scope="col">Acción</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="resultado">
+                                                </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <a href="#" class="theme-toggle">
+                <i class="fa-regular fa-moon"></i>
+                <i class="fa-regular fa-sun"></i>
+            </a>
+            <footer class="footer">
+                <div class="container-fluid">
+                    <div class="row text-muted">
+                        <div class="col-6 text-start">
+                            <p class="mb-0">
+                                <a href="#" class="text-white">
+                                    <strong>RacokVz</strong>
+                                </a>
+                            </p>
+                        </div>
+                        <div class="col-6 text-end">
+                            <ul class="list-inline">
+                                <li class="list-inline-item">
+                                    <a href="#" class="text-white">Contacto</a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a href="#" class="text-white">Sobre mi</a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a href="#" class="text-white">Terminos y Condiciones</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <div class="modal fade" id="consultaModalPb" tabindex="-1" aria-labelledby="consultaModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" style="background-color: black;">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold text-white" id="consultaModalLabel">Registro de Consulta Médica</h5>
+                    <button type="button" class="btn-close bg-light" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body bg-light">
+                    <form id="formulario_consulta_pb" action="" method="POST">
+                        <div class="container-sm">
+                            <h4 class="fw-bold text-dark">Motivo de la Consulta</h4>
+                            <div class="form-check" id="campo_medicina1">
+                                <input type="radio" class="form-check-input fs-4 bg-dark" value="1" id="tipo_interna" name="tipo_consulta">
+                                <label for="tipo_interna" class="fs-5 text-dark">Medicina Interna</label>
+                            </div>
+                            <div class="form-check" id="campo_especialidad">
+                                <input type="radio" class="form-check-input fs-4 bg-dark" value="2" id="tipo_especialista" name="tipo_consulta">
+                                <label for="tipo_especialista" class="fs-5 text-dark">Especialidad</label>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="container">
+                            <h5 class="fw-bold text-dark">Sede del Servicio médico</h5>
+                            <div class="form-check" id="campo_planta">
+                                <input type="radio" class="form-check-input fs-4 bg-dark" value="PB" id="planta" name="sede">
+                                <label for="planta" class="fs-5 text-dark">Planta Baja</label>
+                            </div>
+                        </div>
+                        <hr>
+                        <section id="containerMain" style="display: none">
+                            
+                    <!--CAMPO COORDINACION-->
+                            <div class="mb-3">
+                                <div class="input-group">
+                                    <span class="input-group-text">Coordinacion</span>
+                                    <input type="text" name="coordinaciones" id="coordinaciones" class="form-control" readonly>
+                                </div>
+                            </div>
+                            <hr>
+                <!--- Campo Medicina General--->
+                            <div class="container-sm" id="campo_medicina">
+                                <h5 class="text-center fw-bold text-dark">Medicina Interna</h5>
+                                <div class="mb-3">
+                                    <div class="input-group">
+                                        <span class="input-group-text">Consulta</span>
+                                        <select class="form-select" name="medicina_interna" id="medicina_interna">
+                                            <option value=""></option>
+                                        
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="input-group">
+                                        <span class="input-group-text">Profesional</span>
+                                        <select class="form-select" id="profesional" name="profesional" data-placeholder="Hazme Click">
+                                            <option value=""></option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                <!--- Campo Especialidad-->
+                            <div class="container-sm" id="campo_especialista">
+                                <h5 class="fw-bold text-center text-dark">Especialidad</h5>
+                                <div class="mb-3">
+                                    <div class="input-group">
+                                        <span class="input-group-text">Especialidad</span>
+                                        <select class="form-select" id="especialidades" name="especialidad" data-placeholder="Hazme Click">
+                                            <option value=""></option>
+                                            
+                                            
+                                        </select>
+                                    </div>
+                                </div>
+                <!--- Campo Especialista-->
+                                <div class="mb-3">
+                                    <div class="input-group">
+                                        <span class="input-group-text">Especialista</span>
+                                        <select class="form-select" id="especialistas" name="especialista" data-placeholder="Hazme Click">
+                                            <option value=""></option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                                <div id="pdf-content">
+                                    <h5 class="fw-bold text-center text-dark display-7">Datos del Paciente</h5>
+                                    <div class="mb-3">
+                                        <div class="input-group">
+                                        <input type="hidden" name="idpersonas" id="idpersonas" value="">
+                                            <span class="input-group-text">Cédula</span>
+                                            <input type="text" name="paciente" id="paciente" class="form-control" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <div class="input-group">
+                                            <span class="input-group-text">Edad</span>
+                                            <input type="text" name="edades" id="edades" class="form-control" readonly>
+                                        </div>
+                                    </div>
+                        <!---Campo Sexo--->
+                                    <div class="d-sm-inline-flex text-center">
+                                        <div class="p-2" id="masculinoTrabajador">
+                                            <input type="radio" class="form-check-input fs-5 bg-dark" value="M" id="masculino" name="sexo">
+                                            <label for="masculino" class="fs-5 text-dark">Masculino</label>
+                                        </div>
+                                        <div class="p-2" id="femeninoTrabajador">
+                                            <input type="radio" class="form-check-input fs-5 bg-dark " value="F" id="femenino" name="sexo">
+                                            <label for="femenino" class="fs-5 text-dark">Femenino</label>
+                                        </div>
+                                    </div>
+                                    <hr>
+                        <!--Campo Patologia-->
+                                    <div class="mb-3">
+                                        <h5 class="fw-bold text-center text-dark">Información Médica</h5>
+                                        <div class="input-group">
+                                            <span class="input-group-text">Patología</span>
+                                            <select class="form-select" name="patologia" id="patologia" data-placeholder="Hazme Click">
+
+                                                <option value=""></option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+                        <!--Campo Afeccion-->
+                                    <div class="mb-3">
+                                        <div class="input-group">
+                                            <span class="input-group-text">Afección</span>
+                                            <textarea class="form-control" placeholder="Afeccion del paciente.." rows="8" id="afeccion" name="afeccion"></textarea>
+                                        </div>
+                                    </div>
+                                    <hr>
+
+                                    <h5 class="fw-bold text-center text-dark">Registro de la Consulta</h5>
+                                    <div class="mb-3">
+                                        <div class="input-group">
+                                            <span class="input-group-text">Diagnóstico</span>
+                                            <textarea class="form-control" placeholder="Diagnóstico o impresión clínica..." rows="8" id="diagnostico" name="diagnostico"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <div class="input-group">
+                                            <span class="input-group-text">Tratamiento</span>
+                                            <textarea class="form-control" placeholder="Tratamiento o prescripción médica..." rows="8" id="tratamiento" name="tratamiento"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <div class="input-group">
+                                            <span class="input-group-text">Observaciones</span>
+                                            <textarea class="form-control" placeholder="Notas adicionales del médico..." rows="3" id="observaciones" name="observaciones"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            <hr>
+                        </section>
+                        <div class="mb-3 text-center">
+                            <input type="button" name="registrar" id="registrar_modal" value="Registrar" class="btn btn-outline-primary focus-ring focus-ring-success btn-lg">
+                            <input type="button" name="descargar" id="descargar_modal" value="Descargar PDF" class="btn btn-outline-success focus-ring focus-ring-success btn-lg">
+                            <input type="button" name="limpiar" id="limpiar_modal" value="Limpiar" class="btn btn-outline-danger focus-ring focus-ring-danger btn-lg">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-----Modal principal del formulario de cortesia----->
+    <div class="modal fade" id="fttcModal" tabindex="-1" aria-labelledby="fttcModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" >
+                <div class="modal-header">
+                    <h5 class="modal-title" id="fttcModalLabel">
+                        
+                        Formulario de Servicio Médico
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body bg-light">
+                    <form id="formCortesia" action="" methods="POST">
+                            <div class="container-sm">
+                                    <h4 class="text-center text-primary mb-3">Motivo de la Consulta</h4>
+                                <div class="d-flex flex-wrap justify-content-center gap-3 mb-4">
+                                    <div class="form-check form-check-inline" id="campo_medicina_radio">
+                                        <input class="form-check-input fs-4 bg-dark" type="radio" name="tipoConsulta" id="tipoMedicina" value="1">
+                                        <label class="form-check-label" for="tipoMedicina">
+                                            <i class="fas fa-stethoscope me-1"></i>Medicina Interna
+                                        </label>
+                                    </div>
+                                    <div class="form-check" id="campo_especialidad_radio">
+                                        <input class="form-check-input fs-4 bg-dark" type="radio" name="tipoConsulta" id="tipoEspecialidad" value="2">
+                                        <label class="form-check-label" for="tipoEspecialidad">
+                                            <i class="fas fa-user-md me-1"></i>Especialidad
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="container">
+                                <h4 class="text-center text-primary mb-3">Sede del Servicio Médico</h4>
+                                <div class="d-flex flex-wrap justify-content-center gap-3 mb-4">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="sede_cortesia" id="PBCortesia" value="PB">
+                                        <label class="form-check-label" for="PBCortesia">
+                                            <i class="fas fa-building me-1"></i>Planta Baja
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <hr class="my-4">
+                            <section id="containerMainCortesia" style="display:none;">
+                                    <hr class="my-4">
+
+                                    <h4 class="text-center text-primary mb-3">Organismo de Cortesía</h4>
+                                    <div class="mb-3">
+                                        <label for="institucionCortesia" class="form-label">Institución</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text"><i class="fas fa-hospital"></i></span>
+                                            <select name="institucionCortesia" id="institucionCortesia" class="form-select">
+                                                <option value="">Seleccione...</option>
+                                                <option value=""></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    
+                                    <hr class="my-4">
+
+                                    <div id="campo_medicina_cortesia">
+                                        <h4 class="text-center text-primary mb-3">Medicina Interna</h4>
+                                        <div class="mb-3">
+                                            <label for="medicinaCortesia" class="form-label">Tipo de Consulta</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text"><i class="fas fa-pills"></i></span>
+                                                <select class="form-select" name="medicinaCortesia" id="medicinaCortesia">
+                                                    <option value="">Seleccione...</option>
+                                                    <option value=""></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="profesionalCortesia" class="form-label">Profesional</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text"><i class="fas fa-user-nurse"></i></span>
+                                                <select class="form-select" id="profesionalCortesia" name="profesionalCortesia">
+                                                    <option value="">Seleccione...</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+
+                                    <div id="campo_especialidad_cortesia">
+                                        <h4 class="text-center text-primary mb-3">Especialidad</h4>
+                                        <div class="mb-3">
+                                            <label for="especialidadCortesia" class="form-label">Especialidad</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text"><i class="fas fa-brain"></i></span>
+                                                <select class="form-select" id="especialidadCortesia" name="especialidadCortesia">
+                                                    <option value="">Seleccione...</option>
+                                                    
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="especialistaCortesia" class="form-label">Especialista</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
+                                                <select class="form-select" id="especialistaCortesia" name="especialistaCortesia">
+                                                    <option value="">Seleccione...</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <div class="" id="pdf_content_cortesia">
+                                    <h4 class="text-center text-primary mb-3">Datos Personales</h4>
+                                    <div class="row g-3">
+                                        <div class="col-md-6">
+                                            <label for="cedula_cortesia" class="form-label">Cédula</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text"><i class="fas fa-id-card"></i></span>
+                                                <input type="text" class="form-control" name="cedula_cortesia" id="cedula_cortesia" placeholder="..." minlength="6" maxlength="8">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="nombre_cortesia" class="form-label">Nombre</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                                <input type="text" class="form-control" name="nombre_cortesia" id="nombre_cortesia" placeholder="...">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="edad_cortesia" class="form-label">Edad</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                                <input type="text" class="form-control" name="edad_cortesia" id="edad_cortesia" placeholder="..." minlength="1" maxlength="2">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label">Sexo</label>
+                                            <div class="d-flex gap-3">
+                                                <div class="form-check form-check-inline" id="sexo_masculino_cortesia">
+                                                    <input class="form-check-input" type="radio" name="sexo_cortesia" id="masculinoCortesia" value="M">
+                                                    <label class="form-check-label" for="masculinoCortesia">
+                                                        <i class="fas fa-mars"></i> Masculino
+                                                    </label>
+                                                </div>
+                                                <div class="form-check form-check-inline" id="sexo_femenino_cortesia">
+                                                    <input class="form-check-input" type="radio" name="sexo_cortesia" id="femeninoCortesia" value="F">
+                                                    <label class="form-check-label" for="femeninoCortesia">
+                                                        <i class="fas fa-venus"></i> Femenino
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <hr class="my-4">
+
+                                    <h4 class="text-center text-primary mb-3">Información Médica</h4>
+                                    <div class="mb-3">
+                                        <label for="patologiaCortesia" class="form-label">Patología</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text"><i class="fas fa-virus"></i></span>
+                                            <select class="form-select" name="patologiaCortesia" id="patologiaCortesia" required>
+                                                <option></option>
+                                                
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="afeccion_cortesia" class="form-label">Afección</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text"><i class="fas fa-notes-medical"></i></span>
+                                            <textarea name="afeccion_cortesia" class="form-control" id="afeccion_cortesia" rows="6" placeholder="Descripción de la afección..." required></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="diagnostico_cortesia" class="form-label">Diagnóstico</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text"><i class="fas fa-user-check"></i></span>
+                                            <textarea class="form-control" id="diagnostico_cortesia" name="diagnostico_cortesia" rows="7" placeholder="Diagnóstico o impresión clínica..." required></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="tratamiento_cortesia" class="form-label">Tratamiento</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text"><i class="fas fa-prescription-bottle-alt"></i></span>
+                                            <textarea class="form-control" id="tratamiento_cortesia" name="tratamiento_cortesia" rows="6" placeholder="Tratamiento o prescripción médica..." required></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="observaciones_cortesia" class="form-label">Observaciones</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text"><i class="fas fa-comment-medical"></i></span>
+                                            <textarea class="form-control" id="observaciones_cortesia" name="observaciones_cortesia" rows="3" placeholder="Notas adicionales del médico..."></textarea>
+                                        </div>
+                                    </div>
+                            </section>
+                        <div class="modal-footer d-flex justify-content-end">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="button" class="btn btn-primary" id="registrarCortesia" name="registrarCortesia">Registrar</button>
+                            <button type="button" class="btn btn-success" id="downloadPdfBtn" name="downloadPdfBtn">
+                                <i class="fas fa-file-pdf me-1"></i>Descargar PDF
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    </main>
+    
+<!--CAMPO SCRIPTS-->
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="../Public/pb.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    
+    <script defer>
+    //---Modal de Cortesia manejo de las interacciones---//
+    $(document).ready(function() {
+        const formElementCortesia = document.getElementById('pdf_content_cortesia');
+        const registrarCortesiaBtn = document.getElementById('registrarCortesia');
+        const descargarBtnCortesia = document.getElementById('downloadPdfBtn');
+        
+        // --- Simulación de datos (normalmente vendrían de una base de datos con PHP) ---
+        const patologiasDataCortesia = [
+            { id: 1, nombre: "Cardiovasculares" },
+            { id: 2, nombre: "Osteoarticulares" },
+            { id: 3, nombre: "Infecciones Virales" },
+            { id: 4, nombre: "Infeccion de ORL" },
+            { id: 5, nombre: "Odontologica" },
+            { id: 6, nombre: "Alergias" },
+            { id: 7, nombre: "Neurologicas" },
+            { id: 8, nombre: "Enfermedades Metabolicas" },
+            { id: 9, nombre: "Consulta Regular" },
+            { id: 10, nombre: "Enfemedades Gastrointestinales" },
+            { id: 11, nombre: "Asma" },
+            { id: 12, nombre: "Enfermedades Autoinmunes" },
+            { id: 13, nombre: "Infección Respiratoria Aguda" },
+            { id: 14, nombre: "Enfermedades Geneticas" }
+        ];
+        const institucionesData = [
+            { id: 1, nombre: "CNE" },
+            { id: 2, nombre: "Alcaldia" },
+            { id: 3, nombre: "Banco Digital de los Trabajadores" },
+            { id: 4, nombre: "Benefisiario" },
+            { id: 5, nombre: "Comunidad" },
+            { id: 6, nombre: "Casa Militar" },
+            { id: 7, nombre: "Contratista" },
+            { id: 8, nombre: "Evento Privado" },
+            { id: 9, nombre: "Teves" },
+            { id: 10, nombre: "OSV" },
+            { id: 11, nombre: "Red Arte" },
+            { id: 12, nombre: "Museo" },
+            { id: 13, nombre: "UNEARTE" },
+            { id: 14, nombre: "VIP" },
+            { id: 15, nombre: "Solo Alfombras" },
+            { id: 67, nombre: "Funciones" },
+            { id: 68, nombre: "Evento Presidencial" }
+        ];
+        const especialidadesDataCortesia = [
+            { id: 1, nombre: "Medicina Interna" },
+            { id: 2, nombre: "Traumatologia" },
+            { id: 3, nombre: "Fisiatra" },
+            { id: 4, nombre: "Foniatra" },
+            { id: 5, nombre: "Terapista de Lenguaje" },
+            { id: 6, nombre: "Nutricionista" },
+            { id: 7, nombre: "Nutrologo" },
+            { id: 8, nombre: "Fisioterapia" },
+            { id: 9, nombre: "Terapia Ocupacional" },
+            { id: 10, nombre: "Psicologia" },
+            { id: 11, nombre: "Psiquiatria" }
+        ];
+
+        const profesionalesDataCortesia = [
+            { id: 1, nombre: "Dr. Juan Carlos Matamoros", especialidadId: 1 },
+            { id: 2, nombre: "Dr. Armando Orta", especialidadId: 3 },
+            { id: 3, nombre: "Dr. Erick Zarate", especialidadId: 1 },
+            { id: 4, nombre: "Dr. Inri Perez", especialidadId: 2 },
+            { id: 5, nombre: "Dr. Johan Simbron", especialidadId: 1 },
+            { id: 6, nombre: "Dra. Luis Bustamante", especialidadId: 2 },
+            { id: 7, nombre: "Dr. Luis Loayza", especialidadId: 1 },
+            { id: 8, nombre: "Dra. Alexis Barazarte", especialidadId: 1 },
+            { id: 9, nombre: "Dra. Amanda Purgarita", especialidadId: 1 },
+            { id: 10, nombre: "Dra. Anaid Rojas", especialidadId: 1 },
+            { id: 11, nombre: "Dra. Arlinis Hernandez", especialidadId: 3 },
+            { id: 12, nombre: "Dra. Clariza Guzman", especialidadId: 2 },
+            { id: 13, nombre: "Dra. Faviola Corti", especialidadId: 2 },
+            { id: 14, nombre: "Dra. Ismelda Guercio", especialidadId: 1 },
+            { id: 15, nombre: "Dra. Jonelly Godoy", especialidadId: 1 },
+            { id: 16, nombre: "Dra. Luisa Torres", especialidadId: 1 },
+            { id: 17, nombre: "Dra. Nohelismae Camacho", especialidadId: 3 },
+            { id: 18, nombre: "Dra. Olimar Gamboa", especialidadId: 1 },
+            { id: 19, nombre: "Dra. Ronangely Mendoza", especialidadId: 7 },
+            { id: 20, nombre: "Dra. Selly Albarran", especialidadId: 1 },
+            { id: 21, nombre: "Duvresly Aponte", especialidadId: 9 },
+            { id: 22, nombre: "Kileiney Barrios", especialidadId: 9 },
+            { id: 23, nombre: "Lic. Mayerling Marquez", especialidadId: 8 },
+            { id: 24, nombre: "Lic. Angie Perez", especialidadId: 8 },
+            { id: 25, nombre: "Lic. Blesney Bastardo", especialidadId: 8 },
+            { id: 26, nombre: "Lic. Bruno Diaz", especialidadId: 8 },
+            { id: 27, nombre: "Lic. Estefania Fuentes", especialidadId: 8 },
+            { id: 28, nombre: "Lic. Gabriela Castillo", especialidadId: 8 },
+            { id: 29, nombre: "Lic. Keliany Roman", especialidadId: 9 },
+            { id: 30, nombre: "Lic. Lisbeth Jerez", especialidadId: 5 },
+            { id: 31, nombre: "Lic. Maite Lopez", especialidadId: 9 },
+            { id: 32, nombre: "Lic. Maria F Diaz", especialidadId: 9 },
+            { id: 33, nombre: "Lic. Nathasha Piñango", especialidadId: 6 },
+            { id: 34, nombre: "Lic. Pedro Mujica", especialidadId: 8 },
+            { id: 35, nombre: "Lic. Solfelix Izquiel", especialidadId: 8 },
+            { id: 36, nombre: "Lic. Ximenia Yanez", especialidadId: 8 },
+            { id: 37, nombre: "Lic. Yismar Rosales", especialidadId: 9 },
+            { id: 38, nombre: "TSU. Justzelim Villa", especialidadId: 8 },
+            { id: 39, nombre: "TSU. Wilson Rincon", especialidadId: 8 }
+        ];
+        
+        // Función para poblar un select usando jQuery
+        const populateSelect = (selectElement, data, placeholder) => {
+            const $select = $(selectElement);
+            $select.html(`<option value="">${placeholder}</option>`);
+            data.forEach(item => {
+                $select.append(`<option value="${item.id}">${item.nombre}</option>`);
+            });
+        };
+
+        // Función para validar el formulario
+        const checkFormValidity = () => {
+            let formValid = true;
+            let inputs = formElementCortesia.querySelectorAll('input, select, textarea');
+            inputs.forEach(input => {
+                if (input.type === 'radio' && input.name === 'tipoConsulta' && !document.querySelector('input[name="tipoConsulta"]:checked')) {
+                    formValid = false;
+                } else if (input.type === 'radio' && input.name === 'sede_cortesia' && !document.querySelector('input[name="sede_cortesia"]:checked')) {
+                    formValid = false;
+                } else if (input.type === 'radio' && input.name === 'sexo_cortesia' && !document.querySelector('input[name="sexo_cortesia"]:checked')) {
+                    formValid = false;
+                } else if (input.tagName === 'select' && input.required && !input.value) {
+                    formValid = false;
+                } else if (input.tagName === 'textarea' && !input.value) {
+                    formValid = false;
+                }
+            });
+            // validacion de btn antes de descargar
+            if (formValid) {
+                descargarBtnCortesia.disabled = false;
+                $(descargarBtnCortesia).removeClass('btn-disabled');
+            } else {
+                descargarBtnCortesia.disabled = true;
+                $(descargarBtnCortesia).addClass('btn-disabled');
+            }
+            // validacion de btn antes de registrar
+            if (formValid) {
+                registrarCortesiaBtn.disabled = false;
+                $(registrarCortesiaBtn).removeClass('btn-disabled');
+            } else {
+                registrarCortesiaBtn.disabled = true;
+                $(registrarCortesiaBtn).addClass('btn-disabled');
+            }
+        };
+
+        // Función para alternar la visibilidad de los campos
+        const toggleFields = () => {
+            const consulta = $('input[name="tipoConsulta"]:checked').val();
+            
+            if (consulta === '1') {
+                $('#campo_medicina_cortesia').fadeIn(200);
+                $('#containerMainCortesia').slideDown(100);
+                $('#campo_especialidad_radio').hide();
+                $('#campo_especialidad_cortesia').hide();
+                $('#especialistaCortesia').val('');
+                $('#especialidadCortesia').val('');
+                $('#medicinaCortesia').prop('required', true);
+                $('#institucionCortesia').prop('required', true);
+                $('#profesionalCortesia').prop('required', true);
+                $('#especialidadCortesia').prop('required', false);
+                $('#especialistaCortesia').prop('required', false);
+            } else if (consulta === '2') {
+                $('#campo_especialidad_cortesia').fadeIn(200);
+                $('#containerMainCortesia').slideDown(100);
+                $('#campo_medicina_radio').hide();
+                $('#campo_medicina_cortesia').hide();
+                $('#medicinaCortesia').val('');
+                $('#profesionalCortesia').val('');
+                $('#medicinaCortesia').prop('required', false);
+                $('#profesionalCortesia').prop('required', false);
+                $('#institucionCortesia').prop('required', true);
+                $('#especialidadCortesia').prop('required', true);
+                $('#especialistaCortesia').prop('required', true);
+            } else {
+                $('#campo_medicina_cortesia').hide();
+                $('#campo_especialista_cortesia').hide();
+                $('#profesionalCortesia').val('');
+                $('#especialidades').val('');
+                $('#especialistas').val('');
+                $('#medicinaCortesia').prop('required', false);
+                $('#profesionalCortesia').prop('required', false);
+                $('#especialidadCortesia').prop('required', false);
+                $('#especialistaCortesia').prop('required', false);
+            }
+            checkFormValidity();
+        };
+        
+        //cargar datos al inicio
+        setTimeout(()=>{
+            populateSelect($('#patologiaCortesia'),patologiasDataCortesia,"Seleccione una Patologia");
+            populateSelect($('#especialidadCortesia'),especialidadesDataCortesia,"Seleccione una Especialidad");
+            populateSelect($('#medicinaCortesia'),[{id:1, nombre: "Consulta de Medicina Interna"}], "Seleccione...");
+            populateSelect($('#institucionCortesia'),institucionesData,"Seleccione una Institucion");
+            checkFormValidity();
+        }, 500);
+
+        // Escuchar cambios en la consulta de medicina interna para poblar el select de profesionales
+        $('#medicinaCortesia').change(function(){
+            const especialidadId = parseInt($(this).val());
+            const filteredProfesionales = profesionalesDataCortesia.filter(p => p.especialidadId === especialidadId);
+            populateSelect($('#profesionalCortesia'), filteredProfesionales, "Seleccione un profesional");
+            checkFormValidity();
+        });
+
+        // Escuchar cambios en la especialidad para poblar el select de especialistas
+        $('#especialidadCortesia').change(function(){
+            const especialidadId = parseInt($(this).val());
+            const filteredProfesionales = profesionalesDataCortesia.filter(p => p.especialidadId === especialidadId);
+            populateSelect($('#especialistaCortesia'), filteredProfesionales, "Seleccione un especialista");
+            checkFormValidity();
+        });
+        
+        // Limpiar campos al ocultar
+        $('input[name="tipoConsulta"]').change(function() {
+            toggleFields();
+        });
+
+        $('input[name="sexo_cortesia"]').change(function() {
+            const sexo = $(this).val();
+            if(sexo === 'M'){
+                $('#sexo_femenino_cortesia').slideUp(100);
+                $('#sexo_masculino_cortesia').show();
+            }else{
+                $('#sexo_masculino_cortesia').slideUp(100);
+                $('#sexo_femenino_cortesia').show();
+            }
+        });
+
+        $(formElementCortesia).on('input', checkFormValidity);
+        $(descargarBtnCortesia).on('click', () => {
+            // 1. Obtener el elemento del formulario visible
+            const sourceElement = document.getElementById('pdf_content_cortesia');
+
+            // 2. Clonarlo para la conversión a PDF
+            const cloneElement = sourceElement.cloneNode(true);
+
+            // Hacer que el clon sea visible para html2canvas pero fuera de la vista
+            cloneElement.style.position = 'relative';
+            cloneElement.style.left = '-9999px';
+            document.body.appendChild(cloneElement);
+            
+            
+            cloneElement.removeAttribute('style');
+
+            $(cloneElement).find('input,select,textarea').each(function(){
+                this.removeAttribute('class');
+                
+            });
+            // 3. Iterar sobre los select, radio buttons y textareas en el clon
+            // y establecer sus valores para la conversión
+            $(cloneElement).find('select').each(function() {
+                const originalSelect = $(`#${this.id}`);
+                $(this).val(originalSelect.val());
+            });
+
+            $(cloneElement).find('input[type="radio"]').each(function() {
+                const originalRadio = $(`#${this.id}`);
+                if (originalRadio.is(':checked')) {
+                    $(this).prop('checked', true);
+                }
+            });
+
+            // ✨ Solución para el textarea: reemplazarlo con un div que contenga su valor
+            $(cloneElement).find('textarea').each(function() {
+                const originalTextarea = $(`#${this.id}`);
+                const textValue = originalTextarea.val();
+
+                // Crear un div y copiar el estilo para que se vea similar
+                const newDiv = document.createElement('div');
+                newDiv.style.cssText = this.style.cssText; // Copiar estilos
+                newDiv.style.whiteSpace = 'pre-wrap'; // Mantener saltos de línea y espacios
+                newDiv.style.wordWrap = 'break-word'; // Romper palabras largas si es necesario
+                newDiv.textContent = textValue;
+                
+                // Reemplazar el textarea en el clon con el nuevo div
+                $(this).replaceWith(newDiv);
+            });
+
+            // 4. Definir las opciones de html2pdf
+            const options = {
+                margin: 10,
+                filename: 'consulta_medica_cortesia.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 1 },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+
+            // 5. Generar y guardar el PDF desde el elemento clonado
+            html2pdf().from(cloneElement).set(options).save()
+                .then(() => {
+                    // Limpiar el clon temporal después de que la descarga comience
+                    cloneElement.remove();
+                });
+        })
+    });
+</script>
+<!---Script del Modulo trabajadores -->
+    <script>
+        $(document).ready(function(){
+
+            const formulario = document.getElementById('formulario_consulta_pb');
+            const registrarBtn = document.getElementById('registrar_modal');
+            const descargarBtn = document.getElementById('descargar_modal');
+            const limpiarBtn = document.getElementById('limpiar_modal');
+
+            // --- Simulación de datos (normalmente vendrían de una base de datos con PHP) ---
+            const patologiasData = [
+                { id: 1, nombre: "Cardiovasculares" },
+                { id: 2, nombre: "Osteoarticulares" },
+                { id: 3, nombre: "Infecciones Virales" },
+                { id: 4, nombre: "Infeccion de ORL" },
+                { id: 5, nombre: "Odontologica" },
+                { id: 6, nombre: "Alergias" },
+                { id: 7, nombre: "Neurologicas" },
+                { id: 8, nombre: "Enfermedades Metabolicas" },
+                { id: 9, nombre: "Consulta Regular" },
+                { id: 10, nombre: "Enfemedades Gastrointestinales" },
+                { id: 11, nombre: "Asma" },
+                { id: 12, nombre: "Enfermedades Autoinmunes" },
+                { id: 13, nombre: "Infección Respiratoria Aguda" },
+                { id: 14, nombre: "Enfermedades Geneticas" }
+            ];
+            
+            const especialidadesData = [
+                { id: 1, nombre: "Medicina Interna" },
+                { id: 2, nombre: "Traumatologia" },
+                { id: 3, nombre: "Fisiatra" },
+                { id: 4, nombre: "Foniatra" },
+                { id: 5, nombre: "Terapista de Lenguaje" },
+                { id: 6, nombre: "Nutricionista" },
+                { id: 7, nombre: "Nutrologo" },
+                { id: 8, nombre: "Fisioterapia" },
+                { id: 9, nombre: "Terapia Ocupacional" },
+                { id: 10, nombre: "Psicologia" },
+                { id: 11, nombre: "Psiquiatria" }
+            ];
+
+            const profesionalesData = [
+                { id: 1, nombre: "Dr. Juan Carlos Matamoros", especialidadId: 1 },
+                { id: 2, nombre: "Dr. Armando Orta", especialidadId: 3 },
+                { id: 3, nombre: "Dr. Erick Zarate", especialidadId: 1 },
+                { id: 4, nombre: "Dr. Inri Perez", especialidadId: 2 },
+                { id: 5, nombre: "Dr. Johan Simbron", especialidadId: 1 },
+                { id: 6, nombre: "Dra. Luis Bustamante", especialidadId: 2 },
+                { id: 7, nombre: "Dr. Luis Loayza", especialidadId: 1 },
+                { id: 8, nombre: "Dra. Alexis Barazarte", especialidadId: 1 },
+                { id: 9, nombre: "Dra. Amanda Purgarita", especialidadId: 1 },
+                { id: 10, nombre: "Dra. Anaid Rojas", especialidadId: 1 },
+                { id: 11, nombre: "Dra. Arlinis Hernandez", especialidadId: 3 },
+                { id: 12, nombre: "Dra. Clariza Guzman", especialidadId: 2 },
+                { id: 13, nombre: "Dra. Faviola Corti", especialidadId: 2 },
+                { id: 14, nombre: "Dra. Ismelda Guercio", especialidadId: 1 },
+                { id: 15, nombre: "Dra. Jonelly Godoy", especialidadId: 1 },
+                { id: 16, nombre: "Dra. Luisa Torres", especialidadId: 1 },
+                { id: 17, nombre: "Dra. Nohelismae Camacho", especialidadId: 3 },
+                { id: 18, nombre: "Dra. Olimar Gamboa", especialidadId: 1 },
+                { id: 19, nombre: "Dra. Ronangely Mendoza", especialidadId: 7 },
+                { id: 20, nombre: "Dra. Selly Albarran", especialidadId: 1 },
+                { id: 21, nombre: "Duvresly Aponte", especialidadId: 9 },
+                { id: 22, nombre: "Kileiney Barrios", especialidadId: 9 },
+                { id: 23, nombre: "Lic. Mayerling Marquez", especialidadId: 8 },
+                { id: 24, nombre: "Lic. Angie Perez", especialidadId: 8 },
+                { id: 25, nombre: "Lic. Blesney Bastardo", especialidadId: 8 },
+                { id: 26, nombre: "Lic. Bruno Diaz", especialidadId: 8 },
+                { id: 27, nombre: "Lic. Estefania Fuentes", especialidadId: 8 },
+                { id: 28, nombre: "Lic. Gabriela Castillo", especialidadId: 8 },
+                { id: 29, nombre: "Lic. Keliany Roman", especialidadId: 9 },
+                { id: 30, nombre: "Lic. Lisbeth Jerez", especialidadId: 5 },
+                { id: 31, nombre: "Lic. Maite Lopez", especialidadId: 9 },
+                { id: 32, nombre: "Lic. Maria F Diaz", especialidadId: 9 },
+                { id: 33, nombre: "Lic. Nathasha Piñango", especialidadId: 6 },
+                { id: 34, nombre: "Lic. Pedro Mujica", especialidadId: 8 },
+                { id: 35, nombre: "Lic. Solfelix Izquiel", especialidadId: 8 },
+                { id: 36, nombre: "Lic. Ximenia Yanez", especialidadId: 8 },
+                { id: 37, nombre: "Lic. Yismar Rosales", especialidadId: 9 },
+                { id: 38, nombre: "TSU. Justzelim Villa", especialidadId: 8 },
+                { id: 39, nombre: "TSU. Wilson Rincon", especialidadId: 8 }
+                
+            ];
+
+            // --- Funciones de utilidad ---
+
+            // Función para poblar un select usando jQuery
+            const populateSelect = (selectElement, data, placeholder) => {
+                const $select = $(selectElement);
+                $select.html(`<option value="">${placeholder}</option>`);
+                data.forEach(item => {
+                    $select.append(`<option value="${item.id}">${item.nombre}</option>`);
+                });
+            };
+
+            // Función para validar el formulario
+            const checkFormValidity = () => {
+                let formValid = true;
+                const inputs = formulario.querySelectorAll('input, select, textarea');
+                inputs.forEach(input => {
+                    if (input.type === 'radio' && input.name === 'tipo_consulta' && !document.querySelector('input[name="tipo_consulta"]:checked')) {
+                         formValid = false;
+                    } else if (input.type === 'radio' && input.name === 'sede' && !document.querySelector('input[name="sede"]:checked')) {
+                         formValid = false;
+                    } else if (input.type === 'radio' && input.name === 'sexo' && !document.querySelector('input[name="sexo"]:checked')) {
+                         formValid = false;
+                    } else if (input.tagName === 'SELECT' && input.required && !input.value) {
+                         formValid = false;
+                    } else if (input.tagName === 'TEXTAREA' && !input.value) {
+                         formValid = false;
+                    }
+                });
+
+              // validacion de btn antes de descargar
+                if (formValid) {
+                    descargarBtn.disabled = false;
+                    $(descargarBtn).removeClass('btn-disabled');
+                } else {
+                    descargarBtn.disabled = true;
+                    $(descargarBtn).addClass('btn-disabled');
+                }
+
+              // validacion de btn antes de registrar
+                if (formValid) {
+                    registrarBtn.disabled = false;
+                    $(registrarBtn).removeClass('btn-disabled');
+                } else {
+                    registrarBtn.disabled = true;
+                    $(registrarBtn).addClass('btn-disabled');
+                }
+            };
+
+            // Función para alternar la visibilidad de los campos
+            const toggleFields = () => {
+                const consulta = $('input[name="tipo_consulta"]:checked').val();
+                
+                if (consulta === '1') {
+                    $('#campo_medicina').fadeIn(200);
+                    $('#containerMain').slideDown(100);
+                    $('#campo_especialidad').hide();
+                    $('#campo_especialista').hide();
+                    $('#especialistas').val('');
+                    $('#especialidades').val('');
+                    $('#medicina_interna').prop('required', true);
+                    $('#profesional').prop('required', true);
+                    $('#especialidades').prop('required', false);
+                    $('#especialistas').prop('required', false);
+                } else if (consulta === '2') {
+                    $('#campo_especialista').fadeIn(200);
+                    $('#containerMain').slideDown(100);
+                    $('#campo_medicina1').hide();
+                    $('#campo_medicina').hide();
+                    $('#medicina_interna').val('');
+                    $('#profesional').val('');
+                    $('#medicina_interna').prop('required', false);
+                    $('#profesional').prop('required', false);
+                    $('#especialidades').prop('required', true);
+                    $('#especialistas').prop('required', true);
+                } else {
+                    $('#campo_medicina').hide();
+                    $('#campo_especialista').hide();
+                    $('#medicina_interna').val('');
+                    $('#profesional').val('');
+                    $('#especialidades').val('');
+                    $('#especialistas').val('');
+                    $('#medicina_interna').prop('required', false);
+                    $('#profesional').prop('required', false);
+                    $('#especialidades').prop('required', false);
+                    $('#especialistas').prop('required', false);
+                }
+                checkFormValidity();
+            };
+
+            
+            // Cargar datos al inicio
+            setTimeout(() => {
+                populateSelect($('#patologia'), patologiasData, "Selecione una patología");
+                populateSelect($('#especialidades'), especialidadesData, "Selecione una especialidad");
+                populateSelect($('#medicina_interna'), [{ id: 1, nombre: "Consulta de Medicina Interna" }], "Selecione...");
+                
+                checkFormValidity();
+            }, 500);
+
+            // Escuchar cambios en los radio buttons de tipo de consulta
+            $('input[name="tipo_consulta"]').change(function() {
+                toggleFields();
+            });
+
+            // Escuchar cambios en los radio buttons de sexo
+            $('input[name="sexo"]').change(function() {
+                const sexo = $(this).val();
+                if (sexo === 'M') {
+                    $('#femeninoTrabajador').slideUp(200);
+                    $('#masculinoTrabajador').show(); // Asegurarse de que esté visible
+                } else if (sexo === 'F') {
+                    $('#masculinoTrabajador').slideUp(200);
+                    $('#femeninoTrabajador').show(); // Asegurarse de que esté visible
+                }
+            });
+
+
+
+            // Escuchar cambios en la especialidad para poblar el select de especialistas
+            $('#especialidades').change(function(){
+                const especialidadId = parseInt($(this).val());
+                const filteredProfesionales = profesionalesData.filter(p => p.especialidadId === especialidadId);
+                populateSelect($('#especialistas'), filteredProfesionales, "Selecione un especialista");
+                checkFormValidity();
+            });
+            
+            // Escuchar cambios en la consulta de medicina interna para poblar el select de profesionales
+            $('#medicina_interna').change(function(){
+                const especialidadId = parseInt($(this).val());
+                const filteredProfesionales = profesionalesData.filter(p => p.especialidadId === especialidadId);
+                populateSelect($('#profesional'), filteredProfesionales, "Selecione un profesional");
+                checkFormValidity();
+            });
+
+            // Escuchar todos los cambios del formulario para habilitar el botón
+            $(formulario).on('input', checkFormValidity);
+            
+            $(descargarBtn).on('click', () => {
+
+                // 1. Obtener el elemento del formulario visible
+                const sourceElement = document.getElementById('pdf-content');
+
+                // 2. Clonarlo para la conversión a PDF
+                const cloneElement = sourceElement.cloneNode(true);
+
+                // Hacer que el clon sea visible para html2canvas pero fuera de la vista
+                cloneElement.style.position = 'absolute';
+                cloneElement.style.left = '-9999px';
+                document.body.appendChild(cloneElement);
+                
+                
+                cloneElement.removeAttribute('style');
+
+                $(cloneElement).find('input,select').each(function(){
+                    this.removeAttribute('class');
+                    
+                })
+                // 3. Iterar sobre los select, radio buttons y textareas en el clon
+                // y establecer sus valores para la conversión
+                $(cloneElement).find('select').each(function() {
+                    const originalSelect = $(`#${this.id}`);
+                    $(this).val(originalSelect.val());
+                });
+
+                $(cloneElement).find('input[type="radio"]').each(function() {
+                    const originalRadio = $(`#${this.id}`);
+                    if (originalRadio.is(':checked')) {
+                        $(this).prop('checked', true);
+                    }
+                });
+            
+
+                // ✨ Solución para el textarea: reemplazarlo con un div que contenga su valor
+                $(cloneElement).find('textarea').each(function() {
+                    const originalTextarea = $(`#${this.id}`);
+                    const textValue = originalTextarea.val();
+
+                    // Crear un div y copiar el estilo para que se vea similar
+                    const newDiv = document.createElement('div');
+                    newDiv.style.cssText = this.style.cssText; // Copiar estilos
+                    newDiv.style.whiteSpace = 'pre-wrap'; // Mantener saltos de línea y espacios
+                    newDiv.style.wordWrap = 'break-word'; // Romper palabras largas si es necesario
+                    newDiv.textContent = textValue;
+                    
+                    // Reemplazar el textarea en el clon con el nuevo div
+                    $(this).replaceWith(newDiv);
+                });
+
+                // 6. Use the temporary container for PDF generation
+
+                const options = {
+
+                    margin: 10,
+
+                    filename: 'consulta_medica_PB.pdf',
+
+                    image: { type: 'jpeg', quality: 0.98 },
+
+                    html2canvas: { scale: 1 },
+
+                    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+
+                };
+
+
+
+                // 7. Generate and save the PDF
+
+                html2pdf().from(cloneElement).set(options).save()
+
+                    .then(() => {
+
+                        // Clean up the temporary container after the download starts
+
+                        cloneElement.remove();
+
+                    });
+
+            });
+
+
+            // Limpiar el formulario y resetear la visibilidad
+            $(limpiarBtn).on('click', () => {
+                formulario.reset();
+                toggleFields();
+                // Ocultar los radio buttons de sexo si estaban ocultos
+                $('#masculinoTrabajador').show();
+                $('#femeninoTrabajador').show();
+                checkFormValidity();
+            });
+        });
+    </script>
+    <script defer>
+      // GET THE ID WHERE WE SHOW THE DATA FROM SCRIPT PHP
+      const resultadoDiv = document.getElementById('reporte');
+      //ADD AN SPINNER WHILE THE DOM LOADING
+      resultadoDiv.innerHTML = '<div class="spinner-border" role="status"><span class="visually-hidden">Cargando Informacion...</span></div>';
+
+      fetch('../Models/dailyReport_controller.php') // URL FROM CATCH THE DATA 
+        .then(response => response.json())
+        .then(data => {
+          //TRY TO VERIFICATE WHAT TYPE OF RESPONSE WE RECEIVE FROM THE SCRIPT dailyReport_controller. status is a array
+          if (data.status ==='error'){
+            resultadoDiv.innerHTML = `<h4 class='text-danger fw-bold'>${data.mensaje}</h4>`;
+            //IN OTHERWISE IN CASE STATUS SEND BE 'SUCCESS' THE CODE EXECUTE
+          }else if(data.status === 'success'){
+            resultadoDiv.innerHTML = `
+                <h4 class='fw-bold'>Total Pacientes Atendidos: ${data.totalPacientes}</h4>
+                <div class='list-group' id='tabla_reporte' style='display: none;'>
+                  <button type='button' class='list-group-item list-group-item-action'>N° de Trabajadores Atendidos: ${data.totalTrabajadores}</button>
+                  <button type='button' class='list-group-item list-group-item-action'>N° de Parientes Atendidos: ${data.totalParientes}</button>
+                  <button type='button' class='list-group-item list-group-item-action'>N° de personas por Cortesia atentidas: ${data.totalCortesia}</button>
+                </div>`;
+          }
+        })
+        .catch(error => {
+            console.error('Error al obtener los datos:', error);
+            document.getElementById('reporte').textContent = `<h4 class='text-danger fw-bold' Error al cargar los datos </h4>`;
+        });
+    </script>
+  </body>
+</html>

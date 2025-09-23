@@ -1,9 +1,9 @@
 <?php
 
     class Database {
-        private $host = 'Localhost';
+        private $host = '10.100.202.66';
         private $dbName = 'fttc';
-        private $username = 'root';
+        private $username = 'pma';
         private $password = '';
         private $pdo;
         private $error;

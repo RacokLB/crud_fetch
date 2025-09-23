@@ -2,18 +2,14 @@
 
 session_start();
 
-    if(isset($_SESSION['rol'])){
-        switch ($_SESSION['rol']){
+    if(isset($_SESSION['id'])){
+        switch ($_SESSION['id']){
             case 1:
-                header(header:"location: index.php");
-                exit();
-                break;
-            case 2:
-                header(header:"location: indexParientes.php");
+                header(header:"location: ../View/principalPagina.php");
                 exit();
                 break;
             default:
-                header(header:"location:login.php");
+                header(header:"location:../View/login.php");
                 exit();
                 break;
         }
@@ -41,6 +37,7 @@ if(isset($_POST["signupbtn"])){
         if($user_data){ //Check if the user was found with the given username   
             $hash = $user_data['clave']; // search the password associate with the username in the column 'clave'
             
+            
                 //Verify if the entered password matches the stored hash 
                 if (password_verify(password: $password,hash: $hash)){
 
@@ -56,22 +53,20 @@ if(isset($_POST["signupbtn"])){
                 if($user_role_data){
                     $rol_id = $user_role_data['rol'];
                     $cedula = $user_role_data['user'];
+                    $idUser = $user_role_data['id'];
 
                     $_SESSION['rol'] = $rol_id;
                     // we try to catch the id from user array
-                    $_SESSION["usuario"]=$cedula;//we try to catch the user
+                    $_SESSION["user"]=$cedula;//we try to catch the user
+                    $_SESSION['id']=$idUser;
 
                     switch ($_SESSION['rol']){
                         case 1:
-                            header(header: "location: index.php");
+                            header(header: "location: ../View/principalPagina.php");
                             exit();//Important to stop further script execution after redirection/Importante detener la ejecución posterior del script después de la redirección
                             break;
-                        case 2:
-                            header(header: "location: indexParientes.php");
-                            exit();
-                            break;
                         default:
-                            header(header:"location: login.php");
+                            header(header:"location: ../View/login.php");
                             exit();
                             break;
                     }

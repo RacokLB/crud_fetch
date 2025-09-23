@@ -1,5 +1,13 @@
 <?php
 
+if(session_status() == PHP_SESSION_NONE){
+    if(session_start()){
+        if(!isset($_SESSION['id'])){
+            header("location: login.php");
+        }
+    }
+}
+
 $error = [];
 if(isset($_POST)){
   
@@ -8,7 +16,7 @@ if(isset($_POST)){
     if($consulta == 1){
 
          // we catch in variables  
-        $sede = trim(string: $_POST['sede_Cortesia']);
+        $sede = trim(string: $_POST['sede_cortesia']);
         $cedula = trim(string: $_POST['cedula_cortesia']);
         $nombre = trim(string: $_POST['nombre_cortesia']);
         $edad = trim(string: $_POST['edad_cortesia']);
@@ -17,7 +25,10 @@ if(isset($_POST)){
         $consulta_interna = trim(string:$_POST['medicinaCortesia']);
         $profesional = trim(string:$_POST['profesionalCortesia']);
         $patologia = trim(string: $_POST['patologiaCortesia']);
-        $afeccion = trim(string: $_POST['afeccionCortesia']);
+        $afeccion = trim(string: $_POST['afeccion_cortesia']);
+        $diagnostico = trim(string:$_POST['diagnostico_cortesia']);
+        $tratamiento = trim(string:$_POST['tratamiento_cortesia']);
+        $observaciones = trim(string:$_POST['observaciones_cortesia']);
 
         // we validate then variables are´nt empty
         if(strlen(string: $sede) < 2){
@@ -50,6 +61,12 @@ if(isset($_POST)){
         if(strlen(string: $afeccion) < 3){
             $error[]= "Recuerde indicar la afeccion";
         }
+        if(strlen(string:$diagnostico) < 10){
+            $error[]= "Recuerde indicar el diagnostico dado por el profesional de la salud"; 
+        }
+        if(strlen(string:$tratamiento) < 8){
+            $error[]= "Recuerde indicar el tratamiento dado por el profesional de la salud"; 
+        }
         if(!empty($error)){
             foreach ($error as $mensaje) {
                 echo "<p class='error'>$mensaje</p>";
@@ -57,7 +74,7 @@ if(isset($_POST)){
         }else{
             require "/xampp/htdocs/crud_fetch/Config/conexion.php";
             
-            $query = $pdo->prepare(query:"INSERT INTO pacientes_cortesia (sede_servicio, cedula, edad, nombres, sexo, institucion, especialidad, especialista, patologia, afeccion) VALUES (:sede,:cedula, :edad, :nombre, :sexo, :institucion, :especialidad, :especialista, :patologia, :afeccion)");
+            $query = $pdo->prepare(query:"INSERT INTO pacientes_cortesia (sede_servicio, cedula, edad, nombres, sexo, institucion, especialidad, especialista, patologia, afeccion, diagnostico, tratamiento, observaciones) VALUES (:sede,:cedula, :edad, :nombre, :sexo, :institucion, :especialidad, :especialista, :patologia, :afeccion, :diagnostico, :tratamiento, :observaciones)");
 
             $query->bindParam(param: ':sede', var: $sede);
             $query->bindParam(param: ':cedula', var: $cedula);
@@ -69,15 +86,33 @@ if(isset($_POST)){
             $query->bindParam(param: ':especialidad', var: $consulta_interna);
             $query->bindParam(param: ':patologia', var: $patologia);
             $query->bindParam(param: ':afeccion', var: $afeccion);
+            $query->bindParam(param: 'diagnostico', var:$diagnostico);
+            $query->bindParam(param: 'tratamiento', var:$tratamiento);
+            $query->bindParam(param: 'observaciones', var:$observaciones);
             $query->execute();
             
+            //Capturamos el ultimo ID registrado dentro de la DB 
+            $lastId = $pdo->lastInsertId();
+            // Aquí es donde registras la acción en la tabla de log
+            $user_id = $_SESSION['user']; // Asegúrate de que tu sesión guarda el ID del usuario
+            $accion = 'INSERTAR PACIENTE';
+            $tabla = 'pacientes_cortesia';
+            $fecha = date('Y-m-d H:i:s');
+            
+            $log_query = $pdo->prepare("INSERT INTO log_acciones (user_id, accion, tabla_afectada, id_registro_afectado) VALUES (:user_id, :accion, :tabla, :lastId)");
+            $log_query->bindParam(':user_id', $user_id);
+            $log_query->bindParam(':accion', $accion);
+            $log_query->bindParam(':tabla', $tabla);
+            $log_query->bindParam(':lastId', $lastId);
+            
+            $log_query->execute();
             $pdo = null;
             echo "Right";  
         }
     }elseif($consulta == 2){
         
          // we catch in variables  
-        $sede = trim(string: $_POST['sede_Cortesia']);
+        $sede = trim(string: $_POST['sede_cortesia']);
         $cedula = trim(string: $_POST['cedula_cortesia']);
         $nombre = trim(string: $_POST['nombre_cortesia']);
         $edad = trim(string: $_POST['edad_cortesia']);
@@ -86,8 +121,10 @@ if(isset($_POST)){
         $especialidad = trim(string: $_POST['especialidadCortesia']);
         $especialista = trim(string:$_POST['especialistaCortesia']);
         $patologia = trim(string: $_POST['patologiaCortesia']);
-        $afeccion = trim(string: $_POST['afeccionCortesia']);
-
+        $afeccion = trim(string: $_POST['afeccion_cortesia']);
+        $diagnostico = trim(string:$_POST['diagnostico_cortesia']);
+        $tratamiento = trim(string:$_POST['tratamiento_cortesia']);
+        $observaciones = trim(string:$_POST['observaciones_cortesia']);
          // we validate then variables are´nt empty
         if(strlen(string: $sede) < 2){
             $error[] = "Seleccione una sede";
@@ -119,6 +156,12 @@ if(isset($_POST)){
         if(strlen(string: $afeccion) < 3){
             $error[]= "Recuerde indicar la afeccion";
         }
+        if(strlen(string:$diagnostico) < 10){
+            $error[]= "Recuerde indicar el diagnostico dado por el profesional de la salud"; 
+        }
+        if(strlen(string:$tratamiento) < 8){
+            $error[]= "Recuerde indicar el tratamiento dado por el profesional de la salud"; 
+        }
         if(!empty($error)){
             foreach ($error as $mensaje) {
                 echo "<p class='error'>$mensaje</p>";
@@ -126,7 +169,7 @@ if(isset($_POST)){
         }else{
             require "/xampp/htdocs/crud_fetch/Config/conexion.php";
             
-            $query = $pdo->prepare(query:"INSERT INTO pacientes_cortesia (sede_servicio, cedula, edad, nombres, sexo, institucion, especialidad, especialista, patologia, afeccion) VALUES (:sede, :cedula, :edad, :nombre, :sexo, :institucion, :especialidad, :especialista, :patologia, :afeccion)");
+            $query = $pdo->prepare(query:"INSERT INTO pacientes_cortesia (sede_servicio, cedula, edad, nombres, sexo, institucion, especialidad, especialista, patologia, afeccion, diagnostico, tratamiento, observaciones) VALUES (:sede, :cedula, :edad, :nombre, :sexo, :institucion, :especialidad, :especialista, :patologia, :afeccion, :diagnostico, :tratamiento, :observaciones)");
 
             $query->bindParam(param: ':sede', var: $sede);
             $query->bindParam(param: ':cedula', var: $cedula);
@@ -138,8 +181,26 @@ if(isset($_POST)){
             $query->bindParam(param: ':especialista', var: $especialista);
             $query->bindParam(param: ':patologia', var: $patologia);
             $query->bindParam(param: ':afeccion', var: $afeccion);
+            $query->bindParam(param: 'diagnostico', var:$diagnostico);
+            $query->bindParam(param: 'tratamiento', var:$tratamiento);
+            $query->bindParam(param: 'observaciones', var:$observaciones);
             $query->execute();
             
+            // Obtener el ID del último registro insertado
+            $lastId = $pdo->lastInsertId();
+            // Aquí es donde registras la acción en la tabla de log
+            $user_id = $_SESSION['user']; // Asegúrate de que tu sesión guarda el ID del usuario
+            $accion = 'INSERTAR PACIENTE';
+            $tabla = 'pacientes_cortesia';
+           
+            
+            $log_query = $pdo->prepare("INSERT INTO log_acciones (user_id, accion, tabla_afectada, id_registro_afectado) VALUES (:user_id, :accion, :tabla, :lastId)");
+            $log_query->bindParam(':user_id', $user_id);
+            $log_query->bindParam(':accion', $accion);
+            $log_query->bindParam(':tabla', $tabla);
+            $log_query->bindParam(':lastId', $lastId);
+            
+            $log_query->execute();
             $pdo = null;
             echo "Right";  
         }

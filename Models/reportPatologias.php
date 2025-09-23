@@ -9,7 +9,7 @@
          * @param string $fechaFinal The end date (YYYY-MM-DD).
          * @return array An array of associative arrays, each containing 'patologias' and 'total'.
          */
-        function obtenerTotalesPorPatologia(PDO $pdo, $fechaInicial, $fechaFinal): array {
+        function obtenerTotalesPorPatologia(PDO $pdo, $fechaInicio, $fechaFin): array {
 
             $query = "SELECT
                             p.patologias,
@@ -22,15 +22,15 @@
                             SELECT patologia, hora_sistema FROM pacientes_cortesia
                         ) AS combined_data
                         LEFT JOIN patologias AS p ON combined_data.patologia = p.id
-                        WHERE combined_data.hora_sistema BETWEEN :fechaInicial AND :fechaFinal
+                        WHERE combined_data.hora_sistema BETWEEN :fechaInicio AND :fechaFin
                         GROUP BY p.patologias
                         ORDER BY total DESC";
 
             try {
 
                 $stmt = $pdo->prepare(query: $query);
-                $stmt->bindValue(":fechaInicial", $fechaInicial);
-                $stmt->bindValue(":fechaFinal", $fechaFinal);
+                $stmt->bindValue(":fechaInicio", $fechaInicio);
+                $stmt->bindValue(":fechaFin", $fechaFin);
                 $stmt->execute();
                 return $stmt->fetchAll(PDO::FETCH_ASSOC);
                 
@@ -44,13 +44,14 @@
             try{
 
                 // Obtener fechas del formulario (o valores por defecto si no se han enviado)
-                    $fechaInicial = $_GET['fechaInicial'] ?? date('Y-m-01');
-                    $fechaFinal = $_GET['fechaFinal'] ?? date('Y-m-d');
-
+                    $fechaInicio = $_GET['fechaInicio'] ?? date('Y-m-01');
+                    $fechaFin = $_GET['fechaFin'] ?? date('Y-m-d');
+                    error_log("Fecha Inicio recibida: " . $fechaInicio);
+                    error_log("Fecha Fin recibida: " . $fechaFin);
                     
 
 
-                    $totalesGlobalesPorPatologia = obtenerTotalesPorPatologia($pdo, $fechaInicial, $fechaFinal);
+                    $totalesGlobalesPorPatologia = obtenerTotalesPorPatologia($pdo, $fechaInicio, $fechaFin);
                     
 
                     // Prepare the response in the format the frontend expects

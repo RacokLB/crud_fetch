@@ -41,46 +41,6 @@ function RegistrarParientes(busqueda){
     })
 }
 
-//SCRIPT FOR MODAL CORTESIA 
-registrarCortesia.addEventListener("click",()=>{
-    fetch("../Models/insertCortesia_controller.php",{
-        method: "POST",
-        body: new FormData(formCortesia)
-    }).then(response => response.text()).then(response =>{
-        console.log(response)
-        if(response == "Right"){
-            Swal.fire({
-                title: "EXITO",
-                text:"Persona Registrada",
-                icon: "success",
-                showConfirmButton: true,
-                confirmButtonText: "Confirmar",
-                confirmButtonColor: "#63DD33",
-                showCancelButton: true,
-                cancelButtonColor: "#d33",
-                background:"#090a09",
-                backdrop: `
-                rgba(195, 220, 83, 0.3)
-                `,
-                timer: 500      
-              }).then((result) => {
-                if (result.isConfirmed){
-                    formCortesia.reset();
-                    registrarCortesia();
-                    location.reload();
-                }
-            });     
-        }else{
-            Swal.fire({
-                title: "ERROR",
-                text: "Verifique los campos",
-                icon: "warning",
-                showConfirmButton: true,
-                timer: 500
-            });
-        }
-    })
-})
 
 // SCRIPT DEL MODULO PARIENTES
 function Seleccionar(id){
@@ -107,24 +67,29 @@ function Seleccionar(id){
                 background:"#090a09",
                 backdrop: `
                 rgba(195, 220, 83, 0.3)
-                `
+                `,
+                timer: 1000,
+                showConfirmButton: false
               });
-                idpersonas.value = id;
-                cedulaTitular.value = response.trabajador_id;
-                edades.value = response.edad;
-                nexo.value = response.parentesco;
-                coordinacionPariente.value = response.coordinacionPariente;
-            }
+                document.getElementById('idpersonas').value = response.id;
+                document.getElementById('cedulaTitular').value = response.trabajador_id;
+                document.getElementById('edades').value = response.edad;
+                document.getElementById('nexo').value = response.parentesco;
+                document.getElementById('coordinacionPariente').value = response.coordinacionPariente;
+                const modalPariente = new bootstrap.Modal(document.getElementById('formularioParienteModal'));
+                modalPariente.show();
+                RegistrarParientes();
+                }
             
           });
 //de esta manera capturamos los ID de los campos que tenemos en nuestro archivo index.php serian ID.value y con response.ID, por ejemplo response.nombre etc.. llenamos los inputs con los datos que tenemos en la tabla
         
     })
 }
-registrar.addEventListener("click", () =>{
+registrar_modal.addEventListener("click", () =>{
     fetch("../Models/insertParents_controller.php",{
         method:"POST",
-        body: new FormData(formulario)
+        body: new FormData(formularioPariente)
     }).then(response => response.text()).then(response => {
         console.log(response);
         if(response == "Right"){
@@ -142,10 +107,13 @@ registrar.addEventListener("click", () =>{
                 `
               }).then((result) => {
                 if(result.isConfirmed){
-                    formulario.reset();
+                    
+                    const modalInstance = bootstrap.Modal.getInstance(document.getElementById('formularioParienteModal'));
+                    modalInstance.hide();
                     RegistrarParientes();
+                    formulario.reset();
                     location.reload();
-                }
+                    }
                 })
         }else{
             Swal.fire({

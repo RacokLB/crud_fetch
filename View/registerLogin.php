@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>REGISTRO</title>
-    <link rel="stylesheet" href="Public/styleLogin.css">
+    <link rel="stylesheet" href="../Public/styleLogin.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
@@ -13,8 +13,8 @@
         <div class="wrapper">
             <form action="" method="POST">
                 <?php
-                include "/xampp/htdocs/crud_fetch/Controllers/registerLogin_controller.php";
-                include "/xampp/htdocs/crud_fetch/Models/conexion.php";
+                include "/xampp/htdocs/crud_fetch/Models/registerLogin_controller.php";
+                include "/xampp/htdocs/crud_fetch/Config/conexion.php";
                 ?>
                 <h1>Registro</h1>
                 <div class="input-box">

@@ -2,9 +2,9 @@
 
     require "/xampp/htdocs/crud_fetch/Config/conexion.php";
 
-    function clasificacionPorEdades(PDO $pdo, string $tabla): array
+    function clasificacionPorEdades(PDO $pdo, string $tabla, string $fechaInicio, string $fechaFin): array
     {
-        $sql = "SELECT edad, COUNT(edad) AS total FROM $tabla GROUP BY edad ORDER BY edad ASC";
+        $sql = "SELECT edad, COUNT(edad) AS total FROM $tabla WHERE DATE(hora_sistema) BETWEEN :fechaInicio AND :fechaFin GROUP BY edad ORDER BY edad ASC";
         $arrayClasificada = array(
             'ninos' => 0,
             'adolescentes' => 0,
@@ -14,6 +14,8 @@
         );
         try {
             $queryData = $pdo->prepare($sql);
+            $queryData->bindValue(":fechaInicio", $fechaInicio);
+            $queryData->bindValue(":fechaFin", $fechaFin);
             $queryData->execute();
             while ($item = $queryData->fetch(PDO::FETCH_ASSOC)) {
                 $edad = (int) $item['edad'];
@@ -47,8 +49,12 @@
             'adultos_mayores' => 0,
             
         ];
+        //Obtener fechas del formulario 
+        $fechaInicio = $_GET['fechaInicio'] ?? date('Y-m-01');
+        $fechaFin = $_GET['fechaFin'] ?? date('Y-m-d');
+        
         foreach ($tablas as $tabla) {
-            $clasificacion = clasificacionPorEdades(pdo: $pdo, tabla: $tabla);
+            $clasificacion = clasificacionPorEdades(pdo: $pdo, tabla: $tabla, fechaInicio:$fechaInicio, fechaFin:$fechaFin);
             $totalGlobalClasificado['ninos'] += $clasificacion['ninos'] ?? 0;
             $totalGlobalClasificado['adolescentes'] += $clasificacion['adolescentes'] ?? 0;
             $totalGlobalClasificado['adultos'] += $clasificacion['adultos'] ?? 0;

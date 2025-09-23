@@ -1,95 +1,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
-* {
+*,
+::after,
+::before{
     box-sizing: border-box;
 }
 
-html {
-    scroll-behavior: smooth;
-}
-
 body {
-    margin: 0;
-    font-family: poppins, sans-serif;
-
+    background-color: black;
+    font-family: 'Roboto', sans-serif;
+    color: #fff;
 }
 
 
-h2{ font-size: 2.7em;}
-h3{ font-size: 2em;}
-p{ font-size: 1.25em;}
-ul{ list-style: none;}
-li{ font-size: 1.2em;}
-
-
-.container {
-    max-width: 1400px;
-    margin: auto;
+.navbar-brand img {
+    margin-right: 10px;
 }
 
-.color-acento{ color: blueviolet; }
-
-header {
-    background-color: white;
-    font-family: poppins, sans-serif;
-    display: flex;
-    justify-content: space-between;
-}
-
-header h1 {
-    margin-bottom: 15px;
-}
-
-header .border {
-    margin: 0;
-    padding: 20px 25px;
-    font-weight: bold;
-    font-size: 2.5em;
-    color: black;
-    text-shadow: 
-    -1px -1px 0 white,
-    1px -1px 0 white,
-    1px 1px 0 white,
-    -1px 1px 0 white
-}
-
-header .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-header .logo {
-    display: flex;
-}
-
-header .logo img {
-    height: 180px;
-
-}
-
-header nav {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    padding-bottom: 20px;
-}
-
-header a {
-    padding: 5px 12px;
-    text-decoration: none;
-    font-weight: bold;
-    color: black;
-}
-header a:hover {
-    color: blueviolet;
-}
 #hero {
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    flex-direction: column;
+    flex-direction: row;
     height: 90vh;
     color: white;
     background-image: linear-gradient(
@@ -97,149 +30,192 @@ header a:hover {
         rgba(0,0,0,0.7),
         rgba(0,0,0,0.5)
     )
-    ,url('images/dgth.jpg');
+    ,url('img/teatro_teresa.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
 }
 
 #hero h1 {
-    color: black;
-    font-size: 3.9em;
+    color: #f1f1ee;
+    font-size: 4.5em;
+    
     
 }
 
-.border {
-    color: white;
-    text-shadow: 
-    -1px -1px 0 white,
-    1px -1px 0 white,
-    1px 1px 0 white,
-    -1px 1px 0 white
-}
-
-
-#Direccion-de-jubilaciones {
-    font-family: poppins, sans-serif;
-}
-
-#Direccion-de-jubilaciones .container {
-    text-align: center;
-    padding: 200px 12px;
-}
-#Nuestros-departamentos {
-    background-color: rgb(30, 30, 30);
-    color: white;
-    text-align: center;
-}
-
-#Nuestros-departamentos .container {
-    text-align: center;
-    padding: 100px 0px;
-}
-
-#Nuestros-departamentos h2{
-    margin-top: 0;
-    font-size: 3.2m;
-}
-
-#Nuestros-departamentos p{
-    display: none;
-}
-
-#Nuestros-departamentos .carta {
-    background-position: center center;
+.jumbotron {
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('../Public/img/teatro_teresa.jpg') no-repeat center center;
     background-size: cover;
-    padding: 50px;
-    margin: 20px;
-    border-radius: 15px;
-}
-
-button {
-    font-size: 1.4em;
-    font-weight: bold;
-    padding: 10px 25px;
-    border-radius: 10px;
-    border: 1px solid black;
-    box-shadow: 2px 2px 10px;
-    color: wheat;
-    background-color: blueviolet;
-}
-
-button:hover{
-    color: blueviolet;
-}
-
-.carta:first-child{
-    background-image: linear-gradient(
-    0deg,
-    rgba(0,0,0,0.7),
-    rgba(0,0,0,0.5)
-    )
-    ,url('images/jornada1.jpg');
-    
-
-}
-
-.carta:nth-child(2){
-    background-image: linear-gradient(
-    0deg,
-    rgba(0,0,0,0.7),
-    rgba(0,0,0,0.5)
-    )
-    ,url('images/jornada2.jpg');
-    
-
-}
-
-.carta:nth-child(3){
-    background-image: linear-gradient(
-    0deg,
-    rgba(0,0,0,0.7),
-    rgba(0,0,0,0.5)
-    )
-    ,url("images/cne-votacion.jpg")
-    
-}
-
-#caracteristicas .container{
+    height: 60vh;
+    display: flex;
+    align-items: center;
     text-align: center;
-    padding: 250px 12px;
-
+    color: #fff;
 }
 
-#caracteristicas li{
-    margin: 15px 0px;
-    font-weight: bold;
+.jumbotron .container {
+    max-width: 800px;
+}
 
+.jumbotron .display-5 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 800;
+}
+
+.info-section {
+    background-color: black;
+    color: #fff;
+}
+
+.info-section h2 {
+    font-family: 'Playfair Display', serif;
+}
+
+.info-section .lead {
+    color: #ccc;
+}
+
+#medicina-deportiva, #servicio-medico {
+    background-color: black;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+}
+
+#medicina-deportiva h2, #servicio-medico h2 {
+    font-family: 'Playfair Display', serif;
+    color: #fff;
+    margin-bottom: 3rem;
+    text-align: center;
+}
+.subtitle-style {
+    font-family: 'Roboto', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #fff0c9;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+.sports-med-content .sports-med-paragraph {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-top: 0;
+    color: #E0E0E0;
+}
+.img-fluid.rounded.shadow-lg {
+    transition: transform 0.5s ease;
+}
+.img-fluid.rounded.shadow-lg:hover {
+    transform: scale(1.05);
+}
+.systems-section {
+    background-color: black;
+}
+
+.systems-section h2 {
+    font-family: 'Playfair Display', serif;
+    color: #fff;
+}
+.card {
+    border: none;
+    transition: all 500ms cubic-bezier(0.19, 1, 0.22, 1);
+    overflow: hidden;
+    border-radius: 20px;
+    min-height: 450px;
+    box-shadow: 0 0 12px 0 rgba(0,0,0,0.2);
+    position: relative;
+}
+@media (max-width: 420px) {
+    .card {
+        min-height: 300px;
+    }
+}
+.card-has-bg {
+    background-size: 120%;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+        
+.card-has-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: inherit;
+    -webkit-filter: grayscale(1);
+    -moz-filter: grayscale(100%);
+    -ms-filter: grayscale(100%);
+    -o-filter: grayscale(100%);
+    filter: grayscale(100%);
+    transition: all 500ms cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.card:hover {
+    transform: scale(0.98);
+    box-shadow: 0 0 5px -2px rgba(0,0,0,0.3);
+}
+
+.card:hover .card-has-bg::before {
+    filter: grayscale(0%);
+}
+
+.card:hover .card-img-overlay {
+    background: linear-gradient(0deg, rgba(255,186,33,0.5) 0%, rgba(21, 235, 163, 1) 100%);
+}
+
+.card-img-overlay {
+    transition: all 800ms cubic-bezier(0.19, 1, 0.22, 1);
+    background: linear-gradient(0deg, rgba(255,186,33,0.37) 0%, rgba(7, 60, 235, 1) 100%);
+    display: flex;
+    flex-direction: column;
+}
+
+.card-body {
+    transition: all 500ms cubic-bezier(0.19, 1, 0.22, 1);
+    flex-grow: 1;
+}
+
+.card:hover .card-body {
+    margin-top: 30px;
+}
+
+.card-title {
+    font-weight: 800;
+}
+
+.card-meta {
+    color: rgba(0,0,0,0.3);
+    text-transform: uppercase;
+    font-weight: 500;
+    letter-spacing: 2px;
+}
+
+.card-footer {
+    background: none;
+    border-top: none;
 }
 
 footer {
-    background-color: rgb(230,230,230);
+    background-color: black;
+    color: #fff;
 }
 
-footer p{
-    margin: 0;
-    color: rgb(100, 100, 100);
-}
-
-footer .container{
-    height: 150px;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-
-}
-
-@media (min-width:720px) {
-    header .container{
-        flex-direction: row;
-        justify-content: space-between;
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .jumbotron .display-5 {
+        font-size: 2.5rem;
     }
-
-    header nav {
-        flex-direction: row;
-        padding-bottom: 0;
-        padding-right: 20px;
+    .navbar-brand {
+        font-size: 1.5rem;
+    }
+    .sports-med-content .col-md-5:first-child,
+    .sports-med-content .col-md-5:last-child {
+        margin-top: 2rem;
+        text-align: center;
+    }
+    #servicio-medico .row img{
+        margin-top: 2rem;
     }
 }

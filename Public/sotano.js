@@ -30,59 +30,22 @@ if(isLight()){
     toggleRootClass();
 }
 
-//SCRIPT FOR MODAL CORTESIA 
-registrarCortesia.addEventListener("click",()=>{
-    fetch("../Models/insertCortesia_controller.php",{
-        method: "POST",
-        body: new FormData(formCortesia)
-    }).then(response => response.text()).then(response =>{
-        console.log(response)
-        if(response == "Right"){
-            Swal.fire({
-                title: "EXITO",
-                text:"Persona Registrada",
-                icon: "success",
-                showConfirmButton: true,
-                confirmButtonText: "Confirmar",
-                confirmButtonColor: "#63DD33",
-                cancelButtonColor: "#d33",
-                background:"#090a09",
-                backdrop: `
-                rgba(195, 220, 83, 0.3)
-                `,
-                timer: 500      
-              }).then((result) => {
-                if (result.isConfirmed){
-                    formCortesia.reset();
-                    location.reload();
-                }
-            });     
-        }else{
-            Swal.fire({
-                title: "ERROR",
-                text: "Verifique los campos",
-                icon: "warning",
-                showConfirmButton: true,
-                timer: 500
-            });
-        }
-    })
-})
 
-//SCRIPT FOR MODULO TRABAJADORES
+// SCRIPT FOR MODULO TRABAJADORES
 RegistrarPersonas();
 function RegistrarPersonas(busqueda){
-    fetch("../Models/workerView_controller.php", {
+    fetch("../Models/workerViewSotano_controller.php", {
         method:"POST",
         body: busqueda
     }).then(response => response.text()).then(response => {
-        //en el codigo de abajo mostramos los datos que se buscaron en el archivo listarcitas.php usando el # resultado que se encuentra en el tbody
         resultado.innerHTML = response;
     })
 }
 
-
-
+// NOTE: This part is for the old form on the main page.
+// The new functionality moves this to the modal.
+// I've kept the original for reference, but we won't use it directly now.
+/*
 registrar.addEventListener("click",()=>{
     fetch("../Models/insertWorkers_controller.php",{
         method: "POST",
@@ -103,13 +66,12 @@ registrar.addEventListener("click",()=>{
                 rgba(195, 220, 83, 0.3)
                 `,
                 timer: 2000
-              }).then((result) => {
+            }).then((result) => {
                 if (result.isConfirmed){
-                    formulario.reset();
                     RegistrarPersonas();
                     location.reload();
                 }
-                });
+            });
         }else{
             Swal.fire({
                 title: "ERROR",
@@ -117,12 +79,11 @@ registrar.addEventListener("click",()=>{
                 icon: "warning",
                 showConfirmButton: true,
                 timer: 2000
-              });
+            });
         }
     })
 })
-
-
+*/
 
 function Eliminar(id){
     Swal.fire({
@@ -133,7 +94,7 @@ function Eliminar(id){
         cancelButtonColor: "#d33",
         confirmButtonText: "Confirmar",
         cancelButtonText: "Rechazar"
-      }).then((result) => {
+    }).then((result) => {
         if (result.isConfirmed) {
             fetch("../Models/eliminar.php",{
                 method:"POST",
@@ -145,21 +106,65 @@ function Eliminar(id){
                         icon: "success",
                         title: "Eliminado",
                         showConfirmButton: false,
-                        timer: 1500
+                        timer: 900
                     });
-                  }
-                });
+                }
+            });
         }
-      });
+    });
 }
 
+// SCRIPT TO HANDLE FORM SUBMISSION FROM MODAL
+const registrarModalBtn = document.getElementById("registrar_modal");
+registrarModalBtn.addEventListener("click", () => {
+    const formulario = document.getElementById("formulario_consulta_sotano");
+    fetch("../Models/insertWorkers_controller.php", {
+        method: "POST",
+        body: new FormData(formulario)
+    }).then(response => response.text()).then(response => {
+        console.log(response);
+        if (response == "Right") {
+            Swal.fire({
+                title: "EXITO",
+                text: "Consulta registrada correctamente",
+                icon: "success",
+                showConfirmButton: true,
+                confirmButtonText: "Aceptar",
+                confirmButtonColor: "#63DD33",
+                background: "#090a09",
+                backdrop: `
+                rgba(195, 220, 83, 0.3)
+                `
+            }).then(() => {
+                const modalInstance = bootstrap.Modal.getInstance(document.getElementById('consultaModalSotano'));
+                
+                modalInstance.hide();
+                RegistrarPersonas();
+                location.reload(true);
+                formulario.reset();
+            });
+        } else {
+            Swal.fire({
+                title: "ERROR",
+                text: "Hubo un problema al registrar la consulta",
+                icon: "warning",
+                showConfirmButton: true,
+                timer: 2000
+            });
+        }
+    });
+});
+
+
+// NEW FUNCTIONALITY TO HANDLE MODAL
 function Seleccionar(id){
     fetch("../Models/workerSelect_controller.php",{
         method: "POST",
         body: id
     }).then(response => response.json()).then(response => {
+        // Here we show the confirmation modal first, as in your original code
         Swal.fire({
-            title: "Usted eligio a esta persona?",
+            title: "Usted eligió a esta persona?",
             icon: "warning",
             background:"#090a09",
             backdrop: `
@@ -169,27 +174,36 @@ function Seleccionar(id){
             confirmButtonColor: "#63DD33",
             cancelButtonColor: "#d33",
             confirmButtonText: "¡CONFIRMO!"
-          }).then((result) => {
+        }).then((result) => {
             if (result.isConfirmed) {
-              Swal.fire({
-                title: "Seleccionado",
-                icon: "success",
-                background:"#090a09",
-                backdrop: `
-                rgba(195, 220, 83, 0.3)
-                `
-              });
-                idpersonas.value = id;
-                paciente.value = response.cedula;
-                edades.value = response.edad;
-                coordinaciones.value = response.coordinacion;
+                // If confirmed, show the success message and then open the new form modal
+                Swal.fire({
+                    title: "Seleccionado",
+                    icon: "success",
+                    background:"#090a09",
+                    backdrop: `
+                    rgba(195, 220, 83, 0.3)
+                    `,
+                    timer: 1000,
+                    showConfirmButton: false
+                }).then(() => {
+                    // Populate and open the new modal for the medical consultation
+                    document.getElementById('idpersonas').value = response.id;
+                    document.getElementById('paciente').value = response.cedula;
+                    document.getElementById('edades').value = response.edad;
+                    document.getElementById('coordinaciones').value = response.coordinacion;
+
+                    const consultaModal = new bootstrap.Modal(document.getElementById('consultaModalSotano'));
+                    consultaModal.show();
+                    RegistrarPersonas();
+                    
+                    
+                });
             }
-            
-          });
-//de esta manera capturamos los ID de los campos que tenemos en nuestro archivo index.php serian ID.value y con response.ID, por ejemplo response.nombre etc.. llenamos los inputs con los datos que tenemos en la tabla
-        
-    })
+        });
+    });
 }
+
 
 buscar.addEventListener("keyup", () =>{
     const valor = buscar.value;
@@ -199,7 +213,4 @@ buscar.addEventListener("keyup", () =>{
         RegistrarPersonas(valor);
     }
 })
-//other function 
 
-
-//)

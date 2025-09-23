@@ -1,6 +1,6 @@
 <?php
 //llamamos a la conexion que establecimos con la base de datos
-require "Config/conexion.php";
+require "../Config/conexion.php";
 
     //aqui indicamos que queremos hacer al momento de que el usuario presione el boton registrarse el name del button es 'registerbtn'
     if(isset($_POST['registerbtn'])) {
@@ -31,7 +31,7 @@ require "Config/conexion.php";
                 
                 sleep(seconds: 2);
                 
-                header(header:"location: login.php");
+                header(header:"location: ../View/ login.php");
             } else {
                 echo "<h5 id='error'>Verifique su Usuario y la contraseña ingresada</h5>";
             }
