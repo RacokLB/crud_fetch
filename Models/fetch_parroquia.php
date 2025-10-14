@@ -5,7 +5,7 @@
     ini_set('display_errors', 1);
 
     // Ensure your connection script makes $pdo available in this scope
-    require "/xampp/htdocs/sistemaIngresoDGTH/Config/abrir_conexion.php"; // Adjust path as necessary
+    require "/xampp/htdocs/sistemaIngresoDGTH/Config/conexion.php"; // Adjust path as necessary
 
     if (isset($_POST['id_municipio'])) {
         try {

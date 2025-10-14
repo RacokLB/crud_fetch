@@ -109,11 +109,7 @@
                                     <div class="d-flex align-items-start">
                                         <div class="flex-grow-1">
                                             <div class="list-group" id="reporte"></div>
-                                            <div class="list-group col-4 d-flex">
-                                                <button type="button" id="desglozar" class="list-group-item list-group-item-action bg-dark text-white" aria-current="true">
-                                                    Desplegar Estadisticas
-                                                </button>
-                                            </div>
+                                            
                                             <h4 class="mb-2"></h4>
                                             <p class="mb-2">
                                                 FECHA & HORA
@@ -1225,7 +1221,7 @@
           }else if(data.status === 'success'){
             resultadoDiv.innerHTML = `
                 <h4 class='fw-bold'>Total Pacientes Atendidos: ${data.totalPacientes}</h4>
-                <div class='list-group' id='tabla_reporte' style='display: none;'>
+                <div class='list-group' id='tabla_reporte' style='display: inline-block;'>
                   <button type='button' class='list-group-item list-group-item-action'>N° de Trabajadores Atendidos: ${data.totalTrabajadores}</button>
                   <button type='button' class='list-group-item list-group-item-action'>N° de Parientes Atendidos: ${data.totalParientes}</button>
                   <button type='button' class='list-group-item list-group-item-action'>N° de personas por Cortesia atentidas: ${data.totalCortesia}</button>

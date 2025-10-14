@@ -189,7 +189,7 @@ if(session_status() == PHP_SESSION_NONE){
                         <div class="card-img-overlay d-flex flex-column">
                             <div class="card-body">
                                 <small class="card-meta mb-2">Resumen Estadistico</small>
-                                <h4 class="card-title mt-0"><a class="text-white" href="../View/adminDashBoard.html">Panel de Estadisticas</a></h4>
+                                <h4 class="card-title mt-0"><a class="text-white" href="../View/adminDashBoard.php">Panel de Estadisticas</a></h4>
                             </div>
                             <div class="card-footer">
                                 <a href="../View/adminDashBoard.php" class="btn btn-dark btn-sm">Acceder al sistema</a>

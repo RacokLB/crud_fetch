@@ -28,7 +28,7 @@
             </div>
             <input type="submit"  value="Cambiar" name="modificacionBtn" id="modificacionBtn" class="btn">
             <div class="register-link">
-                <p>No tienes cuenta ? <a href="register_login.php">Registrarse</a></p>
+                <p>No tienes cuenta ? <a href="registerlogin.php">Registrarse</a></p>
             </div>
         </form>
     </div>

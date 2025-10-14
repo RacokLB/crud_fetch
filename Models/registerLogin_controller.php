@@ -1,9 +1,10 @@
 <?php
 //llamamos a la conexion que establecimos con la base de datos
-require "../Config/conexion.php";
+
 
     //aqui indicamos que queremos hacer al momento de que el usuario presione el boton registrarse el name del button es 'registerbtn'
     if(isset($_POST['registerbtn'])) {
+        require_once "/xampp/htdocs/crud_fetch/Config/conexion.php";
         
     //aqui revisamos si los campos estan llenos para continuar con el envio de la informacion , estamos diciendo si el campo 'user' es mayor o igual a 1 es True en php && indica true , aparte hacemos uso de la funcion strlen que nos devuelve la longitud de una cadena determinada de string  
         if(isset($_POST['cedula_identidad']) && isset($_POST['password']) && strlen(string: $_POST['cedula_identidad']) <= 8 && strlen($_POST['password']) >= 4)
@@ -31,7 +32,7 @@ require "../Config/conexion.php";
                 
                 sleep(seconds: 2);
                 
-                header(header:"location: ../View/ login.php");
+                header(header:"location: ../View/login.php");
             } else {
                 echo "<h5 id='error'>Verifique su Usuario y la contraseña ingresada</h5>";
             }

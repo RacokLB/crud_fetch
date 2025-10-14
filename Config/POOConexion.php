@@ -3,7 +3,7 @@
     class Database {
         private $host = '10.100.202.66';
         private $dbName = 'fttc';
-        private $username = 'pma';
+        private $username = 'root';
         private $password = '';
         private $pdo;
         private $error;

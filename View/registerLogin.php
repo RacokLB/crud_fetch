@@ -13,8 +13,8 @@
         <div class="wrapper">
             <form action="" method="POST">
                 <?php
-                include "/xampp/htdocs/crud_fetch/Models/registerLogin_controller.php";
-                include "/xampp/htdocs/crud_fetch/Config/conexion.php";
+                require_once "/xampp/htdocs/crud_fetch/Models/registerLogin_controller.php";
+                require_once "/xampp/htdocs/crud_fetch/Config/conexion.php";
                 ?>
                 <h1>Registro</h1>
                 <div class="input-box">
