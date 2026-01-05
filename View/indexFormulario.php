@@ -1,3 +1,15 @@
+<?php
+
+if (session_status() == PHP_SESSION_NONE) {
+    if (session_start()) {
+        if (!isset($_SESSION['id'])) {
+            header("location: login.php");
+        }
+    }
+}
+
+
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -6,9 +18,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulario para nuevo Ingreso</title>
     <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href=" ../Public/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://kit.fontawesome.com/f50bfae678.js" crossorigin="anonymous"></script>
     <style>
         .formulario-container {
@@ -43,6 +58,9 @@
 
     $queryCoordinaciones = $pdo->prepare(query: "SELECT codigo_coordinacion, nombre_coordinacion FROM tabla_coordinaciones");
     $queryCoordinaciones->execute();
+
+    $queryGradoAcademico = $pdo->prepare(query: "SELECT ID, grado_instruccion FROM niveles_instruccion");
+    $queryGradoAcademico->execute();
 
     $queryCargo = $pdo->prepare(query: "SELECT codigo, nombre_cargos FROM tabla_cargos");
     $queryCargo->execute();
@@ -85,7 +103,8 @@
                             </li>
                             <li class="sidebar-item">
                                 <a class="sidebar-link">
-                                    <button type="button" class="btn btn-dark btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="Cortesia">Cortesia</button>
+                                    <button type="button" class="btn btn-dark btn-sm" data-bs-toggle="modal"
+                                        data-bs-target="#exampleModal" data-bs-whatever="Cortesia">Cortesia</button>
                                 </a>
                             </li>
                         </ul>
@@ -122,7 +141,8 @@
                     <ul class="navbar-nav">
                         <li class="nav-item dropdown">
                             <a href="#" data-bs-toggle="dropdown" class="nav-icon pe-md-0">
-                                <img src="../Public/img/logotipo.jpg" class="avatar img-fluid rounded" alt="Logotipo del FTTC">
+                                <img src="../Public/img/logotipo.jpg" class="avatar img-fluid rounded"
+                                    alt="Logotipo del FTTC">
                             </a>
                             <div class="dropdown-menu dropdown-menu-end">
                                 <a href="#" class="dropdown-item">Analista</a>
@@ -135,12 +155,17 @@
             </nav>
             <br>
             <main class="col-12 px-3 " id="main-content">
-                <button class="btn btn-dark text-white" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">Informacion de Ingresos  <i class="fa-solid fa-chart-pie"></i></button>
+                <button class="btn btn-dark text-white" type="button" data-bs-toggle="offcanvas"
+                    data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">Informacion de
+                    Ingresos <i class="fa-solid fa-chart-pie"></i></button>
 
-                <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
+                <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions"
+                    aria-labelledby="offcanvasWithBothOptionsLabel">
                     <div class="offcanvas-header bg-dark text-white">
-                        <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Grafico de ingresos  <i class="fa-solid fa-chart-simple"></i></h5>
-                        <button type="button" class="btn-close bg-light" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                        <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Grafico de ingresos <i
+                                class="fa-solid fa-chart-simple"></i></h5>
+                        <button type="button" class="btn-close bg-light" data-bs-dismiss="offcanvas"
+                            aria-label="Close"></button>
                     </div>
                     <div class="offcanvas-body">
                         <canvas id="myChart" class="bg-light" width="370" height="600"></canvas>
@@ -149,12 +174,17 @@
                         </div>
                     </div>
                 </div>
-                <button class="btn btn-dark text-white" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Reportes  <i class="fa-regular fa-chart-bar"></i></button>
+                <button class="btn btn-dark text-white" type="button" data-bs-toggle="offcanvas"
+                    data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Reportes <i
+                        class="fa-regular fa-chart-bar"></i></button>
 
-                <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+                <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
+                    id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
                     <div class="offcanvas-header bg-dark text-white">
-                        <h4 class="offcanvas-title" id="offcanvasScrollingLabel">Estadisticas Generales  <i class="fa-solid fa-calculator"></i></h5>
-                        <button type="button" class="btn-close bg-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                        <h4 class="offcanvas-title" id="offcanvasScrollingLabel">Estadisticas Generales <i
+                                class="fa-solid fa-calculator"></i></h5>
+                            <button type="button" class="btn-close bg-white" data-bs-dismiss="offcanvas"
+                                aria-label="Close"></button>
                     </div>
                     <div class="offcanvas-body">
                         <div class="card p-4 mb-4 mt-4" id="totales">
@@ -173,14 +203,18 @@
                     <div class="formulario-container">
                         <h2 class="text-center fw-bold">Formulario de Ingreso</h2>
                         <div class="progress">
-                            <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+                            <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0"
+                                aria-valuemin="0" aria-valuemax="100">0%</div>
                         </div>
-                        <form id="personaForm" class="p-6 rounded" action="/crud_fetch/index.php?Controllers=trabajadorController&api=crearTrabajador" method="POST">
+                        <form id="personaForm" class="p-6 rounded"
+                            action="/crud_fetch/index.php?Controllers=trabajadorController&api=crearTrabajador"
+                            method="POST">
                             <input type="hidden" id="parienteArray" name="parienteArray">
                             <div id="personal-info" class="form-section current">
                                 <h3 class="">Información Personal</h3>
                                 <div class="col-md-4 mb-4">
-                                    <span for="nacionalidad" class="input-group-text bg-dark text-white">Nacionalidad</span>
+                                    <span for="nacionalidad"
+                                        class="input-group-text bg-dark text-white">Nacionalidad</span>
                                     <select class="form-select" name="nacionalidad" id="nacionalidad">
                                         <option value="">Seleccione una opcion</option>
                                         <option value="V" selected>Venezolano</option>
@@ -188,11 +222,14 @@
                                     </select>
                                 </div>
                                 <div class="input-group mb-3">
-                                    
+
                                     <span class="input-group-text bg-dark text-white">Cedula / Rif</span>
                                     <div class="col-md-4">
-                                        <input type="text" aria-label="Cedula" class="form-control" id="cedula" name="cedula" placeholder="Cedula V- E-" minlength="6" maxlength="8" required>
-                                        <input type="text" aria-label="rif" class="form-control" id="rif" name="rif" pattern="[0-9]+" minlength="8" maxlength="9" placeholder="RIF" required>
+                                        <input type="text" aria-label="Cedula" class="form-control" id="cedula"
+                                            name="cedula" placeholder="Cedula V- E-" minlength="6" maxlength="8"
+                                            required>
+                                        <input type="text" aria-label="rif" class="form-control" id="rif" name="rif"
+                                            pattern="[0-9]+" minlength="8" maxlength="9" placeholder="RIF" required>
                                     </div>
                                     <div class="alert" id="cedulaError">
 
@@ -201,18 +238,29 @@
                                 <div class="input-group mb-3">
                                     <span class="input-group-text bg-dark text-white">Nombres y Apellidos</span>
                                     <div class="col-md-6 ">
-                                        <input type="text" class="form-control" id="nombres" placeholder="Nombres" name="nombres" required>
-                                        <input type="text" class="form-control" id="apellidos" placeholder="Apellidos" name="apellidos" required>
+                                        <input type="text" class="form-control" id="nombres" placeholder="Nombres"
+                                            name="nombres" required>
+                                        <input type="text" class="form-control" id="apellidos" placeholder="Apellidos"
+                                            name="apellidos" required>
                                     </div>
                                 </div>
                                 <div class="form-group col-md-4 mb-3">
                                     <label for="fechaNacimiento">Fecha de Nacimiento:</label>
-                                    <input type="date" class="form-control" id="fechaNacimiento" name="fecha_nacimiento">
-                                    <span id="fechaNacimientoError" class="text-danger" ></span>
+                                    <input type="date" class="form-control" id="fechaNacimiento"
+                                        name="fecha_nacimiento">
+                                    <span id="fechaNacimientoError" class="text-danger"></span>
+                                </div>
+                                <div class="form-group col-md-4 mb-3">
+                                    <label for="genero">Genero:</label>
+                                    <select class="form-control" id="genero" name="genero">
+                                        <option selected>Seleccione una opción</option>
+                                        <option value="M">Masculino</option>
+                                        <option value="F">Femenino</option>
+                                    </select>
                                 </div>
                                 <div class="form-group col-md-4 mb-3">
                                     <label for="estadoCivil">Estado Civil:</label>
-                                    <select class="form-control" id="estadoCivil" name="estado_civil" > 
+                                    <select class="form-control" id="estadoCivil" name="estado_civil">
                                         <option selected>Seleccione una opción</option>
                                         <option value="soltero">Soltero(a)</option>
                                         <option value="casado">Casado(a)</option>
@@ -229,13 +277,16 @@
                                 <div class="input-group mb-3">
                                     <span class="input-group-text bg-dark text-white">Telefonos</span>
                                     <div class="col-md-5">
-                                        <input type="tel" class="form-control" id="telefonoFijo" pattern="[0-9]{11}" maxlength="11" placeholder="teléfono fijo (0212)" name="telefono_fijo">
-                                        <input type="tel" class="form-control" id="telefonoMovil" pattern="[0-9]{11}" maxlength="11" placeholder="teléfono móvil (0412)" name="telefono_movil">
+                                        <input type="tel" class="form-control" id="telefonoFijo" pattern="[0-9]{11}"
+                                            maxlength="11" placeholder="teléfono fijo (0212)" name="telefono_fijo">
+                                        <input type="tel" class="form-control" id="telefonoMovil" pattern="[0-9]{11}"
+                                            maxlength="11" placeholder="teléfono móvil (0412)" name="telefono_movil">
                                     </div>
                                 </div>
                                 <div class="form-group mb-3 col-md-6">
                                     <label for="email">Correo Electrónico:</label>
-                                    <input type="email" class="form-control" id="email" name="email" placeholder="Ingrese su correo electrónico">
+                                    <input type="email" class="form-control" id="email" name="email"
+                                        placeholder="Ingrese su correo electrónico">
                                 </div>
                                 <button type="button" class="btn btn-secondary prev-step">Anterior</button>
                                 <button type="button" class="btn btn-primary next-step">Siguiente</button>
@@ -245,11 +296,24 @@
                                 <h3>Datos Personales</h3>
                                 <div class="form-row">
                                     <div class="form-group mb-3 col-md-5">
+                                        <label for="grado_academico">Grado Academico:</label>
+                                        <select class="form-control" id="grado_academico" name="grado_academico">
+                                            <option selected>"Seleccione un grado academico"</option>
+                                            <?php while ($row = $queryGradoAcademico->fetch(PDO::FETCH_ASSOC)) { ?>
+                                                <option value="<?php echo $row['ID']; ?>">
+                                                    <?php echo $row['grado_instruccion']; ?>
+                                                </option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                    <div class="form-group mb-3 col-md-5">
                                         <label for="cargo">Cargo:</label>
                                         <select class="form-control" id="cargo" name="cargo">
                                             <option selected>"Seleccione un cargo"</option>
                                             <?php while ($row = $queryCargo->fetch(PDO::FETCH_ASSOC)) { ?>
-                                                <option value="<?php echo $row['codigo']; ?>"><?php echo $row['nombre_cargos']; ?></option>
+                                                <option value="<?php echo $row['codigo']; ?>">
+                                                    <?php echo $row['nombre_cargos']; ?>
+                                                </option>
                                             <?php } ?>
                                         </select>
                                     </div>
@@ -258,17 +322,21 @@
                                         <select class="form-control" id="coordinacion" name="coordinacion">
                                             <option selected>"Seleccione una coordinacion"</option>
                                             <?php while ($row = $queryCoordinaciones->fetch(PDO::FETCH_ASSOC)) { ?>
-                                                <option value="<?php echo $row['codigo_coordinacion']; ?>"><?php echo $row['nombre_coordinacion']; ?></option>
+                                                <option value="<?php echo $row['codigo_coordinacion']; ?>">
+                                                    <?php echo $row['nombre_coordinacion']; ?>
+                                                </option>
                                             <?php } ?>
                                         </select>
                                     </div>
                                     <div class="form-group col-md-4 mb-3">
                                         <label for="estatura">Estatura (cm):</label>
-                                        <input type="text" class="form-control" pattern="[0-9]+" id="estatura" name="estatura" placeholder="Estatura en cm" maxlength="3">
+                                        <input type="text" class="form-control" pattern="[0-9]+" id="estatura"
+                                            name="estatura" placeholder="Estatura en cm" maxlength="3">
                                     </div>
                                     <div class="form-group col-md-4 mb-3">
                                         <label for="peso">Peso (kg):</label>
-                                        <input type="text" class="form-control" pattern="[0-9]+" id="peso" name="peso" placeholder="Peso en Kg" maxlength="3" minlength="2">
+                                        <input type="text" class="form-control" pattern="[0-9]+" id="peso" name="peso"
+                                            placeholder="Peso en Kg" maxlength="3" minlength="2">
                                     </div>
                                     <div class="form-group col-md-4 mb-3">
                                         <label for="tipoSangre">Tipo de Sangre:</label>
@@ -316,11 +384,14 @@
                                 </div>
                                 <div class="form-group mb-3 col-md-4">
                                     <label for="tallaZapatos">Talla de Zapatos:</label>
-                                    <input type="number" class="form-control" id="tallaZapatos" name="talla_zapatos" pattern="[0-9]+" min="30" max="50" placeholder="Talla de zapatos">
+                                    <input type="number" class="form-control" id="tallaZapatos" name="talla_zapatos"
+                                        pattern="[0-9]+" min="30" max="50" placeholder="Talla de zapatos">
                                 </div>
                                 <div class="form-group mb-3 col-md-4">
                                     <label for="tallaPantalon">Talla de Pantalón:</label>
-                                    <input type="number" class="form-control" id="tallaPantalon" name="talla_pantalon" pattern="[0-9][A-Z]+" min="20" max="42" placeholder="Talla de pantalón (ej: 30, 32L)">
+                                    <input type="number" class="form-control" id="tallaPantalon" name="talla_pantalon"
+                                        pattern="[0-9][A-Z]+" min="20" max="42"
+                                        placeholder="Talla de pantalón (ej: 30, 32L)">
                                 </div>
                                 <button type="button" class="btn btn-secondary prev-step">Anterior</button>
                                 <button type="button" class="btn btn-primary next-step">Siguiente</button>
@@ -332,7 +403,7 @@
                                 <div class="form-group mb-3 col-md-4">
 
                                     <select class="form-control" id="vivienda" name="vivienda">
-                                        <option value="" >Seleccione</option>
+                                        <option value="">Seleccione</option>
                                         <option value="casa">Casa</option>
                                         <option value="apartamento">Apartamento</option>
                                     </select>
@@ -361,7 +432,8 @@
                                     <select class="form-control" id="ciudad" name="ciudad">
                                         <option value="">"Seleccione la ciudad"</option>
                                         <?php while ($row = $ciudades->fetch(PDO::FETCH_ASSOC)) { ?>
-                                            <option value="<?php echo $row['ID_STATE']; ?>"><?php echo $row['CITY']; ?></option>
+                                            <option value="<?php echo $row['ID_STATE']; ?>"><?php echo $row['CITY']; ?>
+                                            </option>
                                         <?php } ?>
                                     </select>
                                 </div>
@@ -370,7 +442,8 @@
                                     <select class="form-control" id="municipio" name="municipio">
                                         <option value="">"Seleccione el municipio"</option>
                                         <?php while ($row = $municipios->fetch(PDO::FETCH_ASSOC)) { ?>
-                                            <option value="<?php echo $row['ID']; ?>"><?php echo $row['municipios']; ?></option>
+                                            <option value="<?php echo $row['ID']; ?>"><?php echo $row['municipios']; ?>
+                                            </option>
                                         <?php } ?>
                                     </select>
                                 </div>
@@ -379,13 +452,15 @@
                                     <select class="form-control" id="parroquia" name="parroquia">
                                         <option value="">"Seleccione el parroquia"</option>
                                         <?php while ($row = $parroquias->fetch(PDO::FETCH_ASSOC)) { ?>
-                                            <option value="<?php echo $row['ID']; ?>"><?php echo $row['parroquias']; ?></option>
+                                            <option value="<?php echo $row['ID']; ?>"><?php echo $row['parroquias']; ?>
+                                            </option>
                                         <?php } ?>
                                     </select>
                                 </div>
                                 <div class="form-group mb-3 col-md-5">
                                     <label for="direccion">Direccion</label>
-                                    <textarea name="direccion" class="form-control" rows="3" id="direccion" name="direccion"></textarea>
+                                    <textarea name="direccion" class="form-control" rows="3" id="direccion"
+                                        name="direccion"></textarea>
                                 </div>
 
                                 <button type="button" class="btn btn-secondary prev-step">Anterior</button>
@@ -394,7 +469,8 @@
 
                             <div id="family-info" class="form-section">
                                 <h3>Información Familiar</h3>
-                                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalPariente">Agregar Pariente</button>
+                                <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                                    data-bs-target="#modalPariente">Agregar Pariente</button>
                                 <div id="parientes-container">
                                     <h4 class="text-dark">Parientes Registrados:</h4>
                                     <ul id="lista-parientes">
@@ -406,9 +482,9 @@
 
                             <div id="work-info" class="form-section">
                                 <h3>Información Laboral</h3>
-                                
+
                                 <div class="form-group mb-3 col-md-5">
-                                    <label for="cargo">Estatus del trabajador dentro de FTTC</label>
+                                    <label for="estatus">Estatus del trabajador dentro de FTTC</label>
                                     <select class="form-control" id="estatus" name="estatus">
                                         <option selected>"Seleccione un estatus"</option>
                                         <option value="Activo">Activo</option>
@@ -417,21 +493,30 @@
                                         <option value="Contratado">Contratado</option>
                                     </select>
                                 </div>
-                                
+
+                                <div class="form-group mb-3 col-md-5">
+                                    <label for="fechaIngreso">Fecha de Ingreso:</label>
+                                    <input type="date" class="form-control" id="fechaIngreso" name="fecha_ingreso">
+                                </div>
+
                                 <div class="form-group mb-3 col-md-5">
                                     <label for="numeroHijos">Número de Hijos:</label>
-                                    <input type="number" class="form-control" id="numeroHijos" min="0" max="10" placeholder="Cantidad hijos" name="num_hijos" pattern="(0|[1-9]\d*)">
+                                    <input type="number" class="form-control" id="numeroHijos" min="0" max="10"
+                                        placeholder="Cantidad hijos" name="num_hijos" pattern="(0|[1-9]\d*)"
+                                        default="0">
                                 </div>
                                 <button type="button" class="btn btn-secondary prev-step">Anterior</button>
                                 <button type="submit" class="btn btn-success">Enviar Formulario</button>
                             </div>
                         </form>
-                        <div class="modal fade" id="reportesModal" tabindex="-1" aria-labelledby="reportesModalLabel" >
+                        <div class="modal fade" id="reportesModal" tabindex="-1" aria-labelledby="reportesModalLabel">
                             <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="reportesModalLabel">Reportes de Trabajadores Recientes</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        <h5 class="modal-title" id="reportesModalLabel">Reportes de Trabajadores
+                                            Recientes</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
                                         <div id="modalReportContent">
@@ -439,47 +524,59 @@
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Cerrar</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="modal fade" id="modalPariente" tabindex="-1" aria-labelledby="modalParienteLabel" aria-hidden="true">
+                        <div class="modal fade" id="modalPariente" tabindex="-1" aria-labelledby="modalParienteLabel"
+                            aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header bg-dark text-white">
                                         <h5 class="modal-title fw-bold" id="modalParienteLabel">Registrar Pariente</h5>
-                                        <button type="button" class="btn-close bg-light" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        <button type="button" class="btn-close bg-light" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
                                         <form id="formPariente">
                                             <div class="form-group mb-3">
                                                 <label for="cedulaTrabajador">Cedula del Trabajador:</label>
-                                                <input type="text" class="form-control" id="cedulaTrabajador" name="cedulaTrabajador" placeholder="Cedula del Trabajador" required>
+                                                <input type="text" class="form-control" id="cedulaTrabajador"
+                                                    name="cedulaTrabajador" placeholder="Cedula del Trabajador"
+                                                    required>
                                             </div>
                                             <div id="cedulaParienteError">
 
                                             </div>
                                             <div class="form-group mb-3">
                                                 <label for="coordinacionPariente">Coordinacion del Titular:</label>
-                                                <input type="text" class="form-control" id="coordinacionPariente" name="coordinacionPariente">
+                                                <input type="text" class="form-control" id="coordinacionPariente"
+                                                    name="coordinacionPariente">
                                             </div>
                                             <div class="form-group mb-3">
                                                 <label for="cedulaPariente">Cedula del Pariente (Opcional) :</label>
-                                                <input type="text" class="form-control" pattern="[0-9]{6,8}" minlength="6" maxlength="8" id="cedulaPariente" placeholder="Cedula del Pariente" name="cedulaPariente">
+                                                <input type="text" class="form-control" pattern="[0-9]{6,8}"
+                                                    minlength="6" maxlength="8" id="cedulaPariente"
+                                                    placeholder="Cedula del Pariente" name="cedulaPariente">
                                             </div>
                                             <div class="form-group mb-3">
                                                 <label for="nombrePariente">Nombre del Pariente:</label>
-                                                <input type="text" class="form-control" id="nombrePariente" name="nombrePariente" placeholder="nombre del pariente" required>
+                                                <input type="text" class="form-control" id="nombrePariente"
+                                                    name="nombrePariente" placeholder="nombre del pariente" required>
                                             </div>
                                             <div class="form-group mb-3">
                                                 <label for="apellidoPariente">Apellido del Pariente:</label>
-                                                <input type="text" class="form-control" id="apellidoPariente" name="apellidoPariente" placeholder="apellido del pariente" required>
+                                                <input type="text" class="form-control" id="apellidoPariente"
+                                                    name="apellidoPariente" placeholder="apellido del pariente"
+                                                    required>
                                             </div>
                                             <div class="form-group mb-3">
                                                 <label for="sexoPariente">Genero:</label>
-                                                <select class="form-control" id="generoPariente" name="generoPariente" required>
+                                                <select class="form-control" id="generoPariente" name="generoPariente"
+                                                    required>
                                                     <option value="">Seleccione</option>
                                                     <option value="F">Femenino</option>
                                                     <option value="M">Masculino</option>
@@ -503,12 +600,14 @@
                                             </div>
                                             <div class="form-group mb-3">
                                                 <label for="fechaNacimientoPariente">Fecha de Nacimiento:</label>
-                                                <input type="date" class="form-control" id="fechaNacimientoPariente" name="fechaNacimientoPariente">
+                                                <input type="date" class="form-control" id="fechaNacimientoPariente"
+                                                    name="fechaNacimientoPariente">
                                             </div>
-                                            
+
                                             <div class="form-group mb-3">
                                                 <label for="discapacidadPariente">Discapacidad:</label>
-                                                <select class="form-control" id="discapacidadPariente" name="discapacidadPariente">
+                                                <select class="form-control" id="discapacidadPariente"
+                                                    name="discapacidadPariente">
                                                     <option value="">Seleccione una opción</option>
                                                     <option value="ninguna">Ninguna</option>
                                                     <option value="fisica">Física</option>
@@ -521,207 +620,214 @@
                                         </form>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                        <button type="button" class="btn btn-primary" id="guardarPariente">Guardar Pariente</button>
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Cerrar</button>
+                                        <button type="button" class="btn btn-primary" id="guardarPariente">Guardar
+                                            Pariente</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+        </div>
         </main>
 
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
+        crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="../Public/dashBoard.js"></script>
     <script>
-        $(document).ready(function() {
-            
+        $(document).ready(function () {
 
-            
-                const fechaNacimientoInput = document.getElementById('fechaNacimiento');
-                const fechaNacimientoError = document.getElementById('fechaNacimientoError');
 
-                fechaNacimientoInput.addEventListener('change', function() {
-                    const fechaNacimiento = new Date(this.value);
-                    const hoy = new Date();
-                    const edad = hoy.getFullYear() - fechaNacimiento.getFullYear();
-                    const mes = hoy.getMonth() - fechaNacimiento.getMonth();
-                    const dia = hoy.getDate() - fechaNacimiento.getDate();
 
-                    // Ajustar la edad si el cumpleaños no ha pasado aún este año
-                    let edadValida = edad;
-                    if (mes < 0 || (mes === 0 && dia < 0)) {
-                        edadValida--;
-                    }
+            const fechaNacimientoInput = document.getElementById('fechaNacimiento');
+            const fechaNacimientoError = document.getElementById('fechaNacimientoError');
 
-                    if (edadValida < 16) {
-                        fechaNacimientoError.textContent = 'La persona debe tener al menos 16 años.';
-                        this.setCustomValidity('Inválido'); // Muestra el mensaje de error del navegador
-                    } else {
-                        fechaNacimientoError.textContent = '';
-                        this.setCustomValidity(''); // Borra el mensaje de error
-                    }
-                });
+            fechaNacimientoInput.addEventListener('change', function () {
+                const fechaNacimiento = new Date(this.value);
+                const hoy = new Date();
+                const edad = hoy.getFullYear() - fechaNacimiento.getFullYear();
+                const mes = hoy.getMonth() - fechaNacimiento.getMonth();
+                const dia = hoy.getDate() - fechaNacimiento.getDate();
 
-                $('#estado').change(function(){
-                    $('#parroquia').find('option').remove().end().append('<option value="whatever"></option>').val('whatever');
-                    $('#estado option:selected').each(function(){
-                        var id_estado = $(this).val();
-                        console.log(`ID del estado ${id_estado}`)
-                        $.post('../Models/fetch_ciudad.php', {
-                            id_estado: id_estado
-                        }, function(data) {
-                            $('#ciudad').html(data);
-                        })
-                    })
-                })
-                $('#ciudad').change(function() {
-                    $('#ciudad option:selected').each(function() {
-                        var ID_ciudad = $(this).val();
-                        $.post('../Models/fetch_municipio.php', {
-                            ID_ciudad: ID_ciudad
-                        }, function(data) {
-                            $('#municipio').html(data)
-                        })
-                    })
-                })
-                $("#municipio").change(function() {
-                    $('#municipio option:selected').each(function() {
-                        var id_municipio = $(this).val();
-                        $.post('../Models/fetch_parroquia.php', {
-                            id_municipio: id_municipio
-                        }, function(data) {
-                            $('#parroquia').html(data)
-                        })
-                    })
-                })
-                $("#parroquia").change(function() {
-                    $('#parroquia option:selected').each(function() {
-                    })
-                })
-                    
-            
-
-                
-
-                // Variable para controlar el retraso en la petición AJAX (debounce)
-                let debounceTimer;
-
-                // --- Función para realizar la validación de formato inicial (local) ---
-                // La dejamos casi igual, pero ahora solo para validaciones rápidas del formato.
-                function validarFormatoCedulaLocal(cedula) {
-                    const cedulaLimpia = cedula.replace(/[^0-9VEJvej]/gi, ''); // Permite números y letras V, E, J
-                    if (cedulaLimpia.length === 0) {
-                        return 'La cédula no puede estar vacía.';
-                    }
-                    // Considera una longitud mínima razonable antes de enviar al backend
-                    if (cedulaLimpia.length < 5) { // Por ejemplo, 5 dígitos mínimos para empezar a validar con backend
-                        return 'Cédula muy corta.';
-                    }
-                    
+                // Ajustar la edad si el cumpleaños no ha pasado aún este año
+                let edadValida = edad;
+                if (mes < 0 || (mes === 0 && dia < 0)) {
+                    edadValida--;
                 }
 
+                if (edadValida < 16) {
+                    fechaNacimientoError.textContent = 'La persona debe tener al menos 16 años.';
+                    this.setCustomValidity('Inválido'); // Muestra el mensaje de error del navegador
+                } else {
+                    fechaNacimientoError.textContent = '';
+                    this.setCustomValidity(''); // Borra el mensaje de error
+                }
+            });
 
-                // --- Añadir el 'event listener' al campo de la cédula ---
-                const cedula = document.getElementById('cedula');
-                const cedulaError = document.getElementById('cedulaError');
+            $('#estado').change(function () {
+                $('#parroquia').find('option').remove().end().append('<option value="whatever"></option>').val('whatever');
+                $('#estado option:selected').each(function () {
+                    var id_estado = $(this).val();
+                    console.log(`ID del estado ${id_estado}`)
+                    $.post('../Models/fetch_ciudad.php', {
+                        id_estado: id_estado
+                    }, function (data) {
+                        $('#ciudad').html(data);
+                    })
+                })
+            })
+            $('#ciudad').change(function () {
+                $('#ciudad option:selected').each(function () {
+                    var ID_ciudad = $(this).val();
+                    $.post('../Models/fetch_municipio.php', {
+                        ID_ciudad: ID_ciudad
+                    }, function (data) {
+                        $('#municipio').html(data)
+                    })
+                })
+            })
+            $("#municipio").change(function () {
+                $('#municipio option:selected').each(function () {
+                    var id_municipio = $(this).val();
+                    $.post('../Models/fetch_parroquia.php', {
+                        id_municipio: id_municipio
+                    }, function (data) {
+                        $('#parroquia').html(data)
+                    })
+                })
+            })
+            $("#parroquia").change(function () {
+                $('#parroquia option:selected').each(function () {
+                })
+            })
 
-                cedula.addEventListener('keyup', () => {
-                    const cedulaValor = cedula.value.trim(); // Obtiene el valor actual y elimina espacios
 
-                    // Limpia cualquier temporizador anterior
-                    clearTimeout(debounceTimer);
 
-                    // 1. Primero, valida el formato localmente
-                    const formatoError = validarFormatoCedulaLocal(cedulaValor);
 
-                    if (formatoError) {
-                        cedulaError.textContent = formatoError;
-                        // Si hay un error de formato local, no enviamos al backend
-                        return;
-                    } else {
-                        cedulaError.textContent = ''; // Limpiamos el error de formato si ya no existe
-                    }
 
-                    // 2. Si el formato es válido, establece un temporizador para enviar la solicitud al backend
-                    // Esto se llama "debounce": espera un momento (ej. 500ms) después de que el usuario deja de escribir
-                    // para no saturar el servidor con peticiones por cada tecla.
-                    if (cedulaValor.length >= 7) { // Solo envía al backend si la cédula tiene una longitud razonable
-                        cedulaError.textContent = 'Verificando cédula...'; // Mensaje de carga
-                        
-                        cedulaError.style.color = 'dark'; // Un color temporal para el mensaje de carga
+            // Variable para controlar el retraso en la petición AJAX (debounce)
+            let debounceTimer;
 
-                        debounceTimer = setTimeout(() => {
-                            // Construye la URL de la API con la cédula como parámetro
-                            // Asegúrate de codificar la cédula para URLs seguras
-                    
-                            const apiUrl = `http://localhost/crud_fetch/index.php/?api=validar_cedula&id=` + cedulaValor;
+            // --- Función para realizar la validación de formato inicial (local) ---
+            // La dejamos casi igual, pero ahora solo para validaciones rápidas del formato.
+            function validarFormatoCedulaLocal(cedula) {
+                const cedulaLimpia = cedula.replace(/[^0-9VEJvej]/gi, ''); // Permite números y letras V, E, J
+                if (cedulaLimpia.length === 0) {
+                    return 'La cédula no puede estar vacía.';
+                }
+                // Considera una longitud mínima razonable antes de enviar al backend
+                if (cedulaLimpia.length < 5) { // Por ejemplo, 5 dígitos mínimos para empezar a validar con backend
+                    return 'Cédula muy corta.';
+                }
 
-                            fetch(apiUrl)
-                                .then(response => {
-                                    if (!response.ok) {
-                                        throw new Error(`Error de red: ${response.statusText}`);
-                                    }
-                                    return response.json(); // Espera una respuesta JSON
-                                })
-                                .then(data => {
-                                    // Procesar la respuesta del backend
-                                    console.log(data)
-                                    if (data.success) {
-                                        if (data.existe) {
-                                            cedulaError.textContent = '¡Cédula ya registrada!';
-                                            
-                                            cedulaError.style.color = 'red';
-                                            cedulaError.style.fontSize = '25px'
-                                            
-                                        
-                                            
-                                            // Opcional: podrías deshabilitar el botón de enviar o resaltar el campo
-                                        } else {
-                                            cedulaError.textContent = '*¡Cedula Disponible!*';
-                                            
-                                            cedulaError.style.color = 'green';
-                                            cedulaError.style.fontSize = '25px'
-                                        
-                                            
-                                        }
+            }
+
+
+            // --- Añadir el 'event listener' al campo de la cédula ---
+            const cedula = document.getElementById('cedula');
+            const cedulaError = document.getElementById('cedulaError');
+
+            cedula.addEventListener('keyup', () => {
+                const cedulaValor = cedula.value.trim(); // Obtiene el valor actual y elimina espacios
+
+                // Limpia cualquier temporizador anterior
+                clearTimeout(debounceTimer);
+
+                // 1. Primero, valida el formato localmente
+                const formatoError = validarFormatoCedulaLocal(cedulaValor);
+
+                if (formatoError) {
+                    cedulaError.textContent = formatoError;
+                    // Si hay un error de formato local, no enviamos al backend
+                    return;
+                } else {
+                    cedulaError.textContent = ''; // Limpiamos el error de formato si ya no existe
+                }
+
+                // 2. Si el formato es válido, establece un temporizador para enviar la solicitud al backend
+                // Esto se llama "debounce": espera un momento (ej. 500ms) después de que el usuario deja de escribir
+                // para no saturar el servidor con peticiones por cada tecla.
+                if (cedulaValor.length >= 7) { // Solo envía al backend si la cédula tiene una longitud razonable
+                    cedulaError.textContent = 'Verificando cédula...'; // Mensaje de carga
+
+                    cedulaError.style.color = 'dark'; // Un color temporal para el mensaje de carga
+
+                    debounceTimer = setTimeout(() => {
+                        // Construye la URL de la API con la cédula como parámetro
+                        // Asegúrate de codificar la cédula para URLs seguras
+
+                        const apiUrl = `http://localhost/crud_fetch/index.php/?api=validar_cedula&id=` + cedulaValor;
+
+                        fetch(apiUrl)
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error(`Error de red: ${response.statusText}`);
+                                }
+                                return response.json(); // Espera una respuesta JSON
+                            })
+                            .then(data => {
+                                // Procesar la respuesta del backend
+                                console.log(data)
+                                if (data.success) {
+                                    if (data.existe) {
+                                        cedulaError.textContent = '¡Cédula ya registrada!';
+
+                                        cedulaError.style.color = 'red';
+                                        cedulaError.style.fontSize = '25px'
+
+
+
+                                        // Opcional: podrías deshabilitar el botón de enviar o resaltar el campo
                                     } else {
-                                        // Si success es false, el backend envió un mensaje de error
-                                        cedulaError.textContent = `Error del servidor: ${data.message}`;
-                                        cedulaError.classList.add('alert-danger')
-                                        cedulaError.style.color = 'dark';
-                                    }   
-                                })
-                                .catch(error => {
-                                    console.error('Error al verificar cédula:', error);
-                                    cedulaError.textContent = 'Error al verificar. Intenta de nuevo.';
-                                    
-                                    cedulaError.style.color = 'red';
-                                    cedulaError.style.font = '25px'
+                                        cedulaError.textContent = '*¡Cedula Disponible!*';
 
-                                });
-                        }, 500); // Espera 500 milisegundos (0.5 segundos) antes de enviar la petición
-                    } else {
-                        // Si la cédula es demasiado corta para enviar al backend (según tu criterio)
-                        cedulaError.textContent = ''; // O un mensaje como "Continúa escribiendo..."
-                    }
-                });
+                                        cedulaError.style.color = 'green';
+                                        cedulaError.style.fontSize = '25px'
 
-                // Opcional: Validar al cargar la página si ya hay un valor en el input
-                document.addEventListener('DOMContentLoaded', () => {
-                    if (cedula.value) {
-                        cedula.dispatchEvent(new Event('keyup')); // Dispara el evento keyup para una validación inicial
-                    }
-                });
+
+                                    }
+                                } else {
+                                    // Si success es false, el backend envió un mensaje de error
+                                    cedulaError.textContent = `Error del servidor: ${data.message}`;
+                                    cedulaError.classList.add('alert-danger')
+                                    cedulaError.style.color = 'dark';
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error al verificar cédula:', error);
+                                cedulaError.textContent = 'Error al verificar. Intenta de nuevo.';
+
+                                cedulaError.style.color = 'red';
+                                cedulaError.style.font = '25px'
+
+                            });
+                    }, 500); // Espera 500 milisegundos (0.5 segundos) antes de enviar la petición
+                } else {
+                    // Si la cédula es demasiado corta para enviar al backend (según tu criterio)
+                    cedulaError.textContent = ''; // O un mensaje como "Continúa escribiendo..."
+                }
+            });
+
+            // Opcional: Validar al cargar la página si ya hay un valor en el input
+            document.addEventListener('DOMContentLoaded', () => {
+                if (cedula.value) {
+                    cedula.dispatchEvent(new Event('keyup')); // Dispara el evento keyup para una validación inicial
+                }
+            });
 
             var $formSections = $('.form-section');
             var $progressBar = $('.progress-bar');
@@ -758,7 +864,7 @@
 
                 let sectionIsValid = true;
 
-                $formControls.each(function() {
+                $formControls.each(function () {
                     if (!this.checkValidity()) {
                         sectionIsValid = false;
                         $(this).addClass('is-invalid'); // Add class for visual feedback
@@ -772,7 +878,7 @@
             }
 
             // --- Handler for "Next" button click ---
-            $('.next-step').click(function(e) {
+            $('.next-step').click(function (e) {
                 e.preventDefault();
 
                 if (!validateCurrentSection()) {
@@ -794,7 +900,7 @@
             });
 
             // --- Handler for "Previous" button click ---
-            $('.prev-step').click(function() {
+            $('.prev-step').click(function () {
                 if (currentSectionIndex > 0) {
                     currentSectionIndex--;
                     showCurrentSection();
@@ -808,7 +914,7 @@
             const formularioPrincipal = document.getElementById('personaForm');
             formularioPrincipal.isSubmitting = false; // Flag to prevent infinite submission loop
 
-            formularioPrincipal.addEventListener('submit', function(evento) {
+            formularioPrincipal.addEventListener('submit', function (evento) {
                 if (formularioPrincipal.isSubmitting) {
                     return; // If already submitting, let it go through
                 }
@@ -870,7 +976,7 @@
                     return; // Stop submission
                 }
 
-                
+
 
                 // If all client-side validation passes, prepare and submit the form
                 const parientesJson = JSON.stringify(parientes);
@@ -882,28 +988,28 @@
 
 
             // --- Modal for Parientes Management ---
-            
+
 
             // Escuchar el evento 'show.bs.modal' de Bootstrap en tu modal
-            $('#modalPariente').on('show.bs.modal', function(event) {
+            $('#modalPariente').on('show.bs.modal', function (event) {
                 // Obtener referencias a los elementos HTML
-            const cedula = document.getElementById('cedula');
-            const cedulaModal = document.getElementById('cedulaTrabajador');
+                const cedula = document.getElementById('cedula');
+                const cedulaModal = document.getElementById('cedulaTrabajador');
 
-            cedulaModal.value = cedula.value;
-            
-            const coordinacion = document.getElementById('coordinacion');
-            const coordinacionModal = document.getElementById('coordinacionPariente')
+                cedulaModal.value = cedula.value;
+
+                const coordinacion = document.getElementById('coordinacion');
+                const coordinacionModal = document.getElementById('coordinacionPariente')
                 // Al abrir el modal, auto-rellenar el campo
-                
+
                 coordinacionModal.value = coordinacion.value;
             });
-                
+
 
             var parientes = []; // Array to store family members
 
             // Lógica para agregar parientes al array y mostrar en la lista
-            $('#guardarPariente').click(function() {
+            $('#guardarPariente').click(function () {
                 var trabajador_id = $('#cedulaTrabajador').val();
                 var cedulaPariente = $('#cedulaPariente').val();
                 var nombre = $('#nombrePariente').val();
@@ -925,23 +1031,23 @@
                         fechaNacimientoPariente: fechaNacimientoPariente,
                         parentesco: parentesco,
                         generoPariente: generoPariente,
-                        coordinacionPariente:coordinacionPariente,
+                        coordinacionPariente: coordinacionPariente,
                         discapacidadPariente: discapacidad
                     });
-                    
+
                     actualizarListaParientes();
                     $('#modalPariente').modal('hide');
 
                     //limpíar los campos del formulario modal
-                    cedulaPariente.val=('');
-                    nombre.val=('');
-                    apellido.val=('');
-                    generoPariente.val=('');
-                    parentesco.val=('');
-                    fechaNacimientoPariente.val=('');
-                    discapacidad.val=('');
+                    cedulaPariente.val = ('');
+                    nombre.val = ('');
+                    apellido.val = ('');
+                    generoPariente.val = ('');
+                    parentesco.val = ('');
+                    fechaNacimientoPariente.val = ('');
+                    discapacidad.val = ('');
 
-                    
+
                 } else {
                     Swal.fire({
                         icon: 'warning',
@@ -954,7 +1060,7 @@
             function actualizarListaParientes() {
                 var listaHTML = '';
 
-                parientes.forEach(function(pariente) {
+                parientes.forEach(function (pariente) {
                     // Use a more robust identifier, perhaps cedulaPariente if it's unique, otherwise use an index
                     // For demonstration, let's stick to using cedulaPariente if available, or a combination
                     const uniqueIdentifier = `${pariente.nombrePariente}-${pariente.apellidoPariente}`;
@@ -969,17 +1075,17 @@
 
                     // Change data-cedula to data-identifier for consistency with retrieval
                     listaHTML += ` <button type="button" class="btn btn-danger btn-sm ms-2 eliminar-pariente" data-identifier="${uniqueIdentifier}">Eliminar</button></li>`;
-                    
+
                 });
                 $('#lista-parientes').html(listaHTML);
 
-                $('.eliminar-pariente').off('click').on('click', function() {
+                $('.eliminar-pariente').off('click').on('click', function () {
                     // Retrieve the data attribute correctly
                     const identifierToDelete = $(this).data('identifier');
                     console.log(identifierToDelete)
 
                     // Filter based on the chosen unique identifier
-                    parientes = parientes.filter(p => { 
+                    parientes = parientes.filter(p => {
                         const currentIdentifier = `${p.nombrePariente}-${p.apellidoPariente}`;
                         console.log(currentIdentifier)
                         return currentIdentifier !== identifierToDelete;
@@ -990,19 +1096,19 @@
             }
 
             // Cuando se oculta el modal, limpiar el formulario
-            $('#modalPariente').on('hidden.bs.modal', function() {
+            $('#modalPariente').on('hidden.bs.modal', function () {
                 //Accedemos al indice [0] ya que el selector de ID osea se $ siempre devuelve 1 elemento el indice siempre sera 0 
                 $('#formPariente')[0].reset();
             });
 
-            formularioPrincipal.addEventListener('submit', function(evento){
-                    
+            formularioPrincipal.addEventListener('submit', function (evento) {
+
                 console.log(formularioPrincipal);
                 const formData = new FormData(formularioPrincipal);
                 //Construir la URL actual de action del formulario
                 let currentAction = formularioPrincipal.getAttribute('action');
-                
-                    // Serializa el array de parientes a una cadena JSON
+
+                // Serializa el array de parientes a una cadena JSON
                 const parientesJson = JSON.stringify(parientes);
                 console.log(parientesJson);
 
@@ -1010,7 +1116,7 @@
                 // Asigna la cadena JSON al input hidden
                 document.getElementById('parienteArray').value = parientesJson;
 
-                
+
             })
         });
 

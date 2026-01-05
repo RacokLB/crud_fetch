@@ -1,3 +1,15 @@
+<?php
+
+if (session_status() == PHP_SESSION_NONE) {
+    if (session_start()) {
+        if (!isset($_SESSION['id'])) {
+            header("location: login.php");
+        }
+    }
+}
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +17,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Listado Parientes</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
     <link href="https://cdn.datatables.net/2.3.0/css/dataTables.bootstrap5.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="../Public/style.css">
@@ -19,7 +32,7 @@
         <aside id="sidebar" class="js-sidebar">
             <div class="h-100">
                 <div class="sidebar-logo">
-                    <a href="#">FTTC</a>
+                    <a href="principalPagina.php">FTTC</a>
                 </div>
                 <ul class="sidebar-nav">
                     <li class="sidebar-header">
@@ -36,7 +49,8 @@
                             </li>
                             <li class="sidebar-item">
                                 <a class="sidebar-link">
-                                    <button type="button" class="btn btn-dark btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="Cortesia">Cortesia</button>
+                                    <button type="button" class="btn btn-dark btn-sm" data-bs-toggle="modal"
+                                        data-bs-target="#exampleModal" data-bs-whatever="Cortesia">Cortesia</button>
                                 </a>
                             </li>
                         </ul>
@@ -73,7 +87,8 @@
                     <ul class="navbar-nav">
                         <li class="nav-item dropdown">
                             <a href="#" data-bs-toggle="dropdown" class="nav-icon pe-md-0">
-                                <img src="../Public/img/logotipo.jpg" class="avatar img-fluid rounded" alt="Logotipo del FTTC">
+                                <img src="../Public/img/logotipo.jpg" class="avatar img-fluid rounded"
+                                    alt="Logotipo del FTTC">
                             </a>
                             <div class="dropdown-menu dropdown-menu-end">
                                 <a href="#" class="dropdown-item">Analista</a>
@@ -98,11 +113,13 @@
                                 Tabla de Seleccion
                             </h3>
                             <h5 class="card-subtitle text-muted fs-4">
-                                Base de datos de los Parientes de los funcionarios activos del Consejo Nacional Electoral
+                                Base de datos de los Parientes de los funcionarios activos del Consejo Nacional
+                                Electoral
                             </h5>
                         </div>
                         <div class="card-body bg-dark text-white">
-                            <table id="tabla" class="table fs-6 table-dark able-striped table-hover" style="width: 100%">
+                            <table id="tabla" class="table fs-6 table-dark able-striped table-hover"
+                                style="width: 100%">
                                 <thead>
                                     <tr>
                                         <th scope="col">N°</th>
@@ -157,12 +174,14 @@
         </div>
     </div>
     <main>
-        <div class="modal fade" id="editParienteModal" tabindex="-1" aria-labelledby="editParienteModalLabel" aria-hidden="true">
+        <div class="modal fade" id="editParienteModal" tabindex="-1" aria-labelledby="editParienteModalLabel"
+            aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable modal-lg">
                 <div class="modal-content">
                     <div class="modal-header border-4 border-bottom bg-dark text-white">
                         <h5 class="modal-title" id="editParienteModalLabel">Editar Pariente</h5>
-                        <button type="button" class="btn-close bg-light" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close bg-light" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
                     </div>
                     <di class="modal-body">
                         <form id="formEditPariente">
@@ -172,12 +191,14 @@
                                 <!--- FIELD CI DEL TRABAJADOR--->
                                 <div class="col-md-6">
                                     <label for="editTrabajadorCedula" class="form-label">Cedula del Trabajador</label>
-                                    <input type="text" class="form-control" id="editTrabajadorCedula" name="trabajadorId">
+                                    <input type="text" class="form-control" id="editTrabajadorCedula"
+                                        name="trabajadorId">
                                 </div>
                                 <!--- FIELD CI DEL PARIENTE--->
                                 <div class="col-md-6">
                                     <label for="editCedulaPariente" class="form-label">Cedula del pariente</label>
-                                    <input type="text" class="form-control" id="editCedulaPariente" name="cedulaPariente">
+                                    <input type="text" class="form-control" id="editCedulaPariente"
+                                        name="cedulaPariente">
                                 </div>
                             </div>
 
@@ -185,20 +206,24 @@
                                 <!---FIELD NOMBRE--->
                                 <div class="col-md-6">
                                     <label for="editNombrePariente" class="form-label">Nombres:</label>
-                                    <input type="text" class="form-control" id="editNombrePariente" name="nombrePariente">
+                                    <input type="text" class="form-control" id="editNombrePariente"
+                                        name="nombrePariente">
                                 </div>
                                 <!---FIELD APELLIDO-->
                                 <div class="col-md-6">
                                     <label for="editApellidoPariente" class="form-label">Apellidos:</label>
-                                    <input type="text" class="form-control" id="editApellidoPariente" name="apellidoPariente">
+                                    <input type="text" class="form-control" id="editApellidoPariente"
+                                        name="apellidoPariente">
                                 </div>
                             </div>
 
                             <div class="row mb-3">
                                 <!--FIELD FECHA DE NACIMIENTO--->
                                 <div class="col-md-6">
-                                    <label for="editFechaNacimientoPariente" class="form-label">Fecha de Nacimiento:</label>
-                                    <input type="date" class="form-control" id="editFechaNacimientoPariente" name="fechaNacimientoPariente">
+                                    <label for="editFechaNacimientoPariente" class="form-label">Fecha de
+                                        Nacimiento:</label>
+                                    <input type="date" class="form-control" id="editFechaNacimientoPariente"
+                                        name="fechaNacimientoPariente">
                                 </div>
                                 <!--FIELD PARENTESCO-->
                                 <div class="col-md-6">
@@ -229,7 +254,8 @@
                                 <!-- FIELD DISCAPACIDAD -->
                                 <div class="col-md-6">
                                     <label for="editDiscapacidadPariente" class="form-label">Discapacidad</label>
-                                    <select class="form-select" id="editDiscapacidadPariente" name="discapacidadPariente">
+                                    <select class="form-select" id="editDiscapacidadPariente"
+                                        name="discapacidadPariente">
                                         <option selected>Seleccione una opción</option>
                                         <option value="ninguna">Ninguna</option>
                                         <option value="fisica">Física</option>
@@ -242,7 +268,8 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                <button type="button" class="btn btn-primary" id="guardarCambiosPariente">Guardar Cambios</button>
+                                <button type="button" class="btn btn-primary" id="guardarCambiosPariente">Guardar
+                                    Cambios</button>
                             </div>
                 </div>
                 </form>
@@ -251,10 +278,15 @@
         </div>
     </main>
     <!--- END CANVAS--->
-    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script src="../Public/dashBoard.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
+        crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.datatables.net/2.3.0/js/dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/3.2.3/js/dataTables.buttons.min.js"></script>
@@ -263,7 +295,7 @@
     <script src="https://cdn.datatables.net/buttons/3.2.3/js/buttons.html5.min.js"></script>
     <script src="https://cdn.datatables.net/colreorder/2.0.4/js/dataTables.colReorder.min.js"></script>
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('#tabla').DataTable({
                 processing: true,
                 serverSide: false, // Keep this as false if your API returns all data at once
@@ -299,7 +331,7 @@
                         data: 'generoPariente'
                     },
                     {
-                        data:'coordinacion'
+                        data: 'coordinacion'
                     },
                     {
                         data: 'discapacidadPariente'
@@ -307,7 +339,7 @@
                     {
                         // Actions column
                         data: null, // This column doesn't map directly to a data field
-                        render: function(data, type, row) {
+                        render: function (data, type, row) {
                             // 'row' contains the full data object for the current row
                             const parienteId = row.idPariente;
 
@@ -340,7 +372,7 @@
                 }
             });
             // Función para abrir el modal de edición y cargar datos
-            $(document).on('click', '.editar-btn', function() {
+            $(document).on('click', '.editar-btn', function () {
                 const ID = $(this).data('id');
                 console.log('Boton de seleccion de funcionario', ID)
                 console.log('URL de la solicitud:', 'http://localhost/crud_fetch/index.php/?api=pariente&id=' + ID)
@@ -349,7 +381,7 @@
                 $.ajax({
                     url: 'http://localhost/crud_fetch/index.php/?api=pariente&id=' + ID,
                     type: 'GET',
-                    success: function(response) {
+                    success: function (response) {
                         console.log('Respuesta de la API', response)
                         // Validar si la respuesta es un objeto y si tiene la estructura esperada
                         if (response && typeof response === 'object' && !Array.isArray(response) && response.idPariente) {
@@ -375,20 +407,20 @@
                             Swal.fire('Error', 'No se encontraron datos del pariente.', 'error');
                         }
                     },
-                    error: function(xhr, status, error) {
+                    error: function (xhr, status, error) {
                         Swal.fire('Error', 'Error al obtener los datos del Pariente ' + xhr.responseText, 'error');
                     }
                 });
             });
 
             // Manejar el envío del formulario de edición
-            $('#guardarCambiosPariente').on('click', function() {
+            $('#guardarCambiosPariente').on('click', function () {
                 const ID = $('#editParienteId').val();
                 const formData = $('#formEditPariente').serializeArray();
                 console.log('formulario de actualizacion', formData)
                 const data = {};
                 console.log('Este es el ID del pariente seleccionado', ID);
-                formData.forEach(function(item) {
+                formData.forEach(function (item) {
                     data[item.name] = item.value;
 
                 });
@@ -402,7 +434,7 @@
                     type: 'PATCH', // O 'POST' si tu API asi lo indica
                     contentType: 'application/json', // Importante para enviar JSON
                     data: JSON.stringify(data), // Enviar los datos como JSON
-                    success: function(response) {
+                    success: function (response) {
                         console.log('cuerpo del json listo para enviar', data)
                         Swal.fire(
                             '¡Actualizado!',
@@ -414,7 +446,7 @@
                         // Recargar la tabla
                         $('#tabla').DataTable().ajax.reload();
                     },
-                    error: function(xhr, status, error) {
+                    error: function (xhr, status, error) {
                         Swal.fire(
                             'Error',
                             'Hubo un error al actualizar el pariente: ' + xhr.responseText,
@@ -424,7 +456,7 @@
                 });
             });
 
-            $(document).on('click', '.eliminar-btn', function() {
+            $(document).on('click', '.eliminar-btn', function () {
                 const ID = $(this).data('idPariente');
                 console.log('Boton de eliminar presionado y este es el ID del pariente', ID);
                 // Use SweetAlert2 for a confirmation dialog
@@ -443,7 +475,7 @@
                         $.ajax({
                             url: 'http://localhost/crud_fetch/index.php/?api=eliminarPariente&id=' + ID, // Your API endpoint for deletion
                             type: 'DELETE', // Use DELETE HTTP method
-                            success: function(response) {
+                            success: function (response) {
                                 Swal.fire(
                                     '¡Eliminado!',
                                     'El pariente ha sido eliminado.',
@@ -452,7 +484,7 @@
                                 // Reload the DataTables table to reflect changes
                                 $('#tabla').DataTable().ajax.reload();
                             },
-                            error: function(xhr, status, error) {
+                            error: function (xhr, status, error) {
                                 Swal.fire(
                                     'Error',
                                     'Hubo un error al eliminar el pariente: ' + xhr.responseText,

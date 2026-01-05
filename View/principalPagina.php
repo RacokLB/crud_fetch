@@ -1,284 +1,317 @@
 <?php
-
-if(session_status() == PHP_SESSION_NONE){
-    if(session_start()){
-        if(!isset($_SESSION['id'])){
+if (session_status() == PHP_SESSION_NONE) {
+    if (session_start()) {
+        if (!isset($_SESSION['id'])) {
             header("location: login.php");
+            exit();
         }
     }
 }
-
-
 ?>
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistemas TTC - Teatro Teresa Carreño</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="../Public/stylePage.css" >
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servicio Médico Especializado - Teatro Teresa Carreño</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Montserrat:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        :root {
+            --ttc-black: #121212;
+            --turkiye-red: #e30a17;
+            /* Rojo de la bandera de Türkiye */
+            --medical-blue: #00a8cc;
+            --gold-accent: #c5a059;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Navbar Estilo Minimalista */
+        .navbar {
+            background: rgba(18, 18, 18, 0.98) !important;
+            border-bottom: 2px solid var(--gold-accent);
+        }
+
+        /* Hero con enfoque en Medicina Deportiva */
+        #hero-medical {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                url('https://images.unsplash.com/photo-1547153760-18fc86324498?auto=format&fit=crop&q=80');
+            /* Imagen de danza/músculos */
+            background-size: cover;
+            background-position: center;
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            color: white;
+        }
+
+        /* Sección de Alianza Internacional */
+        .alliance-banner {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-top: -50px;
+            position: relative;
+            z-index: 10;
+            padding: 30px;
+        }
+
+        .flag-icon {
+            width: 40px;
+            height: auto;
+            margin: 0 10px;
+        }
+
+        /* Cards de Especialidades */
+        .spec-card {
+            border: none;
+            border-radius: 0;
+            border-left: 4px solid var(--medical-blue);
+            transition: 0.3s;
+            background: #fff;
+        }
+
+        .spec-card:hover {
+            background: var(--medical-blue);
+            color: white;
+            transform: scale(1.02);
+        }
+
+        .systems-card {
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            border: none;
+            min-height: 300px;
+            transition: 0.4s;
+        }
+
+        .systems-card .overlay {
+            background: rgba(0, 0, 0, 0.6);
+            height: 100%;
+            padding: 2rem;
+            display: flex;
+            flex-column: column;
+            justify-content: flex-end;
+        }
+
+        .btn-medical {
+            background-color: var(--turkiye-red);
+            color: white;
+            border-radius: 50px;
+            padding: 12px 30px;
+            font-weight: 600;
+        }
+    </style>
 </head>
+
 <body>
-    <nav class="navbar navbar-expand-lg">
-        <div class="container-fluid">
-            <a class="navbar-brand text-white fs-2" href="#"> <img src="../Public/img/logotipo.jpg" class="d-inline-block align-text-center " width="100" height="90" > Teatro Teresa Carreño</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="navbar-collapse navbar" id="navbarNav">
-                <ul class="navbar-nav dropdown">
-                    <li class="nav-item ">
-                        <a class="nav-link text-white fs-5" href="#nuestros-sistemas">Nuestros Sistemas</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white fs-5" href="#beneficios">Servicio Medico</a>
-                    </li>
-                    <li>
-                        <a class="nav-link text-white fs-5 bg-success rounded-3" > <?php echo "C.I Trabajador - " . $_SESSION['user']?></a>
-                    </li>
-                </ul>
-                
+
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <img src="../Public/img/logotipo.jpg" width="60" class="me-2 rounded-circle">
+                <span class="fs-4">Centro de Medicina de las Artes</span>
+            </a>
+            <div class="ms-auto text-white d-none d-md-block">
+                <span class="badge bg-success py-2 px-3">
+                    <i class="fas fa-user-md me-2"></i>Personal:
+                    <?php echo $_SESSION['user'] ?>
+                </span>
             </div>
         </div>
     </nav>
-    <section id="hero" class="jumbotron">
-        <div class="container text-center">
-            <h1 class="display-5">Fundación Teatro Teresa Carreño</h1>
-            <p class="lead">Gestión eficiente y transparente para el desarrollo de nuestro capital humano.</p>
-            <a href="#nuestros-sistemas" class="btn btn-dark text-white btn-lg mt-3">
-                Explorar Sistemas <i class="fas fa-arrow-right"></i>
-            </a>
-        </div>
-    </section>
 
-    <section class="info-section py-5">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-4 order-md-2">
-                    <img src="../Public/img/teatroTeresa.jpg" class="img-fluid rounded shadow-lg" alt="Imagen del Teatro Teresa Carreño">
-                </div>
-                <div class="col-md-6 order-md-1">
-                    <h2 class="display-5 fw-bold mb-4">Un Lugar de Encuentro con el Arte</h2>
-                    <p class="lead">El Teatro Teresa Carreño es el epicentro cultural de Venezuela, un monumento al arte en todas sus formas. Desde sus majestuosos auditorios hasta sus vibrantes salas de ensayo, es un hogar para la danza, la ópera, la música clásica y el teatro.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <section id="servicio-medico" class="py-5">
-        <div class="container">
-            <h1 class="text-center fw-bold mb-5 display-5">El Servicio Médico del Teatro Teresa Carreño</h1>
-            <div class="row align-items-center mb-5">
-                <div class="col-md-6 order-md-2">
-                    <h4 class="subtitle-style">Compromiso con el Bienestar</h4>
-                    <p class="lead">El Servicio Médico de la Fundación Teatro Teresa Carreño es una pieza fundamental para garantizar la salud y el bienestar de nuestro talento humano. Brindamos atención integral, desde la prevención y el diagnóstico hasta el tratamiento y seguimiento de las afecciones más comunes. Nuestro enfoque se extiende a todo el personal, incluyendo a nuestros artistas, técnicos y personal administrativo, así como a sus familiares directos, para asegurar que toda la familia del teatro esté protegida.
-                    </p>
-                </div>
-                <div class="col-md-4 text-center">
-                    <img src="../Public/img/servicioMedico.png" class="img-fluid rounded shadow-lg" alt="Servicio médico general">
-                </div>
-            </div>
-            <hr>
-            <div class="row align-items-center mb-5">
-                <div class="col-md-4 order-md-2">
-                    <h4 class="subtitle-style">Una necesidad para las Artes Escénicas</h4>
-                    <p class="lead">La vida en el teatro es físicamente exigente. Bailarines, cantantes y músicos se enfrentan a un alto riesgo de lesiones. Por ello, el servicio médico especializado en medicina covencional y de las artes. Nuestro enfoque se orienta a la prevención y tratamiento de dolencias específicas como esguinces, fracturas, y problemas de cuerdas vocales, permitiendo que nuestros artistas mantengan su rendimiento y longevidad profesional. Un cuerpo sano es un artista en su mejor forma.
-                    </p>
-                </div>
-                <div class="col-md-4 text-center">
-                    <img src="../Public/img/foniatra.png" class="img-fluid rounded shadow-lg" alt="Medicina deportiva para artistas">
+    <section id="hero-medical">
+        <div class="container text-center">
+            <h1 class="display-3 fw-bold mb-3">El Cuerpo como Instrumento</h1>
+            <p class="lead fs-3 mb-4 text-uppercase">Ciencia aplicada al rendimiento de Danza y Ópera</p>
+            <div class="d-flex justify-content-center align-items-center">
+                <div class="mx-3 text-center">
+                    <i class="fas fa-running fa-2x text-warning"></i>
+                    <p class="small">Fisiatría Deportiva</p>
                 </div>
-            </div>
-<hr>
-
-            <div class="row align-items-start mb-5"> <div class="col-md-6"> <h4 class="subtitle-style"></h4>
-                    <div class="col-md-12 mb-4">
-                        <div class="card" style="background-color: #000000">
-                            <div class="card-header text-white fw-bold text-center" style="background-color: #000000"><h4>Especialidades del servicio medico</h4></div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered table-dark table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th class="bg-warning text-dark">Especialidades</th>
-                                                <th class="bg-warning text-dark" >Doctores por especialidad</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="especialidadesTableBody">
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="mx-3 text-center">
+                    <i class="fas fa-microphone-alt fa-2x text-warning"></i>
+                    <p class="small">Foniatría de Ópera</p>
                 </div>
+                <div class="mx-3 text-center">
+                    <i class="fas fa-heartbeat fa-2x text-warning"></i>
+                    <p class="small">Rehabilitación</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <div class="container">
+        <div class="alliance-banner text-center">
+            <div class="row align-items-center">
+                <div class="col-md-3 d-flex justify-content-center">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/b/b4/Flag_of_Turkey.svg" class="flag-icon"
+                        alt="Bandera de Türkiye">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/06/Flag_of_Venezuela.svg"
+                        class="flag-icon" alt="Bandera de Venezuela">
+                </div>
+                <div class="col-md-6 border-start border-end">
+                    <h5 class="fw-bold mb-1">COOPERACIÓN INTERNACIONAL ESTRATÉGICA</h5>
+                    <p class="small mb-0 text-muted">Infraestructura financiada por el Gobierno de la República de
+                        Türkiye para el fomento de la cultura y salud venezolana.</p>
+                </div>
+                <div class="col-md-3">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/T%C4%B0KA_logo.svg/1200px-T%C4%B0KA_logo.svg.png"
+                        width="80" alt="Logo TIKA">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="py-5 mt-4">
+        <div class="container">
+            <div class="row align-items-center">
                 <div class="col-md-6">
-                    <div id="carouselEspecialidades" class="carousel slide" data-bs-ride="carousel">
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img src="../Public/img/bailarinDoctor.png" class="d-block w-100 rounded" alt="FisioTerapia">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="../Public/img/fisiatra.png" class="d-block w-100 rounded" alt="FisioTerapia">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="../Public/img/nutrologo.png" class="d-block w-100 rounded" alt="FisioTerapia">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="../Public/img/medicinaInterna.png" class="d-block w-100 rounded" alt="FisioTerapia">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="../Public/img/terapiaLenguaje.png" class="d-block w-100 rounded" alt="FisioTerapia">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="../Public/img/traumatologia.png" class="d-block w-100 rounded" alt="FisioTerapia">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="../Public/img/terapiaOcupacional.png" class="d-block w-100 rounded" alt="FisioTerapia">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="../Public/img/foniatraHombre.png" class="d-block w-100 rounded" alt="FisioTerapia">
+                    <h2 class="display-5 text-dark">Prevención de Lesiones en la Escena</h2>
+                    <p class="lead">El bailarín y el cantante de ópera son **atletas de élite**. Un salto de ballet
+                        ejerce una presión de hasta 12 veces el peso corporal, mientras que un tenor requiere un control
+                        muscular diafragmático absoluto.</p>
+                    <p>Nuestra unidad, remodelada con tecnología de punta, se enfoca en la medicina deportiva adaptada
+                        para prolongar la carrera profesional de nuestro elenco teatral.</p>
+                </div>
+                <div class="col-md-6">
+                    <div class="row g-3">
+                        <div class="col-6">
+                            <div class="card spec-card p-3 shadow-sm h-100">
+                                <i class="fas fa-bone fa-2x mb-2 text-primary"></i>
+                                <h6>Traumatología</h6>
+                                <p class="x-small text-muted">Enfoque en lesiones de pie y columna.</p>
                             </div>
                         </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselEspecialidades" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carouselEspecialidades" data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
+                        <div class="col-6">
+                            <div class="card spec-card p-3 shadow-sm h-100">
+                                <i class="fas fa-lungs fa-2x mb-2 text-primary"></i>
+                                <h6>Foniatría</h6>
+                                <p class="x-small text-muted">Salud vocal y cuidado de cuerdas.</p>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="card spec-card p-3 shadow-sm h-100">
+                                <i class="fas fa-dumbbell fa-2x mb-2 text-primary"></i>
+                                <h6>Fisiatría</h6>
+                                <p class="x-small text-muted">Recuperación muscular intensiva.</p>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="card spec-card p-3 shadow-sm h-100">
+                                <i class="fas fa-apple-alt fa-2x mb-2 text-primary"></i>
+                                <h6>Nutrición</h6>
+                                <p class="x-small text-muted">Dietética para alto rendimiento.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-                
         </div>
-    <hr>
     </section>
-    
 
-    <section id="nuestros-sistemas" class="systems-section py-5">
-        <div class="container">
-            <h2 class="text-center fw-bold mb-5">Sistemas de la Fundación</h2>
-            <div class="row g-4 justify-content-center">
-                <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
-                    <div class="card text-white card-has-bg" style="background-image:url('../Public/img/servicio-medico.jpg');">
-                        <img class="card-img d-none" src="../Public/img/servicio-medico.jpg" alt="Sistemas de Pacientes">
-                        <div class="card-img-overlay d-flex flex-column">
-                            <div class="card-body">
-                                <small class="card-meta mb-2">Trabajadores Administrativos & Parientes</small>
-                                <h4 class="card-title mt-0"><a class="text-white" href="../View/indexTrabajador.html">Registro de pacientes <br> *sede PB*</a></h4>
-                            </div>
-                            <div class="card-footer">
-                                <a href="../View/indexTrabajador.html" class="btn btn-dark btn-sm">Acceder al sistema</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
-                    <div class="card text-white card-has-bg" style="background-image:url('../Public/img/recursosHumano.jpg');">
-                        <img class="card-img d-none" src="../Public/img/recursoshumano.jpg" alt="Sistema de Recursos Humanos">
-                        <div class="card-img-overlay d-flex flex-column">
-                            <div class="card-body">
-                                <small class="card-meta mb-2">Resumen Estadistico</small>
-                                <h4 class="card-title mt-0"><a class="text-white" href="../View/adminDashBoard.php">Panel de Estadisticas</a></h4>
-                            </div>
-                            <div class="card-footer">
-                                <a href="../View/adminDashBoard.php" class="btn btn-dark btn-sm">Acceder al sistema</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
-                    <div class="card text-white card-has-bg" style="background-image:url('../Public/img/servicioMedicoSotano.jpg');">
-                        <img class="card-img d-none" src="../Public/img/servicioMedicoSotano.jpg" alt="Sistema de Reservas">
-                        <div class="card-img-overlay d-flex flex-column">
-                            <div class="card-body">
-                                <small class="card-meta mb-2">Cuerpo Teatral</small>
-                                <h4 class="card-title mt-0"><a class="text-white" href="../View/indexTrabajadorSotano.html">Registro de Pacientes <br> *sede Sotano*</a></h4>
-                            </div>
-                            <div class="card-footer">
-                                <a href="../View/indexTrabajadorSotano.html" class="btn btn-dark btn-sm center">Acceder al sistema</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <section id="nuestros-sistemas" class="py-5 bg-dark">
+        <div class="container">
+            <h2 class="text-center text-white mb-5">Gestión Médica Digitalizada</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card systems-card" style="background-image: url('../Public/img/servicio-medico.jpg');">
+                        <div class="overlay">
+                            <h4 class="text-white">Admisión Médica PB</h4>
+                            <p class="text-light small">Registro de atletas y personal administrativo de planta baja.
+                            </p>
+                            <a href="../View/indexTrabajador.html" class="btn btn-medical mt-3">Gestionar Pacientes</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 text-center d-flex flex-column justify-content-center">
+                    <div class="p-4 border border-secondary rounded shadow">
+                        <i class="fas fa-chart-line fa-3x text-warning mb-3"></i>
+                        <h4 class="text-white">Analítica de Salud</h4>
+                        <p class="text-secondary small">Visualización de estadísticas de incidencias médicas y
+                            especialidades.</p>
+                        <a href="../View/adminDashBoard.php" class="btn btn-outline-light rounded-pill">Ver
+                            Estadísticas</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card systems-card"
+                        style="background-image: url('../Public/img/servicioMedicoSotano.jpg');">
+                        <div class="overlay">
+                            <h4 class="text-white">Unidad Sótano</h4>
+                            <p class="text-light small">Control médico exclusivo para el Cuerpo Teatral y Artistas.</p>
+                            <a href="../View/indexTrabajadorSotano.html" class="btn btn-medical mt-3">Gestionar Cuerpo
+                                Teatral</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <footer class="bg-dark text-white-50 py-4">
-        <div class="container text-center">
-            <p class="mb-0">&copy; 2025 Fundación Teatro Teresa Carreño. Todos los derechos reservados.</p>
-        </div>
-    </footer>
+    <footer class="py-5 bg-black text-white border-top border-danger">
+        <div class="container text-center">
+            <div class="row align-items-center">
+                <div class="col-md-4 text-md-start">
+                    <p class="mb-0 small">&copy; 2026 Fundación Teatro Teresa Carreño.</p>
+                </div>
+                <div class="col-md-4">
+                    <p class="mb-0">Remodelado bajo la alianza estratégica <strong>Venezuela - Türkiye</strong></p>
+                </div>
+                <div class="col-md-4 text-md-end">
+                    <i class="fab fa-instagram mx-2"></i>
+                    <i class="fab fa-twitter mx-2"></i>
+                    <i class="fas fa-globe mx-2"></i>
+                </div>
+            </div>
+        </div>
+    </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script defer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Función de carga dinámica de datos (mantenida de tu código base)
+        async function loadEspecialidadData() {
+            const tableBody = document.getElementById('especialidadesTableBody');
+            if (!tableBody) return;
 
-        // dashBoard.js
+            try {
+                const response = await fetch('http://localhost/crud_fetch/Models/reportEspecialidades.php');
+                const answer = await response.json();
 
-            // Función para obtener los datos de la API y renderizar la tabla
-            async function loadEspecialidadData() {
-                const especialidadesTableBody = document.getElementById('especialidadesTableBody');
-                especialidadesTableBody.innerHTML = ''; // Limpia cualquier contenido previo
-
-                try {
-                    const response = await fetch('http://localhost/crud_fetch/Models/reportEspecialidades.php');
-                    console.log(`respuesta del backend al momento de solicitar las especialidades ${response}`)
-                    if (!response.ok) {
-                        throw new Error(`Error HTTP: ${response.status}`);
-                    }
-                    
-                    const answer = await response.json();
-                    console.log(`respuesta de las especialidades llamadas del backend ${answer}`)
-
-                    if (answer.status === 'success' && Array.isArray(answer.data)) {
-                        const especialidadesData = answer.data;
-
-                        // Verifica si el array de datos está vacío
-                        if (especialidadesData.length === 0) {
-                            especialidadesTableBody.innerHTML = `<tr><td colspan="4" class="text-info">No hay datos de especialidades disponibles.</td></tr>`;
-                            return;
-                        }
-
-                        
-
-                        // Iterar sobre el array de especialidadesData y crear las filas de la tabla
-                        especialidadesData.forEach(especialidad => {
-                    
-                            // Crea el elemento de la fila
-                            const row = especialidadesTableBody.insertRow();//Se crea una nueva fila
-                            //Insertar las celdas <> con los datos
-                            const cell1 = row.insertCell();
-                            cell1.textContent = especialidad.especialidades;
-                            const cell2 = row.insertCell();
-                            cell2.textContent = especialidad.total;
-                           
-                        });
-                        
-                    } else {
-                        console.error("API Error:", answer.mensaje || "Datos no disponibles o estado no exitoso.");
-                        especialidadesTableBody.innerHTML = `<tr><td colspan="4" class="text-danger">No se pudieron cargar los datos de los totales por especialidades.</td></tr>`;
-                    }
-
-                } catch (error) {
-                    console.error("Error al cargar los datos de las especialidades:", error);
-                    especialidadesTableBody.innerHTML = `<tr><td colspan="4" class="text-danger">Error al conectar con el servidor de datos.</td></tr>`;
+                if (answer.status === 'success' && Array.isArray(answer.data)) {
+                    tableBody.innerHTML = '';
+                    answer.data.forEach(especialidad => {
+                        const row = `<tr>
+                            <td class="fw-bold">${especialidad.especialidades}</td>
+                            <td class="text-center"><span class="badge bg-danger">${especialidad.total}</span></td>
+                        </tr>`;
+                        tableBody.innerHTML += row;
+                    });
                 }
+            } catch (error) {
+                console.error("Error cargando especialidades:", error);
             }
-
-            // Llama a la función para cargar los datos cuando se cargue la página
-            document.addEventListener('DOMContentLoaded', loadEspecialidadData);
-
+        }
+        document.addEventListener('DOMContentLoaded', loadEspecialidadData);
     </script>
 </body>
+
 </html>

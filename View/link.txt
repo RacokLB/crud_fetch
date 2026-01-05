@@ -1,1 +1,8 @@
 SQLSTATE[HY000] [2002] No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión
+
+
+
+document.querySelector(".theme-toggle").addEventListener("click",() => {
+    toggleLocalStorage();
+    toggleRootClass();
+});

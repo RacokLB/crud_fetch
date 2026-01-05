@@ -8,7 +8,7 @@
 </IfModule>
 
 <IfModule mod_headers.c>
-    Header set Access-Control-Allow-Origin "http://10.100.202.66"
+    Header set Access-Control-Allow-Origin "localhost"
     Header set Access-Control-Allow-Methods "GET, POST, OPTIONS, PUT, DELETE"
     Header set Access-Control-Allow-Headers "Origin, X-Requested-With, Content-Type, Accept"
     Header always set Access-Control-Max-Age "1000"

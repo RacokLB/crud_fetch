@@ -1,7 +1,7 @@
 <?php
 
     class Database {
-        private $host = '10.100.202.66';
+        private $host = 'localhost';
         private $dbName = 'fttc';
         private $username = 'root';
         private $password = '';

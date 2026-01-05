@@ -491,7 +491,7 @@ if(session_status() == PHP_SESSION_NONE){
             const fechaFin = fechaFinElementChart.value;
 
             // Use these values in the fetch URL
-            fetch(`http://10.100.202.66/crud_fetch/Models/reportSpeciality.php?fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`)
+            fetch(`http://localhost/crud_fetch/Models/reportSpeciality.php?fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`)
                 .then(response => {
                     // Check if the response is ok
                     if (!response.ok) {
@@ -585,7 +585,7 @@ if(session_status() == PHP_SESSION_NONE){
             const fechaFin = fechaFinElementChart.value;
 
             // Use these values in the fetch URL
-            fetch(`http://10.100.202.66/crud_fetch/Models/reportDoctor.php?fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`)
+            fetch(`http://localhost/crud_fetch/Models/reportDoctor.php?fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`)
                 .then(response => {
                     // Check if the response is ok
                     if (!response.ok) {
@@ -666,7 +666,7 @@ if(session_status() == PHP_SESSION_NONE){
             const fechaFin = fechaFinElementChart.value;
 
             // Use these values in the fetch URL
-            fetch(`http://10.100.202.66/crud_fetch/Models/reportSex.php?fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`)
+            fetch(`http://localhost/crud_fetch/Models/reportSex.php?fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`)
                 .then(response => {
                     // Check if the response is ok
                     if (!response.ok) {
@@ -751,7 +751,7 @@ if(session_status() == PHP_SESSION_NONE){
                 const fechaFin = fechaFinElementChart.value;
 
                 // Use these values in the fetch URL
-                fetch(`http://10.100.202.66/crud_fetch/Models/reportAgeChart.php?fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`)
+                fetch(`http://localhost/crud_fetch/Models/reportAgeChart.php?fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`)
                     .then(response => {
                         // Check if the response is ok
                         if (!response.ok) {
@@ -1055,7 +1055,7 @@ if(session_status() == PHP_SESSION_NONE){
                     // const response = await fetch('/crud_fetch/Controllers/tu_archivo_api.php');
                     // Limpia cualquier contenido previo en la tabla, útil si se recargan los datos
                     
-                    const response = await fetch(`http://10.100.202.66/crud_fetch/Models/reportAge.php?fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`); // Reemplaza con la ruta correcta a tu archivo PHP
+                    const response = await fetch(`http://localhost/crud_fetch/Models/reportAge.php?fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`); // Reemplaza con la ruta correcta a tu archivo PHP
                     console.log(response)
                     if (!response.ok) {
                         console.log(`Error HTTP: ${response.status}`);
@@ -1261,7 +1261,7 @@ if(session_status() == PHP_SESSION_NONE){
             resultadoCortesiaGeneral.innerHTML = '<div class="spinner-border text-dark" role="status"><span class="visually-hidden">Cargando Informacion...</span></div>';
 
             // 2. Perform the fetch request
-            const response = await fetch(`http://10.100.202.66/crud_fetch/Models/generalReport.php?fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`);
+            const response = await fetch(`http://localhost/crud_fetch/Models/generalReport.php?fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`);
             
             // Check if the network request was successful
             if (!response.ok) {
@@ -1347,7 +1347,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             // **Construcción de la URL de manera genérica**
-            const response = await fetch(`http://10.100.202.66/crud_fetch/Models/report${reportType}.php?fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`);
+            const response = await fetch(`http://localhost/crud_fetch/Models/report${reportType}.php?fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`);
             
             if (!response.ok) {
                 throw new Error(`Error HTTP: ${response.status}`);
