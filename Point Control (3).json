@@ -1,0 +1,347 @@
+{
+  "name": "Point Control",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "new-worker",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "c4c82fcb-f8be-48fd-a5f1-f43d2e9bf133",
+      "name": "Webhook",
+      "webhookId": "2f548863-c44d-4b64-910a-e0c80e366b53"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "26797b25-63f0-42c5-9baf-cda12cbd5d61",
+              "name": "nombre",
+              "value": "={{ $('Webhook').item.json.body.nombres }}",
+              "type": "string"
+            },
+            {
+              "id": "37de0b70-75db-4294-823d-336246e62e30",
+              "name": "apellidos",
+              "value": "={{ $('Webhook').item.json.body.apellidos }}",
+              "type": "string"
+            },
+            {
+              "id": "b8074429-1615-4015-bc2c-2500e57a5ceb",
+              "name": "cedula",
+              "value": "={{ $('Webhook').item.json.body.cedula }}",
+              "type": "string"
+            },
+            {
+              "id": "c9b103b3-acc6-43e3-adc7-6afec69fc07c",
+              "name": "cargo",
+              "value": "={{ $('Webhook').item.json.body.cargo}}",
+              "type": "string"
+            },
+            {
+              "id": "1364088c-c2fc-43dd-b79b-497357d811c5",
+              "name": "coordinacion",
+              "value": "={{ $('Webhook').item.json.body.coordinacion }}",
+              "type": "string"
+            },
+            {
+              "id": "286d7d72-cee1-4dc9-bd12-7cf9a1ba2f54",
+              "name": "fecha_creacion",
+              "value": "={{ $json.create_date }}",
+              "type": "string"
+            },
+            {
+              "id": "5a3b06c7-79a1-4e97-8a2d-9a2ae9bdcb7f",
+              "name": "fecha_ingreso",
+              "value": "={{ $json.create_date }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        400,
+        0
+      ],
+      "id": "72ec35bd-5686-4c4a-a988-954b947ddfa1",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "operation": "formatDate",
+        "date": "={{ $now }}",
+        "outputFieldName": "create_date",
+        "options": {
+          "includeInputFields": true
+        }
+      },
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        208,
+        0
+      ],
+      "id": "bd91906c-3999-48c2-b941-b3febf770a13",
+      "name": "Date & Time"
+    },
+    {
+      "parameters": {
+        "resource": "fileFolder",
+        "searchMethod": "query",
+        "queryString": " 'consejonacionalprogramming@gmail.com' in owners and mimeType != 'application/google-apps.vnd.'",
+        "filter": {
+          "folderId": {
+            "__rl": true,
+            "value": "1YnOznFiSvt_Myg_mur-MbnvCN99_6pJx",
+            "mode": "list",
+            "cachedResultName": "FTTC PUNTOS DE CUENTA",
+            "cachedResultUrl": "https://drive.google.com/drive/folders/1YnOznFiSvt_Myg_mur-MbnvCN99_6pJx"
+          },
+          "whatToSearch": "files"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        624,
+        0
+      ],
+      "id": "e30e9098-7a53-4519-b185-a0ba2bb48a0a",
+      "name": "Search files and folders"
+    },
+    {
+      "parameters": {
+        "operation": "copy",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ $json.id }}",
+          "mode": "id"
+        },
+        "name": "={{ $json.name }} DE CUENTA DE: {{ $('Webhook').item.json.body.cedula }}",
+        "sameFolder": false,
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "My Drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "1KYQcByNonsmakCsMz1lfkPliSMmRkchb",
+          "mode": "list",
+          "cachedResultName": "testn8n",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/1KYQcByNonsmakCsMz1lfkPliSMmRkchb"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        848,
+        0
+      ],
+      "id": "1bf25c4b-dd79-4957-a872-94aa7bef5627",
+      "name": "Copy file"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentURL": "={{ $json.id }}",
+        "actionsUi": {
+          "actionFields": [
+            {
+              "action": "replaceAll",
+              "text": "{{nombre}}",
+              "replaceText": "={{ $('Edit Fields').item.json.nombre }}"
+            },
+            {
+              "action": "replaceAll",
+              "text": "{{apellido}}",
+              "replaceText": "={{ $('Edit Fields').item.json.apellidos }}"
+            },
+            {
+              "action": "replaceAll",
+              "text": "{{cargo}}",
+              "replaceText": "={{ $('Edit Fields').item.json.cargo }}"
+            },
+            {
+              "action": "replaceAll",
+              "text": "{{start_date}}",
+              "replaceText": "={{ $('Edit Fields').item.json.fecha_creacion }}"
+            },
+            {
+              "action": "replaceAll",
+              "text": "{{deparment}}",
+              "replaceText": "={{ $('Edit Fields').item.json.coordinacion }}"
+            },
+            {
+              "action": "replaceAll",
+              "text": "{{now_date}}",
+              "replaceText": "={{ $now.format('yyyy-MM-dd') }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.googleDocs",
+      "typeVersion": 2,
+      "position": [
+        1040,
+        0
+      ],
+      "id": "869b8c93-c2ee-429a-9e0d-c804600a8598",
+      "name": "Update a document1"
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ $json.documentId }}",
+          "mode": "id"
+        },
+        "options": {
+          "googleFileConversion": {
+            "conversion": {
+              "docsToFormat": "application/pdf"
+            }
+          },
+          "fileName": "=PUNTO DE CUENTA DE:  {{ $('Edit Fields').item.json.cedula }}-{{ $('Edit Fields').item.json.nombre }}-{{ $('Edit Fields').item.json.apellidos }}"
+        }
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        1248,
+        0
+      ],
+      "id": "73b2ef26-5641-4da7-8e78-4e122acb1de0",
+      "name": "Download file"
+    },
+    {
+      "parameters": {
+        "sendTo": "racob519@gmail.com",
+        "subject": "=PUNTO DE CUENTA DE :  {{ $('Edit Fields').item.json.cedula }}",
+        "emailType": "text",
+        "message": "=Es un placer dirigirme a usted con la finalidad de informarle que el punto de cuenta del ciudadano (a) : {{ $('Edit Fields').item.json.nombre }}{{ $('Edit Fields').item.json.apellidos }} \n\nQuien posee la Cedula de Identidad No: {{ $('Edit Fields').item.json.cedula }}\n\nSe encuentra listo para ser descargado y llevado a su aprobacion con la maxima autoridad, sin mas que agregar me despido y muchas gracias.\n\n",
+        "options": {
+          "attachmentsUi": {
+            "attachmentsBinary": [
+              {}
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1424,
+        0
+      ],
+      "id": "16282ae3-41db-4454-a901-fd9946e87898",
+      "name": "Send a message",
+      "webhookId": "8844aff3-05c8-4e24-8c5c-f886cb88c6d1"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Date & Time",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Search files and folders",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Date & Time": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search files and folders": {
+      "main": [
+        [
+          {
+            "node": "Copy file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Copy file": {
+      "main": [
+        [
+          {
+            "node": "Update a document1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update a document1": {
+      "main": [
+        [
+          {
+            "node": "Download file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download file": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "06c1001a-7dc7-423e-8587-076760541051",
+  "meta": {
+    "instanceId": "887d8a46840d6986369f8ad60a82c5c8b13967f5be351d5003dbe766f27a53d8"
+  },
+  "id": "SN52VcAOiRiniPyWVykL6",
+  "tags": []
+}
