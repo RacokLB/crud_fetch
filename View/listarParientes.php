@@ -22,9 +22,15 @@ if (session_status() == PHP_SESSION_NONE) {
     <link href="https://cdn.datatables.net/2.3.0/css/dataTables.bootstrap5.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="../Public/style.css">
+    <link rel="stylesheet" href="../Public/dashboard.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.2.3/css/buttons.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/colreorder/2.0.4/css/colReorder.dataTables.min.css">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
@@ -77,11 +83,12 @@ if (session_status() == PHP_SESSION_NONE) {
         </aside>
         <div class="main">
             <nav class="navbar navbar-expand px-3 border-bottom">
-                <button class="btn bg-light" id="sidebar-toggle" type="button">
+                <button class="btn" id="sidebar-toggle" type="button">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="col-md-11 text-center">
-                    <h6 class="text-center text-white">FUNDACION TEATRO TERESA CARREÑO</h6>
+                    <h6 class="text-center" style="color: var(--text-primary); letter-spacing: 2px; font-weight: 600;">
+                        TERESA CARREÑO THEATRE FOUNDATION</h6>
                 </div>
                 <div class="navbar-collapse navbar">
                     <ul class="navbar-nav">
@@ -99,45 +106,37 @@ if (session_status() == PHP_SESSION_NONE) {
                     </ul>
                 </div>
             </nav>
-            <br>
-
-            <main class="content px-3 py-2">
+            <main class="content px-3 py-4">
                 <div class="container-fluid">
-                    <div class="mb-3">
-                        <h1 class="fw-bold text-center"></h1>
-                    </div>
+                    <h1 class="page-title animate-in">Relatives Directory</h1>
                     <!------- Campo Tabla ------------>
-                    <div class="card border-3 border-dark">
-                        <div class="card-header">
-                            <h3 class="card-title fw-bold">
-                                Tabla de Seleccion
-                            </h3>
-                            <h5 class="card-subtitle text-muted fs-4">
-                                Base de datos de los Parientes de los funcionarios activos del Consejo Nacional
-                                Electoral
-                            </h5>
+                    <div class="card glass-card animate-in">
+                        <div class="card-header glass-card-header">
+                            <h4 class="card-title fw-bold mb-1" style="font-size: 1.1rem;">
+                                <i class="fa-solid fa-table-list me-2"></i>Relatives Table
+                            </h4>
+                            <h6 class="card-subtitle" style="color: var(--text-muted); font-size: 0.8rem;">
+                                Database of relatives of active FTTC workers.
+                            </h6>
                         </div>
-                        <div class="card-body bg-dark text-white">
-                            <table id="tabla" class="table fs-6 table-dark able-striped table-hover"
-                                style="width: 100%">
+                        <div class="card-body">
+                            <table id="tabla" class="table table-striped table-hover" style="width: 100%">
                                 <thead>
                                     <tr>
                                         <th scope="col">N°</th>
-                                        <th scope="col">C.I del trabajador</th>
-                                        <th scope="col">C.I del pariente</th>
-                                        <th scope="col">Nombres</th>
-                                        <th scope="col">Apellidos</th>
-                                        <th scope="col">Edad</th>
-                                        <th scope="col">Parentesco</th>
-                                        <th scope="col">Genero</th>
-                                        <th scope="col">Coordinacion</th>
-                                        <th scope="col">Discapacidad</th>
-                                        <th scope="col">Acciones</th>
-
+                                        <th scope="col">Worker ID</th>
+                                        <th scope="col">Relative ID</th>
+                                        <th scope="col">Names</th>
+                                        <th scope="col">Last Names</th>
+                                        <th scope="col">Age</th>
+                                        <th scope="col">Relationship</th>
+                                        <th scope="col">Gender</th>
+                                        <th scope="col">Coordination</th>
+                                        <th scope="col">Disability</th>
+                                        <th scope="col">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody id="resultado">
-
                                 </tbody>
                             </table>
                         </div>
@@ -177,8 +176,8 @@ if (session_status() == PHP_SESSION_NONE) {
         <div class="modal fade" id="editParienteModal" tabindex="-1" aria-labelledby="editParienteModalLabel"
             aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header border-4 border-bottom bg-dark text-white">
+                <div class="modal-content glass-modal">
+                    <div class="modal-header">
                         <h5 class="modal-title" id="editParienteModalLabel">Editar Pariente</h5>
                         <button type="button" class="btn-close bg-light" data-bs-dismiss="modal"
                             aria-label="Close"></button>

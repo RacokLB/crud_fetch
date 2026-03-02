@@ -7,8 +7,11 @@
     <title>FTTC - Servicio Médico PB</title>
     <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/fontawesome.min.css">
     <link rel="stylesheet" href="../Public/style.css">
+    <link rel="stylesheet" href="../Public/dashboard.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="../Public/img/logotipo.jpg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
@@ -57,12 +60,12 @@
             </div>
         </aside>
         <div class="main">
-            <nav class="navbar navbar-expand px-3 border-bottom" style="background-color: black;">
-                <button class="btn border border-danger bg-light" id="sidebar-toggle" type="button">
+            <nav class="navbar navbar-expand px-3 border-bottom">
+                <button class="btn" id="sidebar-toggle" type="button">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="col-md-11 text-center">
-                    <h6 class="text-center text-white">FUNDACION TEATRO TERESA CARREÑO</h6>
+                    <h6 class="text-center" style="color: var(--text-primary); letter-spacing: 2px; font-weight: 600;">TERESA CARREÑO THEATRE FOUNDATION</h6>
                 </div>
                 <div class="navbar-collapse navbar">
                     <ul class="navbar-nav">
@@ -79,21 +82,17 @@
                     </ul>
                 </div>
             </nav>
-            <br>
-            <main class="col-12 px-3">
+            <main class="col-12 px-3 py-3">
                 <div class="container-fluid">
-                    <div class="mb-3">
-                        <h1 class="fw-bold text-center text-white">Modulo Trabajadores Sede Planta Baja</h1>
-                    </div>
-                    <div class="row shadow-lg">
+                    <h1 class="page-title animate-in">Workers Module — Ground Floor</h1>
+                    <div class="row g-3 mb-4">
                         <div class="col-12 col-md-6 d-flex">
-                            <div class="card flex-fill border-0 illustration">
+                            <div class="card hero-card flex-fill animate-in">
                                 <div class="card-body p-0 d-flex flex-fill">
                                     <div class="row g-0 w-100">
                                         <div class="col-6">
-                                            <div class="p-3 m-1" style="color: white;">
-                                                
-                                                <p class="mb-0">Vista Administrador/Servicio Medico</p>
+                                            <div class="p-3 m-1">
+                                                <p class="mb-0">Admin / Medical Service View</p>
                                             </div>
                                         </div>
                                         <div class="col-6 align-self-start text-start">
@@ -104,21 +103,16 @@
                             </div>
                         </div>
                         <div class="col-12 col-md-6 d-flex">
-                            <div class="card flex-fill border-0">
-                                <div class="card-body py-4 text-white fs-bold" style="background-color: black;">
+                            <div class="card hero-stats flex-fill animate-in">
+                                <div class="card-body py-3">
                                     <div class="d-flex align-items-start">
                                         <div class="flex-grow-1">
                                             <div class="list-group" id="reporte"></div>
-                                            
-                                            <h4 class="mb-2"></h4>
-                                            <p class="mb-2">
-                                                FECHA & HORA
+                                            <p class="mb-1 mt-3" style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px;">
+                                                DATE & TIME
                                             </p>
                                             <div class="mb-0">
-                                                <span class="text-white fs-6">
-                                                    <?php echo date(format:"d-m-Y"); ?>
-                                                </span>
-                                                <span class="text-white fs-6" id="mostrar_fecha"></span>
+                                                <span class="fs-6" id="mostrar_fecha" style="color: var(--text-primary);"></span>
                                             </div>
                                         </div>
                                     </div>
@@ -130,52 +124,42 @@
             </main>
             <main class="content px-3 py-2">
                 <div class="container-fluid">
-                    <div class="card-body">
-                        <div class="col-12 d-flex">
-                            <div class="card flex-fill border-0" style="background-color: black;">
-                                <div class="card-header border-3">
-                                    <h4 class="card-title fw-bold text-white">
-                                        Tabla de Selección
-                                    </h4>
-                                    <h6 class="card-subtitle text-white">
-                                        Base de datos de los trabajadores activos de la Fundación Teatro Teresa Carreño.
-                                    </h6>
+                    <div class="card glass-card animate-in">
+                        <div class="card-header glass-card-header">
+                            <h4 class="card-title fw-bold mb-1" style="font-size: 1.1rem;">
+                                <i class="fa-solid fa-table-list me-2"></i>Selection Table
+                            </h4>
+                            <h6 class="card-subtitle" style="color: var(--text-muted); font-size: 0.8rem;">
+                                Database of active FTTC workers.
+                            </h6>
+                        </div>
+                        <div class="card-body">
+                            <form action="" method="post">
+                                <div class="form-group mb-3">
+                                    <label for="buscar" class="form-label" style="font-size: 0.8rem;">Search by ID or Name</label>
+                                    <input type="text" autocomplete="off" name="buscar" id="buscar" class="form-control search-input" placeholder="Search..." title="Enter Name, Last Name or ID">
                                 </div>
-                                <div class="card-body">
-                                    <form action="" method="post">
-                                        <div class="form-group">
-                                            <label for="buscar" class="form-label fw-bold fs-5 text-white">Introduzca CI o Nombre</label>
-                                          <div class="input-group">
-                                            <p class="placeholder-glow col-6 bg-primary">
-                                            <span class="placeholder col-12">
-                                              <input type="text" autocomplete="off" name="buscar" id="buscar" class="form-control bg-dark text-white fw-bold fs-4" placeholder="Buscar..." title="Introduzca Nombre, Apellido o CI">
-                                            </span>
-                                            </p>
-                                          </div>
-                                        </div>
-                                    </form>
-                                    <div class="table-responsive">
-                                        <table class="table fs-6 table-striped table-hover shadow-lg text-white">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">N°</th>
-                                                    <th scope="col">Cedula</th>
-                                                    <th scope="col">Nombres</th>
-                                                    <th scope="col">Apellidos</th>
-                                                    <th scope="col">Discapacidad</th>
-                                                    <th scope="col">Edad</th>
-                                                    <th scope="col">Estatura</th>
-                                                    <th scope="col">Peso<br>KG</th>
-                                                    <th scope="col">Tipo de Sangre</th>
-                                                    <th scope="col">Coordinacion</th>
-                                                    <th scope="col">Acción</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="resultado">
-                                                </tbody>
-                                        </table>
-                                    </div>
-                                </div>
+                            </form>
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">N°</th>
+                                            <th scope="col">ID</th>
+                                            <th scope="col">Names</th>
+                                            <th scope="col">Last Names</th>
+                                            <th scope="col">Disability</th>
+                                            <th scope="col">Age</th>
+                                            <th scope="col">Height</th>
+                                            <th scope="col">Weight<br>KG</th>
+                                            <th scope="col">Blood Type</th>
+                                            <th scope="col">Coordination</th>
+                                            <th scope="col">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="resultado">
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -216,7 +200,7 @@
 
     <div class="modal fade" id="consultaModalPb" tabindex="-1" aria-labelledby="consultaModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
-            <div class="modal-content" style="background-color: black;">
+            <div class="modal-content glass-modal">
                 <div class="modal-header">
                     <h5 class="modal-title fw-bold text-white" id="consultaModalLabel">Registro de Consulta Médica</h5>
                     <button type="button" class="btn-close bg-light" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -383,7 +367,7 @@
     <!-----Modal principal del formulario de cortesia----->
     <div class="modal fade" id="fttcModal" tabindex="-1" aria-labelledby="fttcModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
-            <div class="modal-content" >
+            <div class="modal-content glass-modal">
                 <div class="modal-header">
                     <h5 class="modal-title" id="fttcModalLabel">
                         

@@ -20,11 +20,13 @@ if (session_status() == PHP_SESSION_NONE) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="../Public/style.css">
+    <link rel="stylesheet" href="../Public/dashboard.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
         integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-
 </head>
 
 <body>
@@ -36,7 +38,7 @@ if (session_status() == PHP_SESSION_NONE) {
                 </div>
                 <ul class="sidebar-nav">
                     <li class="sidebar-header">
-                        Elementos Administrador
+                        ADMINISTRATOR ELEMENTS
                     </li>
 
                     <li class="sidebar-item">
@@ -79,13 +81,13 @@ if (session_status() == PHP_SESSION_NONE) {
             </div>
         </aside>
         <div class="main">
-            <nav class="navbar navbar-expand px-3 border-bottom" style="background-color: black;">
+            <nav class="navbar navbar-expand px-3 border-bottom">
 
-                <button class="btn border border-danger bg-light" id="sidebar-toggle" type="button">
+                <button class="btn" id="sidebar-toggle" type="button">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="col-md-11 text-center">
-                    <h6 class="text-center text-white">FUNDACION TEATRO TERESA CARREÑO</h6>
+                    <h6 class="text-center" style="color: var(--text-primary); letter-spacing: 2px; font-weight: 600;">TERESA CARREÑO THEATRE FOUNDATION — HR</h6>
                 </div>
 
                 <div class="navbar-collapse navbar">
@@ -106,37 +108,35 @@ if (session_status() == PHP_SESSION_NONE) {
             </nav>
 
             <div class="container mt-5">
-                <h2 class="display-5 mb-4 text-center text-white" style="color:antiquewhite">Dashboard de Trabajadores
-                </h2>
+                <div class="section-divider animate-in">
+                    <h2 class="section-title">Workers Dashboard</h2>
+                </div>
 
                 <div class="row">
                     <div class="col-md-4 mb-4">
-                        <div class="card bg-dark text-white">
-                            <div class="card-body">
-                                <h5 class="card-title">Total de Trabajadores <i
-                                        class="fa-solid fa-users-between-lines"></i></h5>
-                                <p class="card-text display-4" id="totalTrabajadores">Cargando... <i
-                                        class="fa-solid fa-users-between-lines"></i></p>
+                        <div class="card metric-card accent-blue animate-in">
+                            <div class="card-body text-center">
+                                <h5 class="metric-label"><i class="fa-solid fa-users-between-lines me-2"></i> TOTAL WORKERS</h5>
+                                <p class="metric-value" id="totalTrabajadores">0</p>
+                                <small class="metric-sublabel">Active Workers</small>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4 mb-4">
-                        <div class="card bg-success text-white">
-                            <div class="card-body">
-                                <h5 class="card-title">Trabajadores de Vacaciones <i
-                                        class="fa-solid fa-person-drowning"></i></h5>
-                                <p class="card-text display-4" id="trabajadoresVacaciones">Cargando... <i
-                                        class="fa-solid fa-person-drowning"></i></p>
+                        <div class="card metric-card accent-emerald animate-in" style="cursor:pointer;">
+                            <div class="card-body text-center">
+                                <h5 class="metric-label"><i class="fa-solid fa-umbrella-beach me-2"></i> ON VACATION</h5>
+                                <p class="metric-value" id="trabajadoresVacaciones">0</p>
+                                <small class="metric-sublabel">Workers on Vacation</small>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4 mb-4">
-                        <div class="card bg-warning text-dark">
-                            <div class="card-body">
-                                <h5 class="card-title">Trabajadores Jubilables <i class="fa-solid fa-person-cane"></i>
-                                </h5>
-                                <p class="card-text display-4" id="trabajadoresJubilarse">Cargando... <i
-                                        class="fa-solid fa-person-cane"></i></p>
+                        <div class="card metric-card accent-amber animate-in" style="cursor:pointer;">
+                            <div class="card-body text-center">
+                                <h5 class="metric-label"><i class="fa-solid fa-person-cane me-2"></i> ELIGIBLE FOR RETIREMENT</h5>
+                                <p class="metric-value" id="trabajadoresJubilarse">0</p>
+                                <small class="metric-sublabel">Retirement-Eligible Workers</small>
                             </div>
                         </div>
                     </div>
@@ -144,9 +144,9 @@ if (session_status() == PHP_SESSION_NONE) {
 
                 <div class="row">
                     <div class="col-md-5 mb-4">
-                        <div class="card bg-warning">
-                            <div class="card-header bg-dark text-white fs-6">
-                                Trabajadores por Coordinación <i class="fa-solid fa-arrow-right-to-city"></i>
+                        <div class="card glass-card animate-in">
+                            <div class="card-header glass-card-header">
+                                <i class="fa-solid fa-arrow-right-to-city me-2"></i> Workers by Coordination
                             </div>
                             <div class="card-body">
                                 <div class="list-group" id="listaCoordinaciones">
@@ -155,30 +155,27 @@ if (session_status() == PHP_SESSION_NONE) {
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 mb-4">
-                        <div class="card bg-primary">
-                            <div class="card-header bg-dark text-white fs-6">
-                                Trabajadores con Discapacidad <i class="fa-brands fa-accessible-icon"></i>
-                            </div>
-                            <div class="card-body">
-                                <p class="card-text display-4" id="trabajadoresDiscapacidad">Cargando... <i
-                                        class="fa-brands fa-accessible-icon"></i></p>
+                    <div class="col-md-7 mb-4">
+                        <div class="card metric-card accent-violet animate-in" style="cursor:pointer;">
+                            <div class="card-body text-center">
+                                <h5 class="metric-label"><i class="fa-brands fa-accessible-icon me-2"></i> WORKERS WITH DISABILITIES</h5>
+                                <p class="metric-value" id="trabajadoresDiscapacidad">0</p>
+                                <small class="metric-sublabel">Total Workers with Disabilities</small>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-12 mb-4">
-                        <div class="card">
-                            <div class="card-header bg-dark text-white fw-bold fs-6">Ultimas personas contratados <i
-                                    class="fa-solid fa-users"></i></div>
+                        <div class="card glass-card animate-in">
+                            <div class="card-header glass-card-header"><i class="fa-solid fa-user-plus me-2"></i> Recently Hired</div>
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="table table-hover table-striped">
                                         <thead>
                                             <tr>
-                                                <th scope="col">Fecha de Registro</th>
-                                                <th scope="col">Cedula</th>
-                                                <th scope="col">Nombre</th>
-                                                <th scope="col">Apellido</th>
+                                                <th scope="col">REGISTRATION DATE</th>
+                                                <th scope="col">ID NUMBER</th>
+                                                <th scope="col">NAME</th>
+                                                <th scope="col">LAST NAME</th>
                                             </tr>
                                         </thead>
                                         <tbody id="ultimosTrabajadoresTableBody">
@@ -186,7 +183,7 @@ if (session_status() == PHP_SESSION_NONE) {
                                     </table>
                                 </div>
                                 <p class="text-muted small mt-2">
-                                    *Clasificaciones basadas en la agrupación interna de datos de la aplicación.
+                                    *Classifications based on internal application data grouping.
                                 </p>
                             </div>
                         </div>
@@ -198,9 +195,9 @@ if (session_status() == PHP_SESSION_NONE) {
         <div class="modal fade" id="vacationModal" tabindex="-1" aria-labelledby="vacationModalLabel"
             aria-hidden="true">
             <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header bg-success text-white">
-                        <h5 class="modal-title" id="vacationModalLabel">Trabajadores de Vacaciones</h5>
+                <div class="modal-content" style="background: var(--card-bg); border: 1px solid var(--border-color);">
+                    <div class="modal-header" style="background: rgba(16, 185, 129, 0.15); border-bottom: 1px solid rgba(16, 185, 129, 0.3);">
+                        <h5 class="modal-title" id="vacationModalLabel" style="color: var(--text-primary);"><i class="fa-solid fa-umbrella-beach me-2" style="color: #10b981;"></i>Workers on Vacation</h5>
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
                             aria-label="Close"></button>
                     </div>
@@ -231,10 +228,10 @@ if (session_status() == PHP_SESSION_NONE) {
         <div class="modal fade" id="retirementModal" tabindex="-1" aria-labelledby="retirementModalLabel"
             aria-hidden="true">
             <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header bg-warning text-dark">
-                        <h5 class="modal-title" id="retirementModalLabel">Trabajadores Jubilables</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-content" style="background: var(--card-bg); border: 1px solid var(--border-color);">
+                    <div class="modal-header" style="background: rgba(245, 158, 11, 0.15); border-bottom: 1px solid rgba(245, 158, 11, 0.3);">
+                        <h5 class="modal-title" id="retirementModalLabel" style="color: var(--text-primary);"><i class="fa-solid fa-person-cane me-2" style="color: #f59e0b;"></i>Retirement-Eligible Workers</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <div class="table-responsive">
@@ -260,10 +257,10 @@ if (session_status() == PHP_SESSION_NONE) {
         <div class="modal fade" id="discapacidadModal" tabindex="-1" aria-labelledby="discapacidadModalLabel"
             aria-hidden="true">
             <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header bg-primary text-white">
-                        <h5 class="modal-title" id="discapacidadModalLabel">Trabajadores con Discapacidad</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-content" style="background: var(--card-bg); border: 1px solid var(--border-color);">
+                    <div class="modal-header" style="background: rgba(139, 92, 246, 0.15); border-bottom: 1px solid rgba(139, 92, 246, 0.3);">
+                        <h5 class="modal-title" id="discapacidadModalLabel" style="color: var(--text-primary);"><i class="fa-brands fa-accessible-icon me-2" style="color: #8b5cf6;"></i>Workers with Disabilities</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <div class="table-responsive">
